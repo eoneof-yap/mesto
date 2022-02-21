@@ -8,14 +8,27 @@
   </head>
 
   <body class="root">
-
     <div class="page">
       <header class="header">
         <div class="header__logo"></div>
-        
-      </header>    
+      </header>
+
+      <section class="profile" aria-label="Профиль пользователя.">
+        <div class="profile__info">
+          <img class="profile__picture" src="./images/profile__picture.jpg" alt="Фотография пользователя." />
+          <div class="profile__info-text-wrapper">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__description">Исследователь океана</p>
+            <!-- form указывает на id формы с которой связана кнопка  -->
+            <!-- TODO: выясниить зачем name -->
+            <button  class="edit-button edit-button_place_profile" type="edit" name="edit" title="Редактировать" form="popup-form"></button>
+          </div>
+        </div>
+
+        <button class="add-button add-button_place_profile" type="add" name="add" title="Добавить фотографии" ></input>
+      </section>
     </div>
-    
+
     <script src="./scripts/script.js"></script>
   </body>
 </html>
