@@ -1,5 +1,56 @@
+/* 
+* {
+  outline: 1px dashed pink;
+} */
+
 /* NORMALIZE */
-@import url('../vendor/normalize.css'); 
+@import url('../vendor/normalize.css');
 
 /* FONTS */
-@import url('../blocks/fonts/fonts.css'); 
+@import url('../blocks/fonts/fonts.css');
+
+.root {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  margin: 0 auto;
+  padding: 0 27px 0;
+  box-sizing: border-box;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 880px;
+  padding: 45px 0 41px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.header::after {
+  content:'';
+  position: absolute;
+  background-color: #545454;
+  opacity: .7;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left:0;
+}
+
+.header__logo {
+  background-image: url('../images/logo_white.svg');
+  min-width: 142px;
+  height: 33px;
+  background-size: cover;
+  background-position: center;
+}
