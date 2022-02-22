@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="shortcut icon" href="./images/mesto-favicon.svg">
     <title>Mesto Russia</title>
   </head>
 
@@ -12,20 +13,23 @@
       <header class="header">
         <div class="header__logo"></div>
       </header>
-
+      <!-- FIXME адаптив -->
       <section class="profile" aria-label="Профиль пользователя.">
-        <div class="profile__info">
-          <img class="profile__picture" src="./images/profile__picture.jpg" alt="Фотография пользователя." />
-          <div class="profile__info-text-wrapper">
+        <div class="profile__container">
+          <img class="profile__photo" src="./images/profile__photo.jpg" alt="Фотография пользователя." />
+          <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <input
+              class="button button_place_profile-info"
+              type="button"
+              name="edit"
+              title="Редактировать"
+            ></input>
             <p class="profile__description">Исследователь океана</p>
             <!-- form указывает на id формы с которой связана кнопка  -->
-            <!-- TODO: выясниить зачем name -->
-            <button  class="edit-button edit-button_place_profile" type="edit" name="edit" title="Редактировать" form="popup-form"></button>
           </div>
         </div>
-
-        <button class="add-button add-button_place_profile" type="add" name="add" title="Добавить фотографии" ></input>
+        <input class="button" type="button" name="add" title="Добавить фотографии"></input>
       </section>
     </div>
 
