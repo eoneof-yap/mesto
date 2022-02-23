@@ -152,7 +152,7 @@
   }
 }
 
-.profile__description {
+.profile__about {
   margin: 8px 0 0;
   padding: 0;
   color: #fff;
@@ -168,7 +168,7 @@
 }
 
 @media screen and (max-width: 713px) {
-  .profile__description {
+  .profile__about {
     margin: 0 0 36px 0;
     max-width: 420px;
     text-align: center;
