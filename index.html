@@ -1,3 +1,4 @@
+<!-- FIXME адаптив -->
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -10,10 +11,12 @@
 
   <body class="root">
     <div class="page">
+      <!-- HEADER -->
       <header class="header">
         <div class="header__logo"></div>
       </header>
-      <!-- FIXME адаптив -->
+
+      <!-- PROFILE -->
       <section class="profile">
         <div class="profile__container">
           <img class="profile__photo" src="./images/profile__photo.jpg" alt="Фотография пользователя." />
@@ -38,9 +41,11 @@
           title="Добавить фотографии"
         />
       </section>
+
+      <!-- POPUP -->
       <section class="form popup popup_opened">
         <div class="form__container">
-        <input class="button button_action_close" type="button" name="close" value="Закрыть" title="Закрыть" />
+          <input class="button button_action_close" type="button" name="close" value="Закрыть" title="Закрыть" />
           <h2 class="form__header">Редактировать профиль</h2>
           <fieldset class="form__inputs-container">
             <input class="form__input" type="text" name="user-name" placeholder="Как вас зовут?" value="" />
@@ -56,6 +61,57 @@
           <input class="button button_action_submit" type="button" name="submit" value="Сохранить" />
         </div>
         <div class="popup__backdrop"></div>
+      </section>
+
+      <!-- MAIN / PHOTOS -->
+      <section class="main">
+        <div class="phot-grid">
+          <ul class="phot-grid__items">
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+            <li class="photo-grid__item card">
+                <img class="card__image" src="./images/elbrus.jpg" alt=""></img>
+                <div class="card__label">
+                  <h2 class="card__title">Заголовок карточки</h2>
+                  <input type="button" class="button button_action_like">
+                </div>
+            </li>
+          </ul>
+          
+        </div>
       </section>
     </div>
     <script src="./scripts/index.js"></script>
