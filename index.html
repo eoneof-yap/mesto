@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="shortcut icon" href="./images/mesto-favicon.svg">
+    <link rel="shortcut icon" href="./images/mesto-favicon.svg" />
     <title>Mesto Russia</title>
   </head>
 
@@ -14,25 +14,50 @@
         <div class="header__logo"></div>
       </header>
       <!-- FIXME адаптив -->
-      <section class="profile" aria-label="Профиль пользователя.">
+      <section class="profile">
         <div class="profile__container">
           <img class="profile__photo" src="./images/profile__photo.jpg" alt="Фотография пользователя." />
-          <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <div class="profile__headings">
             <input
-              class="button button_place_profile-info"
+              class="button button_action_edit"
               type="button"
               name="edit"
-              title="Редактировать"
-            ></input>
+              value="Редактировать профиль"
+              title="Редактировать профиль"
+            />
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__description">Исследователь океана</p>
             <!-- form указывает на id формы с которой связана кнопка  -->
           </div>
         </div>
-        <input class="button" type="button" name="add" title="Добавить фотографии"></input>
+        <input
+          class="button button_action_add"
+          type="button"
+          name="add"
+          value="Добавить фотографии"
+          title="Добавить фотографии"
+        />
+      </section>
+      <section class="form popup popup_opened">
+        <input class="button button_action_close" type="button" name="clode" value="Закрыть" title="Закрыть" />
+        <div class="form__container">
+          <h2 class="form__header">Редактировать профиль</h2>
+          <fieldset class="form__inputs-container">
+            <input class="form__input" type="text" name="user-name" placeholder="Как вас зовут?" value="Жак-Ив Кусто" />
+            <input
+              class="form__input"
+              type="text"
+              maxlength="70"
+              name="user-description"
+              placeholder="Чем занимаетесь?"
+              value="Исследователь океана"
+            />
+          </fieldset>
+          <input class="button button_action_submit" type="button" name="submit" value="Сохранить" />
+        </div>
+        <div class="popup__backdrop"></div>
       </section>
     </div>
-
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
