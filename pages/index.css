@@ -370,19 +370,21 @@
 /* PHOTO-GRID */
 
 .main {
+  padding: 26px 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-width: 880px;
   width: 100%;
 }
-.phot-grid {
+.photo-grid {
   margin: 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.phot-grid__items {
+.photo-grid__items {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -396,6 +398,7 @@
 .photo-grid__item {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 .card {
   display: flex;
