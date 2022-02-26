@@ -35,6 +35,104 @@
   }
 }
 
+/* BUTTONS */
+.button {
+  padding: 0;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  background-color: #000;
+  color: transparent;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity cubic-bezier(0, 0.1, 0.4, 1) 1s;
+}
+
+
+.button_action_add {
+  min-width: 150px;
+  height: 50px;
+  background-image: url('../images/button-add.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-width: 2px;
+}
+
+@media (max-width: 768px) {
+  .button_action_add {
+    width: 100%;
+    margin-top: 32px;
+    max-width: 350px;
+  }
+}
+@media (max-width: 375px) {
+  .button_action_add {
+    max-width: 282px;
+  }
+}
+
+.button_action_submit {
+  width: 100%;
+  max-width: 358px;
+  height: 50px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.222;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+}
+
+.button_action_submit:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 375px) {
+  .button_action_submit {
+    max-width: 238px;
+    height: 46px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.214;
+    text-align: center;
+  }
+}
+
+.button_action_close {
+  width: 32px;
+  height: 32px;
+  background-image: url('../images/button-close.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  transform: translate(100%, -100%);
+  z-index: 3;
+  border: none;
+}
+
+@media (max-width: 530px) {
+  .button_action_close {
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: -16px;
+    transform: translate(0, -100%);
+  }
+}
+
+
 /* HEADER */
 .header {
   margin: 0 auto;
@@ -156,10 +254,11 @@
 }
 
 .profile__main {
+  padding: 22px 0 0 0;
   width: 100%;
-  max-width: 1280px;
   display: flex;
   justify-content: center;
+  align-content: flex-start;
   position: relative;
 }
 
@@ -173,7 +272,7 @@
 @media (max-width: 320px) {
   .profile__main {
     justify-content: flex-end;
-    padding: 0 19px 0 0;
+    /* padding: 0 19px 0 0; */
     box-sizing: border-box;
   }
 }
@@ -192,7 +291,8 @@
 }
 
 .profile__name {
-  margin: 22px 0 0 0;
+  /* margin: 22px 0 0 0; */
+  margin: 0;
   color: #fff;
   font-size: 42px;
   font-family: Inter;
@@ -259,29 +359,16 @@
 .profile__actions {
   display: flex;
   flex-direction: column;
-  padding: 37px 0 0 0;
+  /* padding: 15px 0 0 0; */
   box-sizing: border-box;
+  align-content: space-between;
 }
 
 @media (max-width: 768px) {
   .profile__actions {
-    padding: 0;
-    margin-top: -12px;
+    /* padding: 0; */
+    /* margin-top: -12px;  */
   }
-}
-
-.button {
-  padding: 0;
-  border: 1px solid #fff;
-  box-sizing: border-box;
-  background-color: #000;
-  color: transparent;
-}
-
-.button:hover {
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity cubic-bezier(0, 0.1, 0.4, 1) 1s;
 }
 
 .button_action_edit {
@@ -306,86 +393,6 @@
   }
 }
 
-.button_action_add {
-  min-width: 150px;
-  height: 50px;
-  background-image: url('../images/button-add.svg');
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-width: 2px;
-}
-
-@media (max-width: 768px) {
-  .button_action_add {
-    width: 100%;
-    margin-top: 32px;
-    max-width: 350px;
-  }
-}
-@media (max-width: 375px) {
-  .button_action_add {
-    max-width: 282px;
-  }
-}
-
-.button_action_submit {
-  width: 100%;
-  max-width: 358px;
-  height: 50px;
-  border-radius: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 1.222;
-  text-align: center;
-  color: #ffffff;
-  border: none;
-}
-
-.button_action_submit:hover {
-  opacity: 0.8;
-}
-
-@media (max-width: 375px) {
-  .button_action_submit {
-    max-width: 238px;
-    height: 46px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 1.214;
-    text-align: center;
-  }
-}
-
-.button_action_close {
-  width: 32px;
-  height: 32px;
-  background-image: url('../images/button-close.svg');
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  transform: translate(100%, -100%);
-  z-index: 3;
-  border: none;
-}
-
-@media (max-width: 530px) {
-  .button_action_close {
-    width: 20px;
-    height: 20px;
-    right: 0;
-    top: -16px;
-    transform: translate(0, -100%);
-  }
-}
 
 /* FORM */
 @keyframes popup {
