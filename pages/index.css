@@ -218,6 +218,7 @@
 
 @media (max-width: 375px) {
   .profile__name {
+    margin: 0 0 8px 0;
     max-width: 200px;
     font-weight: 500;
     font-size: 27px;
@@ -295,6 +296,7 @@
 
 @media (max-width: 768px) {
   .button_action_edit {
+    margin: 12px 0 0 0;
   }
 }
 
@@ -424,7 +426,7 @@
 }
 
 .popup_closed {
-  display: none;
+  /* display: none; */
 }
 
 .popup__container {
@@ -519,7 +521,6 @@
 .popup__backdrop {
   display: block;
   position: absolute;
-  cursor: pointer;
   background-color: #000;
   opacity: 0.5;
   top: 0;
@@ -642,6 +643,6 @@
   }
 }
 
-* {
+/* * {
   outline: 1px dashed pink;
-}
+} */
