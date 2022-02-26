@@ -57,11 +57,10 @@
 }
 
 .profile__main {
-  padding: 22px 0 0 0;
   width: 100%;
+  max-width: 1280px;
   display: flex;
   justify-content: center;
-  align-content: flex-start;
   position: relative;
 }
 
@@ -75,7 +74,7 @@
 @media (max-width: 320px) {
   .profile__main {
     justify-content: flex-end;
-    /* padding: 0 19px 0 0; */
+    padding: 0 19px 0 0;
     box-sizing: border-box;
   }
 }
@@ -94,8 +93,7 @@
 }
 
 .profile__name {
-  /* margin: 22px 0 0 0; */
-  margin: 0;
+  margin: 22px 0 0 0;
   color: #fff;
   font-size: 42px;
   font-family: Inter;
@@ -163,37 +161,13 @@
 .profile__actions {
   display: flex;
   flex-direction: column;
-  /* padding: 15px 0 0 0; */
+  padding: 37px 0 0 0;
   box-sizing: border-box;
-  align-content: space-between;
 }
 
 @media (max-width: 768px) {
   .profile__actions {
-    /* padding: 0; */
-    /* margin-top: -12px;  */
-  }
-}
-
-.button_action_edit {
-  width: 24px;
-  height: 24px;
-  background-image: url('../../../images/button-edit.svg');
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-@media (max-width: 768px) {
-  .button_action_edit {
-    margin: 12px 0 0 0;
-  }
-}
-
-@media (max-width: 375px) {
-  .button_action_edit {
-    width: 18px;
-    height: 18px;
+    padding: 0;
     margin-top: -12px;
   }
 }

@@ -14,6 +14,29 @@
 }
 
 
+.button_action_edit {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../images/button-edit.svg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .button_action_edit {
+    margin: 12px 0 0 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .button_action_edit {
+    width: 18px;
+    height: 18px;
+    margin-top: -12px;
+  }
+}
+
 .button_action_add {
   min-width: 150px;
   height: 50px;
