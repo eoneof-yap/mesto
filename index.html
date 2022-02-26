@@ -13,7 +13,9 @@
     <div class="page">
       <!-- HEADER -->
       <header class="header">
-        <div class="header__logo"></div>
+        <nav class="header__nav">
+          <div class="header__logo"></div>
+        </nav>
       </header>
 
       <!-- PROFILE -->
@@ -28,12 +30,7 @@
               <p class="profile__about">Исследователь океана</p>
             </div>
             <div class="profile__actions">
-              <button
-                class="button button_action_edit"
-                type="button"
-                name="edit"
-                title="Редактировать профиль"
-              ></button>
+              <button class="button button_action_edit" type="button" name="edit" title="Редактировать профиль"></button>
             </div>
           </div>
         </div>
@@ -48,14 +45,7 @@
             <h2 class="popup__header">Редактировать профиль</h2>
             <fieldset class="popup__inputs-container">
               <input class="popup__input" type="text" name="user-name" placeholder="Как вас зовут?" value="" />
-              <input
-                class="popup__input"
-                type="text"
-                maxlength="70"
-                name="user-about"
-                placeholder="Напишите что-нибудь о себе"
-                value=""
-              />
+              <input class="popup__input" type="text" maxlength="70" name="user-about" placeholder="Напишите что-нибудь о себе" value="" />
             </fieldset>
             <button class="button button_action_submit" type="submit" name="submit" form="user-info">Сохранить</button>
           </form>
