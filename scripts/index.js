@@ -12,8 +12,8 @@ let likeButton = page.querySelector('.button_action_like');
 // INPUTS
 let currentUserName = page.querySelector('.profile__name').textContent;
 let currentUserInfo = page.querySelector('.profile__about').textContent;
-let newUserName = page.querySelector(/*  забрать из инпута */)
-let newUserInfo = page.querySelector(/*  забрать из инпута */)
+// let newUserName = page.querySelector(/*  забрать из инпута */)
+// let newUserInfo = page.querySelector(/*  забрать из инпута */)
 editButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   popup.classList.remove('popup_closed');
