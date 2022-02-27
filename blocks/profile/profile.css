@@ -3,7 +3,7 @@
   padding: 40px 0 25px;
   box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -23,6 +23,19 @@
   }
 }
 
+.profile__actions {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+@media (max-width: 768px) {
+  .profile__actions {
+    width: 100%;
+    align-items: center;
+  }
+}
+
 .profile__container {
   display: flex;
   position: relative;
@@ -30,6 +43,7 @@
 
 @media (max-width: 768px) {
   .profile__container {
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -71,29 +85,42 @@
   }
 }
 
-@media (max-width: 320px) {
-  .profile__main {
-    justify-content: flex-end;
-    padding: 0 19px 0 0;
-    box-sizing: border-box;
-  }
-}
-
 .profile__headings {
   display: flex;
   flex-direction: column;
-  margin: 0 18px 0 0;
+  width: 100%;
+  /* margin: 0 18px 0 0; */
+}
+
+@media (max-width: 768px) {
+  .profile__headings {
+    /* margin: 0 10px 0 0; */
+    align-items: center;
+  }
 }
 
 @media (max-width: 320px) {
   .profile__headings {
-    margin: 0 10px 0 0;
-    align-content: flex-end;
+    /* margin: 0 10px 0 0; */
+    align-items: center;
+  }
+}
+
+.profile__header {
+  margin: 22px 0 0 0;
+  display: flex;
+  align-items: baseline;
+  position: relative;
+}
+
+@media (max-width: 375px) {
+  .profile__header {
+    margin: 0 0 8px 0;
   }
 }
 
 .profile__name {
-  margin: 22px 0 0 0;
+  margin: 0 19px 0 0;
   color: #fff;
   font-size: 42px;
   font-family: Inter;
@@ -101,16 +128,17 @@
   font-weight: 500;
   line-height: 1.14;
   vertical-align: baseline;
-  max-width: 450px;
+  max-width: 405px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
   .profile__name {
     font-size: 36px;
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
     width: 100%;
     align-items: center;
     text-align: center;
@@ -119,8 +147,8 @@
 
 @media (max-width: 375px) {
   .profile__name {
-    margin: 0 0 8px 0;
-    max-width: 200px;
+    margin: 0;
+    max-width: 191px;
     font-weight: 500;
     font-size: 27px;
     line-height: 1.222;
@@ -155,19 +183,5 @@
   .profile__about {
     font-size: 14px;
     line-height: 1.214;
-  }
-}
-
-.profile__actions {
-  display: flex;
-  flex-direction: column;
-  padding: 37px 0 0 0;
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  .profile__actions {
-    padding: 0;
-    margin-top: -12px;
   }
 }
