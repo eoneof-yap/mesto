@@ -49,6 +49,7 @@
   box-sizing: border-box;
   padding-bottom: 100%;
   position: relative;
+  background-color: #808080;
 }
 .card__image {
   margin: 0;
