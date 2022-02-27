@@ -10,13 +10,16 @@ let closeButton = page.querySelector('.button_action_close');
 let likeButton = page.querySelector('.button_action_like');
 
 // INPUTS
-let currentUserName = page.querySelector('.profile__name').textContent;
-let currentUserInfo = page.querySelector('.profile__about').textContent;
-// let newUserName = page.querySelector(/*  забрать из инпута */)
-// let newUserInfo = page.querySelector(/*  забрать из инпута */)
+let currentUserName = page.querySelector('.profile__name');
+let currentUserInfo = page.querySelector('.profile__about');
+let newUserName = page.querySelector('input[name="user-name"]');
+let newUserInfo = page.querySelector('input[name="user-about"]');
 editButton.addEventListener('click', function (evt) {
   evt.preventDefault();
+  newUserName.value = currentUserName.textContent;
+  newUserInfo.value = currentUserInfo.textContent;
   popup.classList.remove('popup_closed');
+  newUserName.focus();
 });
 closeButton.addEventListener('click', function (evt) {
   evt.preventDefault();
@@ -24,7 +27,15 @@ closeButton.addEventListener('click', function (evt) {
 });
 submitButton.addEventListener('click', function (evt) {
   evt.preventDefault();
-  popup.classList.add('popup_closed');
+  if (newUserName.value | newUserInfo.value === '') {
+    popup.classList.add('popup_closed');
+  } else {
+    currentUserName.textContent = newUserName.value;
+    currentUserInfo.textContent = newUserInfo.value;
+    newUserName.value = '';
+    newUserInfo.value = '';
+    popup.classList.add('popup_closed');
+  }
 });
 
 // закрыть попап по по клавише Escape
