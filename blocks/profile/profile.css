@@ -142,6 +142,7 @@
     width: 100%;
     align-items: center;
     text-align: center;
+    white-space: break-spaces;
   }
 }
 
@@ -164,9 +165,9 @@
   font-size: 18px;
   line-height: 1.222;
   max-width: 40ch;
-  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -175,7 +176,7 @@
     text-align: center;
     width: 100%;
     align-items: center;
-    white-space: unset;
+    white-space: break-spaces;
   }
 }
 
