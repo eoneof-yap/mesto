@@ -3,11 +3,11 @@ const page = document.querySelector('.page');
 const popup = page.querySelector('.popup');
 
 // BUTTONS
-const editButton = page.querySelector('.button_action_edit');
-const addButton = page.querySelector('.button_action_add');
-const submitButton = page.querySelector('.button_action_submit');
-const closeButton = page.querySelector('.button_action_close');
-const likeButton = page.querySelector('.button_action_like');
+const editButton = page.querySelector('.button-edit');
+const addButton = page.querySelector('.button-add');
+const submitButton = page.querySelector('.button-submit');
+const closeButton = page.querySelector('.button-close');
+const likeButton = page.querySelector('.button-like');
 
 // INPUTS
 let currentUserName = page.querySelector('.profile__name');

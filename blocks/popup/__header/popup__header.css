@@ -9,7 +9,13 @@
   text-align: left;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
+  .popup__header {
+    margin: 0 0 68px 0;
+  }
+}
+
+@media (max-width: 450px) {
   .popup__header {
     margin: 0 0 68px 0;
     font-size: 18px;
