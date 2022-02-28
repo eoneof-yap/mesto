@@ -27,7 +27,7 @@
     margin: 0;
     position: absolute;
     right: -8px;
-    transform: translate(100%, 50%);
+    transform: translate(100%, 0);
   }
 }
 
@@ -37,7 +37,7 @@
     height: 18px;
     position: absolute;
     right: -8px;
-    transform: translate(100%, 50%);
+    transform: translate(100%, 0);
   }
 }
 
