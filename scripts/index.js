@@ -7,7 +7,6 @@ const editButton = page.querySelector('.button-edit');
 const addButton = page.querySelector('.button-add');
 const submitButton = page.querySelector('.button-submit');
 const closeButton = page.querySelector('.button-close');
-const likeButton = page.querySelector('.button-like');
 
 // INPUTS
 let currentUserName = page.querySelector('.profile__name');
@@ -41,7 +40,7 @@ document.addEventListener('keyup', function (evt) {
   }
 });
 
-// Добавить фотографии (заготока)
+// Добавить фотографии (заготовка)
 addButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   console.log(`Клик по ${addButton.classList}`);
