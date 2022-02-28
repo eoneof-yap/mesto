@@ -58,6 +58,7 @@
   height: 100%;
   object-position: center;
   object-fit: cover;
+  z-index: 0;
 }
 .card__label {
   padding: 25px 21px;
