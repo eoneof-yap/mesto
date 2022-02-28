@@ -1,0 +1,10 @@
+﻿.profile__aside {
+  margin: 0 30px 0 0;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .profile__aside {
+    margin: 0 0 26px 0;
+  }
+}

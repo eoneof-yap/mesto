@@ -1,0 +1,9 @@
+﻿.card__image {
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
+  z-index: 0;
+}

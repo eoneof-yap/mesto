@@ -1,0 +1,31 @@
+﻿.button_action_submit {
+  width: 358px;
+  height: 50px;
+  border-radius: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.222;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+}
+
+.button_action_submit:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 375px) {
+  .button_action_submit {
+    max-width: 238px;
+    height: 46px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.214;
+    text-align: center;
+  }
+}

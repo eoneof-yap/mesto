@@ -1,0 +1,9 @@
+﻿.card__image-container {
+  margin: 0;
+  width: 100%;
+  height: calc((1 / 1) / 100%);
+  box-sizing: border-box;
+  padding-bottom: 100%;
+  position: relative;
+  background-color: #808080;
+}
