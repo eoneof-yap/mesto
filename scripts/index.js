@@ -15,7 +15,7 @@ let currentUserInfo = page.querySelector('.profile__about');
 let newUserName = page.querySelector('input[name="user-name"]');
 let newUserInfo = page.querySelector('input[name="user-about"]');
 
-// LOGIC
+// Редактировать профиль
 editButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   newUserName.value = currentUserName.textContent;
@@ -23,11 +23,15 @@ editButton.addEventListener('click', function (evt) {
   popup.classList.add('popup_opened');
   newUserName.focus();
 });
+
+// Сохранить изменения
+submitButton.addEventListener('click', formSubmitHandler);
+
+// Закрыть попап
 closeButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   popup.classList.remove('popup_opened');
 });
-submitButton.addEventListener('click', formSubmitHandler);
 
 // закрыть попап по по клавише Escape
 document.addEventListener('keyup', function (evt) {
@@ -37,7 +41,7 @@ document.addEventListener('keyup', function (evt) {
   }
 });
 
-// заготовка на будущее
+// Добавить фотографии (заготока)
 addButton.addEventListener('click', function (evt) {
   evt.preventDefault();
   console.log(`Клик по ${addButton.classList}`);
