@@ -21,32 +21,74 @@
       <section class="profile">
         <div class="profile__container">
           <div class="profile__aside">
-            <img class="profile__photo" src="./images/profile__photo.jpg" alt="Фотография пользователя." />
+            <img
+              class="profile__photo"
+              src="./images/profile__photo.jpg"
+              alt="Фотография пользователя."
+            />
           </div>
           <div class="profile__main">
             <div class="profile__headings">
               <div class="profile__header">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="button button-edit" type="button" name="edit" title="Редактировать профиль"></button>
+                <button
+                  class="button profile__edit-button"
+                  type="button"
+                  name="edit"
+                  title="Редактировать профиль"
+                ></button>
               </div>
               <p class="profile__about">Исследователь океана</p>
             </div>
           </div>
         </div>
-        <div class="profile__actions"><button class="button button-add" type="button" name="add" title="Добавить фотографии"></button></div>
+        <div class="profile__actions">
+          <button
+            class="button profile__add-button"
+            type="button"
+            name="add"
+            title="Добавить фотографии"
+          ></button>
+        </div>
       </section>
 
       <!-- POPUP -->
       <section class="form">
         <div class="popup">
           <form id="user-info" class="popup__modal">
-            <button class="button button-close" type="button" name="close" title="Закрыть">Закрыть</button>
+            <button
+              class="button popup__close-button"
+              type="button"
+              name="close"
+              title="Закрыть"
+            >
+              Закрыть
+            </button>
             <h2 class="popup__header">Редактировать профиль</h2>
             <fieldset class="popup__inputs-container">
-              <input class="popup__input" type="text" name="user-name" placeholder="Как вас зовут?" value="" />
-              <input class="popup__input" type="text" name="user-about" placeholder="Напишите что-нибудь о себе" value="" />
+              <input
+                class="popup__input"
+                type="text"
+                name="user-name"
+                placeholder="Как вас зовут?"
+                value=""
+              />
+              <input
+                class="popup__input"
+                type="text"
+                name="user-about"
+                placeholder="Напишите что-нибудь о себе"
+                value=""
+              />
             </fieldset>
-            <button class="button button-submit" type="submit" name="submit" form="user-info">Сохранить</button>
+            <button
+              class="button popup__submit-button"
+              type="submit"
+              name="submit"
+              form="user-info"
+            >
+              Сохранить
+            </button>
           </form>
           <div class="popup__backdrop"></div>
         </div>
@@ -58,56 +100,110 @@
           <ul class="photo-grid__items">
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/pyatigorks.jpeg" alt="Вид на гору Бештау" />
+                <img
+                  class="card__image"
+                  src="./images/pyatigorks.jpeg"
+                  alt="Вид на гору Бештау"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Пятигорск</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button card__like-button_active"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/elbrus.jpeg" alt="Вид на гору Эльбрус с Чегета" />
+                <img
+                  class="card__image"
+                  src="./images/elbrus.jpeg"
+                  alt="Вид на гору Эльбрус с Чегета"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Гора Эльбрус</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/dombay-mountains.jpeg" alt="Горы Домбая" />
+                <img
+                  class="card__image"
+                  src="./images/dombay-mountains.jpeg"
+                  alt="Горы Домбая"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Домбай</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/dombay-yak.jpeg" alt="Як лежит на снегу" />
+                <img
+                  class="card__image"
+                  src="./images/dombay-yak.jpeg"
+                  alt="Як лежит на снегу"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Домбай</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/gora-mashuk.jpeg" alt="Указатели на горе Машук" />
+                <img
+                  class="card__image"
+                  src="./images/gora-mashuk.jpeg"
+                  alt="Указатели на горе Машук"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Гора Машук</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
             <li class="photo-grid__item card">
               <div class="card__image-container">
-                <img class="card__image" src="./images/kabardino-balkariya.jpeg" alt="Перегон лошадей в деревне" />
+                <img
+                  class="card__image"
+                  src="./images/kabardino-balkariya.jpeg"
+                  alt="Перегон лошадей в деревне"
+                />
               </div>
               <div class="card__label">
                 <h2 class="card__title">Кабардино-Балкария</h2>
-                <button type="button" class="button button-like" name="like" title="Нравится!"></button>
+                <button
+                  type="button"
+                  class="button card__like-button"
+                  name="like"
+                  title="Нравится!"
+                ></button>
               </div>
             </li>
           </ul>

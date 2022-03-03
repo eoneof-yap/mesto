@@ -3,10 +3,10 @@ const page = document.querySelector('.page');
 const popup = page.querySelector('.popup');
 
 // BUTTONS
-const editButton = page.querySelector('.button-edit');
-const addButton = page.querySelector('.button-add');
-const submitButton = page.querySelector('.button-submit');
-const closeButton = page.querySelector('.button-close');
+const editButton = page.querySelector('.profile__edit-button');
+const addButton = page.querySelector('.profile__add-button');
+const submitButton = page.querySelector('.popup__submit-button');
+const closeButton = page.querySelector('.popup__close-button');
 
 // INPUTS
 let currentUserName = page.querySelector('.profile__name');
