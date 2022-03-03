@@ -1,6 +1,7 @@
 ﻿.card__title {
   margin: 0;
-  padding: 0 21px 0 0;
+  padding: 0 20px 0 0;
+  box-sizing: border-box;
   width: 100%;
   font-family: Inter;
   font-style: normal;
