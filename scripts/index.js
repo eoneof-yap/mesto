@@ -1,60 +1,62 @@
 ﻿// DOC
 const page = document.querySelector('.page');
 const popup = page.querySelector('.popup');
+const form = page.querySelector('.form');
 
 // BUTTONS
 const editButton = page.querySelector('.profile__edit-button');
 const addButton = page.querySelector('.profile__add-button');
-const submitButton = page.querySelector('.popup__submit-button');
 const closeButton = page.querySelector('.popup__close-button');
 
 // INPUTS
-let currentUserName = page.querySelector('.profile__name');
-let currentUserInfo = page.querySelector('.profile__about');
-let newUserName = page.querySelector('input[name="user-name"]');
-let newUserInfo = page.querySelector('input[name="user-about"]');
+let currentProfileName = page.querySelector('.profile__name');
+let currentProfileInfo = page.querySelector('.profile__about');
+let newProfileName = page.querySelector('input[name="profile-name"]');
+let newProfileInfo = page.querySelector('input[name="profile-about"]');
 
-// Редактировать профиль
-editButton.addEventListener('click', function (evt) {
+function preventDefaultBehavior(evt) {
   evt.preventDefault();
-  newUserName.value = currentUserName.textContent;
-  newUserInfo.value = currentUserInfo.textContent;
-  popup.classList.add('popup_opened');
-  newUserName.focus();
-});
+}
 
-// Сохранить изменения
-submitButton.addEventListener('click', formSubmitHandler);
-
-// Закрыть попап
-closeButton.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  popup.classList.remove('popup_opened');
-});
-
-// закрыть попап по по клавише Escape
-document.addEventListener('keyup', function (evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    popup.classList.remove('popup_opened');
-  }
-});
-
-// Добавить фотографии (заготовка)
-addButton.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  console.log(`Клик по ${addButton.classList}`);
-});
-
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  if (newUserName.value | (newUserInfo.value === '')) {
-    popup.classList.remove('popup_opened');
-  } else {
-    currentUserName.textContent = newUserName.value;
-    currentUserInfo.textContent = newUserInfo.value;
-    newUserName.value = '';
-    newUserInfo.value = '';
-    popup.classList.remove('popup_opened');
+function changeClass(target, className, action) {
+  if (action === 'add') {
+    target.classList.add(className);
+  } else if (action === 'remove') {
+    target.classList.remove(className);
   }
 }
+
+// HANDLERS
+function openPopupHandler(evt) {
+  preventDefaultBehavior(evt);
+  newProfileName.value = currentProfileName.textContent;
+  newProfileInfo.value = currentProfileInfo.textContent;
+  changeClass(popup, 'popup_opened', 'add');
+  newProfileName.focus();
+}
+
+function closePopupHandler(evt) {
+  preventDefaultBehavior(evt);
+  if (evt.key === 'Escape') {
+    changeClass(popup, 'popup_opened', 'remove');
+  } else if (evt.type === 'click') {
+    changeClass(popup, 'popup_opened', 'remove');
+  }
+}
+
+function formSubmitHandler(evt) {
+  preventDefaultBehavior(evt);
+  currentProfileName.textContent = newProfileName.value;
+  currentProfileInfo.textContent = newProfileInfo.value;
+  changeClass(popup, 'popup_opened', 'remove');
+}
+
+// LISTENERS
+
+editButton.addEventListener('click', openPopupHandler);
+
+form.addEventListener('submit', formSubmitHandler);
+
+closeButton.addEventListener('click', closePopupHandler);
+
+popup.addEventListener('keyup', closePopupHandler);

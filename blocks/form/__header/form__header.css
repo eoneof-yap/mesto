@@ -1,4 +1,4 @@
-﻿.popup__header {
+﻿.form__header {
   margin: 0 0 41px 0;
   padding: 0;
   font-style: normal;
@@ -10,16 +10,15 @@
 }
 
 @media (max-width: 768px) {
-  .popup__header {
+  .form__header {
     margin: 0 0 68px 0;
   }
 }
 
 @media (max-width: 450px) {
-  .popup__header {
+  .form__header {
     margin: 0 0 68px 0;
     font-size: 18px;
     line-height: 22px;
-    text-align: center;
   }
 }
