@@ -20,6 +20,12 @@
   }
 }
 
+@media (max-width: 530px) {
+  .profile__about {
+    max-width: 350px;
+  }
+}
+
 @media (max-width: 375px) {
   .profile__about {
     font-size: 14px;

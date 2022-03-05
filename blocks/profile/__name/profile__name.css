@@ -21,6 +21,12 @@
   }
 }
 
+@media (max-width: 530px) {
+  .profile__name {
+    max-width: 270px;
+  }
+}
+
 @media (max-width: 375px) {
   .profile__name {
     margin: 0;
