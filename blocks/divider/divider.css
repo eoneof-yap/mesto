@@ -5,11 +5,7 @@
   width: calc(100% - 54px);
   max-width: 880px;
   height: 1px;
-<<<<<<< HEAD
-  top: 119px;
-=======
   top: 118px;
->>>>>>> hotfix/review
   left: 50%;
   transform: translate(-50%);
 }
