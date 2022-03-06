@@ -18,29 +18,21 @@ function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
 
-function changeClass(target, className, action) {
-  if (action === 'add') {
-    target.classList.add(className);
-  } else if (action === 'remove') {
-    target.classList.remove(className);
-  }
-}
-
 // HANDLERS
 function openPopupHandler(evt) {
   preventDefaultBehavior(evt);
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
-  changeClass(popup, 'popup_opened', 'add');
+  popup.classList.add('popup_opened');
   newProfileName.focus();
 }
 
 function closePopupHandler(evt) {
   preventDefaultBehavior(evt);
   if (evt.key === 'Escape') {
-    changeClass(popup, 'popup_opened', 'remove');
+    popup.classList.remove('popup_opened');
   } else if (evt.type === 'click') {
-    changeClass(popup, 'popup_opened', 'remove');
+    popup.classList.remove('popup_opened');
   }
 }
 
@@ -48,7 +40,7 @@ function formSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   currentProfileName.textContent = newProfileName.value;
   currentProfileInfo.textContent = newProfileInfo.value;
-  changeClass(popup, 'popup_opened', 'remove');
+  popup.classList.remove('popup_opened');
 }
 
 // LISTENERS
