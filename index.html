@@ -17,6 +17,46 @@
 
       <div class="divider"></div>
 
+      <!-- POPUP -->
+      <section class="popup">
+        <div class="popup__container">
+          <button
+            class="button popup__close-button"
+            type="button"
+            name="close"
+            title="Закрыть"
+          >
+            Закрыть
+          </button>
+          <form id="popup-form" name="edit-profile" class="form">
+            <h2 class="form__header">Редактировать профиль</h2>
+            <fieldset class="form__inputs-container">
+              <input
+                class="form__input"
+                type="text"
+                name="profile-name"
+                placeholder="Как вас зовут?"
+              />
+              <input
+                class="form__input"
+                type="text"
+                name="profile-about"
+                placeholder="Напишите что-нибудь о себе"
+              />
+            </fieldset>
+            <button
+              class="button form__submit-button"
+              form="popup-form"
+              type="submit"
+              name="submit"
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+        <div class="popup__backdrop"></div>
+      </section>
+
       <!-- MAIN -->
       <main class="main">
         <!-- PROFILE -->
@@ -48,46 +88,6 @@
             name="add"
             title="Добавить фотографии"
           ></button>
-        </section>
-
-        <!-- POPUP -->
-        <section class="popup">
-          <div class="popup__container">
-            <button
-              class="button popup__close-button"
-              type="button"
-              name="close"
-              title="Закрыть"
-            >
-              Закрыть
-            </button>
-            <form id="popup-form" name="edit-profile" class="form">
-              <h2 class="form__header">Редактировать профиль</h2>
-              <fieldset class="form__inputs-container">
-                <input
-                  class="form__input"
-                  type="text"
-                  name="profile-name"
-                  placeholder="Как вас зовут?"
-                />
-                <input
-                  class="form__input"
-                  type="text"
-                  name="profile-about"
-                  placeholder="Напишите что-нибудь о себе"
-                />
-              </fieldset>
-              <button
-                class="button form__submit-button"
-                form="popup-form"
-                type="submit"
-                name="submit"
-              >
-                Сохранить
-              </button>
-            </form>
-          </div>
-          <div class="popup__backdrop"></div>
         </section>
 
         <!-- PHOTOS -->
