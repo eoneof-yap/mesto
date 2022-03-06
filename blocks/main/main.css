@@ -1,13 +1,13 @@
 ﻿.main {
-  padding: 26px 0;
+  padding: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-
+/* 
 @media (max-width: 375px) {
   .main {
     padding: 18px 0;
   }
-}
+} */
