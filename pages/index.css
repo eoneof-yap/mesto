@@ -51,7 +51,6 @@
 
 /* PHOTO-GRID */
 @import url('../blocks/photo-grid/photo-grid.css');
-@import url('../blocks/photo-grid/__items/photo-grid__items.css');
 @import url('../blocks/card/card.css');
 @import url('../blocks/card/__image-container/card__image-container.css');
 @import url('../blocks/card/__image/card__image.css');
