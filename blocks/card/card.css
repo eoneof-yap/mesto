@@ -6,4 +6,9 @@
   border-radius: 10px;
   overflow: hidden;
   background-color: transparent;
+  position: relative;
+}
+
+.card:hover {
+  cursor: pointer;
 }
