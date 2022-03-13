@@ -100,7 +100,7 @@
       </section>
 
       <!-- VIEW PHOTO -->
-      <section class="popup popup_view">
+      <section class="popup popup_preview">
         <div class="popup__container">
           <button
             class="button popup__close-button"
@@ -110,33 +110,16 @@
           >
             Закрыть
           </button>
-          <form id="popup-form" name="edit-profile" class="form">
-            <h2 class="form__header">Редактировать профиль</h2>
-            <fieldset class="form__inputs-container">
-              <input
-                class="form__input"
-                type="text"
-                name="profile-name"
-                placeholder="Как вас зовут?"
-              />
-              <input
-                class="form__input"
-                type="text"
-                name="profile-about"
-                placeholder="Напишите что-нибудь о себе"
-              />
-            </fieldset>
-            <button
-              class="button form__submit-button"
-              form="popup-form"
-              type="submit"
-              name="submit"
-            >
-              Сохранить
-            </button>
-          </form>
+          <figure class="preview">
+            <img
+              class="preview__photo"
+              src="./images/dombay-yak.jpeg"
+              alt="Описание"
+            />
+          </figure>
+          <figcaption class="preview__caption">Подпись к картинке</figcaption>
         </div>
-        <div class="popup__backdrop"></div>
+        <div class="popup__backdrop popup__backdrop_place_preview"></div>
       </section>
 
       <!-- MAIN -->
