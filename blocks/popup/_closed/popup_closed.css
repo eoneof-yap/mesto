@@ -1,0 +1,6 @@
+﻿.popup_closed {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 3s ease-in;
+}
