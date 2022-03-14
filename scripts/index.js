@@ -1,4 +1,4 @@
-// DOC
+﻿// DOC
 const page = document.querySelector('.page');
 let currentProfileName = page.querySelector('.profile__name');
 let currentProfileInfo = page.querySelector('.profile__about');
@@ -22,6 +22,7 @@ let newProfileInfo = page.querySelector('input[name="profile-about"]');
 let newPhotoName = page.querySelector('input[name="place-name"]');
 let newPhotoLink = page.querySelector('input[name="place-link"]');
 
+// TEMPLATES
 const photoCard = document.getElementById('card-template');
 
 // PHOTOS
@@ -57,9 +58,23 @@ const initialCards = [
     alt: 'Перегон лошадей в горной деревне',
   },
 ];
+
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
+
+const createCard = (data) => {
+  // Клонируем шаблон, наполняем его информацией из объекта data, навешиваем всякие обработчики событий, о которых будет инфа ниже
+  // Возвращаем получившуюся карточку
+  return cardElement;
+};
+
+const renderCard = (data, cardsContainer) => {
+  // Создаем карточку на основе данных
+  const cardElement = createCard(data);
+  // Помещаем ее в контейнер карточек
+  cardsContainer.prepend(cardElement);
+};
 
 // HANDLERS
 function openEditProfilePopupHandler(evt) {
@@ -69,6 +84,14 @@ function openEditProfilePopupHandler(evt) {
   editProfilePopup.classList.add('popup_opened');
   newProfileName.focus();
 }
+
+// function openaddPhotoPopupHandler(evt) {
+//   preventDefaultBehavior(evt);
+//   // никакие значения не загружем, изачально форма пуста
+//   // TODO очищать введенные значения (см вебинар)
+//   addPhotoPopup.classList.add('popup_opened');
+//   newPhotoName.focus();
+// }
 
 function closePopupHandler(evt) {
   // if (evt.key === 'Escape') {
@@ -84,6 +107,15 @@ function formEditSubmitHandler(evt) {
   currentProfileInfo.textContent = newProfileInfo.value;
   editProfilePopup.classList.remove('popup_opened');
 }
+
+// function formAddSubmitHandler(evt) {
+//   preventDefaultBehavior(evt);
+//   // TODO передавать значения в js: название и ссылку
+//   // currentProfileName.textContent =
+//   // currentProfileInfo.textContent =
+//   addPhotoPopup.classList.remove('popup_opened');
+// }
+
 function openPhotoPreview(evt) {
   let elem = evt.target;
   if (elem.classList.contains('card__image')) {
@@ -104,6 +136,11 @@ function openPhotoPreview(evt) {
 editProfileButton.addEventListener('click', openEditProfilePopupHandler);
 
 formEdit.addEventListener('submit', formEditSubmitHandler);
+
+// addPhotoButton.addEventListener('click', openaddPhotoPopupHandler);
+
+// formAdd.addEventListener('submit', formAddSubmitHandler);
+
 document.addEventListener('keyup', function (evt) {
   let elem = evt.target;
   if (elem.classList.contains('popup__close-button')) {
@@ -133,3 +170,5 @@ page.addEventListener('click', function (evt) {
     elem.closest('.card').remove();
   }
 });
+
+// к остальным кнопкам оставить отдельные слушатели наверно...
