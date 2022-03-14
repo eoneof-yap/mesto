@@ -40,7 +40,19 @@ function formSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   currentProfileName.textContent = newProfileName.value;
   currentProfileInfo.textContent = newProfileInfo.value;
-  popup.classList.remove('popup_opened');
+function openPhotoPreview(evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('card__image')) {
+    // взять фотку
+    previewImagePopup.querySelector('.preview__photo').src = elem.src;
+    // взять описание
+    previewImagePopup.querySelector('.preview__caption').textContent = elem
+      .closest('.card')
+      .querySelector('.card__title').textContent;
+    // приклеить альт
+    previewImagePopup.querySelector('.preview__photo').alt = elem.alt;
+    previewImagePopup.classList.add('popup_opened');
+  }
 }
 
 // LISTENERS
@@ -59,12 +71,7 @@ page.addEventListener('click', function (evt) {
   }
 });
 
-page.addEventListener('click', function (evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('card__image')) {
-    previewImagePopup.classList.add('popup_opened');
-  }
-});
+page.addEventListener('click', openPhotoPreview);
 
 page.addEventListener('click', function (evt) {
   let elem = evt.target;
