@@ -1,4 +1,4 @@
-﻿// DOC
+// DOC
 const page = document.querySelector('.page');
 const popup = page.querySelector('.popup');
 const form = page.querySelector('.form');
@@ -45,10 +45,37 @@ function formSubmitHandler(evt) {
 
 // LISTENERS
 
-editButton.addEventListener('click', openPopupHandler);
+document.addEventListener('keyup', function (evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('popup__close-button')) {
+    closePopupHandler(evt);
+  }
+});
 
-form.addEventListener('submit', formSubmitHandler);
+page.addEventListener('click', function (evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('popup__close-button')) {
+    closePopupHandler(evt);
+  }
+});
 
-closeButton.addEventListener('click', closePopupHandler);
+page.addEventListener('click', function (evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('card__image')) {
+    previewImagePopup.classList.add('popup_opened');
+  }
+});
 
-popup.addEventListener('keyup', closePopupHandler);
+page.addEventListener('click', function (evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('card__like-button')) {
+    elem.classList.toggle('card__like-button_active');
+  }
+});
+
+page.addEventListener('click', function (evt) {
+  let elem = evt.target;
+  if (elem.classList.contains('card__delete-button')) {
+    elem.closest('.card').remove();
+  }
+});
