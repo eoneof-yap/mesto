@@ -22,6 +22,41 @@ let newProfileInfo = page.querySelector('input[name="profile-about"]');
 let newPhotoName = page.querySelector('input[name="place-name"]');
 let newPhotoLink = page.querySelector('input[name="place-link"]');
 
+const photoCard = document.getElementById('card-template');
+
+// PHOTOS
+const initialCards = [
+  {
+    name: 'Пятигорск',
+    link: '../images/pyatigorks.jpeg',
+    alt: 'Вид на гору Бештау',
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: '../images/elbrus.jpeg',
+    alt: 'Вид на гору Эльбрус с Чегета',
+  },
+  {
+    name: 'Домбай',
+    link: '../images/dombay-mountains.jpeg',
+    alt: 'Горы Домбая',
+  },
+  {
+    name: 'Домбай',
+    link: '../images/dombay-yak.jpeg',
+    alt: 'v',
+  },
+  {
+    name: 'Гора Машук',
+    link: '../images/gora-mashuk.jpeg',
+    alt: 'Указатели на горе Машук',
+  },
+  {
+    name: 'Кабардино-Балкария',
+    link: '../images/kabardino-balkariya.jpeg',
+    alt: 'Перегон лошадей в горной деревне',
+  },
+];
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
