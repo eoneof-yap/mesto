@@ -7,10 +7,12 @@
   object-fit: cover;
   transform: scale(1);
   transition: transform 0.3s ease;
+  transform-origin: bottom;
 }
 
 .card__image:hover {
   cursor: pointer;
   transform: scale(1.01);
   transition: transform 1s ease;
+  transform-origin: bottom;
 }
