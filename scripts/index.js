@@ -1,45 +1,54 @@
 // DOC
 const page = document.querySelector('.page');
-const popup = page.querySelector('.popup');
-const form = page.querySelector('.form');
-
-// BUTTONS
-const editButton = page.querySelector('.profile__edit-button');
-const addButton = page.querySelector('.profile__add-button');
-const closeButton = page.querySelector('.popup__close-button');
-
-// INPUTS
 let currentProfileName = page.querySelector('.profile__name');
 let currentProfileInfo = page.querySelector('.profile__about');
+
+// POPUPS
+const editProfilePopup = page.querySelector('.popup_edit');
+const addPhotoPopup = page.querySelector('.popup_add');
+const previewImagePopup = page.querySelector('.popup_preview');
+
+// FORMS
+const formEdit = page.querySelector('.form_edit');
+const formAdd = page.querySelector('.form_add');
+
+// BUTTONS
+const editProfileButton = page.querySelector('.profile__edit-button');
+const addPhotoButton = page.querySelector('.profile__add-button');
+
+// INPUTS
 let newProfileName = page.querySelector('input[name="profile-name"]');
 let newProfileInfo = page.querySelector('input[name="profile-about"]');
+let newPhotoName = page.querySelector('input[name="place-name"]');
+let newPhotoLink = page.querySelector('input[name="place-link"]');
 
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
 
 // HANDLERS
-function openPopupHandler(evt) {
+function openEditProfilePopupHandler(evt) {
   preventDefaultBehavior(evt);
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
-  popup.classList.add('popup_opened');
+  editProfilePopup.classList.add('popup_opened');
   newProfileName.focus();
 }
 
 function closePopupHandler(evt) {
-  preventDefaultBehavior(evt);
-  if (evt.key === 'Escape') {
-    popup.classList.remove('popup_opened');
-  } else if (evt.type === 'click') {
-    popup.classList.remove('popup_opened');
-  }
+  // if (evt.key === 'Escape') {
+  //   evt.target.closest('.popup').classList.remove('popup_opened');
+  // } else if (evt.type === 'click') {
+  evt.target.closest('.popup').classList.remove('popup_opened');
+  // }
 }
 
-function formSubmitHandler(evt) {
+function formEditSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   currentProfileName.textContent = newProfileName.value;
   currentProfileInfo.textContent = newProfileInfo.value;
+  editProfilePopup.classList.remove('popup_opened');
+}
 function openPhotoPreview(evt) {
   let elem = evt.target;
   if (elem.classList.contains('card__image')) {
@@ -57,6 +66,9 @@ function openPhotoPreview(evt) {
 
 // LISTENERS
 
+editProfileButton.addEventListener('click', openEditProfilePopupHandler);
+
+formEdit.addEventListener('submit', formEditSubmitHandler);
 document.addEventListener('keyup', function (evt) {
   let elem = evt.target;
   if (elem.classList.contains('popup__close-button')) {
