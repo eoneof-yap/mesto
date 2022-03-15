@@ -2,6 +2,7 @@
 const page = document.querySelector('.page');
 let currentProfileName = page.querySelector('.profile__name');
 let currentProfileInfo = page.querySelector('.profile__about');
+const cardsGrid = page.querySelector('.photo-grid');
 
 // POPUPS
 const editProfilePopup = page.querySelector('.popup_edit');
@@ -23,58 +24,71 @@ let newPhotoName = page.querySelector('input[name="place-name"]');
 let newPhotoLink = page.querySelector('input[name="place-link"]');
 
 // TEMPLATES
-const photoCard = document.getElementById('card-template');
+const cardTemplate = document.querySelector('#card-template').content;
 
-// PHOTOS
+// CARDS
 const initialCards = [
   {
     name: 'Пятигорск',
     link: '../images/pyatigorks.jpeg',
-    alt: 'Вид на гору Бештау',
   },
   {
     name: 'Гора Эльбрус',
     link: '../images/elbrus.jpeg',
-    alt: 'Вид на гору Эльбрус с Чегета',
   },
   {
     name: 'Домбай',
     link: '../images/dombay-mountains.jpeg',
-    alt: 'Горы Домбая',
   },
   {
     name: 'Домбай',
     link: '../images/dombay-yak.jpeg',
-    alt: 'v',
   },
   {
     name: 'Гора Машук',
     link: '../images/gora-mashuk.jpeg',
-    alt: 'Указатели на горе Машук',
   },
   {
     name: 'Кабардино-Балкария',
     link: '../images/kabardino-balkariya.jpeg',
-    alt: 'Перегон лошадей в горной деревне',
   },
 ];
+
+function createCard(data) {
+  let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  cardElement.querySelector('.card__title').textContent = data.name;
+  cardElement.querySelector('.card__image').src = data.link;
+  return cardElement;
+}
+
+function renderCard(data, container) {
+  container.prepend(createCard(data));
+}
+
+initialCards.forEach(function (card) {
+  renderCard(card, cardsGrid);
+});
+
+// создаем новую карточку из попапа -- пока вручную
+// popup.input => newCard.push(value) => createCard(newCard)
+let newCard = [
+  {
+    name: 'Teст v',
+    link: '../images/test-v.jpg',
+  },
+  {
+    name: 'Teст h',
+    link: '../images/test-h.jpg',
+  },
+];
+
+newCard.forEach(function (card) {
+  renderCard(card, cardsGrid);
+});
 
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
-
-const createCard = (data) => {
-  // Клонируем шаблон, наполняем его информацией из объекта data, навешиваем всякие обработчики событий, о которых будет инфа ниже
-  // Возвращаем получившуюся карточку
-  return cardElement;
-};
-
-const renderCard = (data, cardsContainer) => {
-  // Создаем карточку на основе данных
-  const cardElement = createCard(data);
-  // Помещаем ее в контейнер карточек
-  cardsContainer.prepend(cardElement);
-};
 
 // HANDLERS
 function openEditProfilePopupHandler(evt) {
@@ -122,9 +136,7 @@ function openPhotoPreview(evt) {
     // взять фотку
     previewImagePopup.querySelector('.preview__photo').src = elem.src;
     // взять описание
-    previewImagePopup.querySelector('.preview__caption').textContent = elem
-      .closest('.card')
-      .querySelector('.card__title').textContent;
+    previewImagePopup.querySelector('.preview__caption').textContent = elem.closest('.card').querySelector('.card__title').textContent;
     // приклеить альт
     previewImagePopup.querySelector('.preview__photo').alt = elem.alt;
     previewImagePopup.classList.add('popup_opened');
