@@ -1,32 +1,34 @@
 ﻿// DOC
 const page = document.querySelector('.page');
-let currentProfileName = page.querySelector('.profile__name');
-let currentProfileInfo = page.querySelector('.profile__about');
-const cardsGrid = page.querySelector('.photo-grid');
+const photoGrid = page.querySelector('.photo-grid');
 
-// POPUPS
-const editProfilePopup = page.querySelector('.popup_edit');
-const addPhotoPopup = page.querySelector('.popup_add');
-const previewImagePopup = page.querySelector('.popup_preview');
+// TEMPLATES
+const cardTemplate = document.querySelector('#card-template').content;
 
-// FORMS
-const formEdit = page.querySelector('.form_edit');
-const formAdd = page.querySelector('.form_add');
+// EDITABLES
+const currentProfileName = page.querySelector('.profile__name');
+const currentProfileInfo = page.querySelector('.profile__about');
 
 // BUTTONS
 const editProfileButton = page.querySelector('.profile__edit-button');
 const addPhotoButton = page.querySelector('.profile__add-button');
 
+// POPUPS
+const editProfilePopup = page.querySelector('.popup_edit');
+const addPhotoPopup = page.querySelector('.popup_add');
+const previewPhotoPopup = page.querySelector('.popup_preview');
+
+// FORMS
+const editForm = page.querySelector('.form_edit');
+const addForm = page.querySelector('.form_add');
+
 // INPUTS
-let newProfileName = page.querySelector('input[name="profile-name"]');
-let newProfileInfo = page.querySelector('input[name="profile-about"]');
-let newPhotoName = page.querySelector('input[name="place-name"]');
-let newPhotoLink = page.querySelector('input[name="place-link"]');
+const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
+const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
+const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
+const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 
-// TEMPLATES
-const cardTemplate = document.querySelector('#card-template').content;
-
-// CARDS
+// DATA
 const initialCards = [
   {
     name: 'Пятигорск',
@@ -54,6 +56,11 @@ const initialCards = [
   },
 ];
 
+// FUNCTIONS
+function preventDefaultBehavior(evt) {
+  evt.preventDefault();
+}
+
 function createCard(data) {
   let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__title').textContent = data.name;
@@ -65,121 +72,88 @@ function renderCard(data, container) {
   container.prepend(createCard(data));
 }
 
-initialCards.forEach(function (card) {
-  renderCard(card, cardsGrid);
-});
-
-// создаем новую карточку из попапа -- пока вручную
-// popup.input => newCard.push(value) => createCard(newCard)
-let newCard = [
-  {
-    name: 'Teст v',
-    link: '../images/test-v.jpg',
-  },
-  {
-    name: 'Teст h',
-    link: '../images/test-h.jpg',
-  },
-];
-
-function preventDefaultBehavior(evt) {
-  evt.preventDefault();
-}
-
 // HANDLERS
 function openEditProfilePopupHandler(evt) {
   preventDefaultBehavior(evt);
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
   editProfilePopup.classList.add('popup_opened');
-  newProfileName.focus(); // FIXME не работает фокус на поле
+  setTimeout(function () {
+    // без таймаута не фокусируется после транзишена
+    newProfileName.focus();
+  }, 100);
 }
 
-function closePopupHandler(evt) {
-  // if (evt.key === 'Escape') {
-  //   evt.target.closest('.popup').classList.remove('popup_opened');
-  // } else if (evt.type === 'click') {
-  evt.target.closest('.popup').classList.remove('popup_opened');
-  // }
+function openAddPhotoPopupHandler(evt) {
+  preventDefaultBehavior(evt);
+  addPhotoPopup.classList.add('popup_opened');
+  setTimeout(function () {
+    // без таймаута не фокусируется после транзишена
+    newPhotoName.focus();
+  }, 100);
 }
 
-function formEditSubmitHandler(evt) {
+function editFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   currentProfileName.textContent = newProfileName.value;
   currentProfileInfo.textContent = newProfileInfo.value;
   editProfilePopup.classList.remove('popup_opened');
 }
 
-function formAddSubmitHandler(evt) {
+function addFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  let data = [];
+  let data = {};
   data.name = newPhotoName.value;
   data.link = newPhotoLink.value;
-  renderCard(data, cardsGrid);
+  renderCard(data, photoGrid);
   addPhotoPopup.classList.remove('popup_opened');
+  evt.currentTarget.reset();
 }
 
-function openaddPhotoPopupHandler(evt) {
-  preventDefaultBehavior(evt);
-  // никакие значения не загружем, изачально форма пуста
-  // TODO очищать введенные значения (см вебинар)
-  addPhotoPopup.classList.add('popup_opened');
-  newPhotoName.focus(); // FIXME не работает фокус на поле
+function openPhotoPreviewHandler(evt) {
+  if (evt.target.classList.contains('card__image')) {
+    previewPhotoPopup.querySelector('.preview__photo').src = evt.target.src;
+    previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+    previewPhotoPopup.classList.add('popup_opened');
+  }
 }
 
-function openPhotoPreview(evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('card__image')) {
-    // взять фотку
-    previewImagePopup.querySelector('.preview__photo').src = elem.src;
-    // взять описание
-    previewImagePopup.querySelector('.preview__caption').textContent = elem
-      .closest('.card')
-      .querySelector('.card__title').textContent;
-    // приклеить альт
-    // previewImagePopup.querySelector('.preview__photo').alt = elem.alt;
-    previewImagePopup.classList.add('popup_opened');
+function closePopupHandler(evt) {
+  if (evt.target.classList.contains('popup__close-button')) {
+    evt.target.closest('.popup').classList.remove('popup_opened');
+  } else {
+    return;
+  }
+}
+
+function toggleLikeHandler(evt) {
+  if (evt.target.classList.contains('card__like-button')) {
+    evt.target.classList.toggle('card__like-button_active');
+  }
+}
+
+function deletecardHandler(evt) {
+  if (evt.target.classList.contains('card__delete-button')) {
+    evt.target.closest('.card').remove();
   }
 }
 
 // LISTENERS
-
 editProfileButton.addEventListener('click', openEditProfilePopupHandler);
+editForm.addEventListener('submit', editFormSubmitHandler);
 
-formEdit.addEventListener('submit', formEditSubmitHandler);
+addPhotoButton.addEventListener('click', openAddPhotoPopupHandler);
+addForm.addEventListener('submit', addFormSubmitHandler);
 
-addPhotoButton.addEventListener('click', openaddPhotoPopupHandler);
-
-formAdd.addEventListener('submit', formAddSubmitHandler);
-
-document.addEventListener('keyup', function (evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('popup__close-button')) {
-    closePopupHandler(evt);
-  }
-});
-
+// один слушатель, чтобы править всеми
 page.addEventListener('click', function (evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('popup__close-button')) {
-    closePopupHandler(evt);
-  }
+  openPhotoPreviewHandler(evt);
+  closePopupHandler(evt);
+  deletecardHandler(evt);
+  toggleLikeHandler(evt);
 });
 
-page.addEventListener('click', openPhotoPreview);
-
-page.addEventListener('click', function (evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('card__like-button')) {
-    elem.classList.toggle('card__like-button_active');
-  }
+// показываем карточки по умолчанию
+initialCards.forEach(function (card) {
+  renderCard(card, photoGrid);
 });
-
-page.addEventListener('click', function (evt) {
-  let elem = evt.target;
-  if (elem.classList.contains('card__delete-button')) {
-    elem.closest('.card').remove();
-  }
-});
-
-// к остальным кнопкам оставить отдельные слушатели наверно...
