@@ -82,10 +82,6 @@ let newCard = [
   },
 ];
 
-newCard.forEach(function (card) {
-  renderCard(card, cardsGrid);
-});
-
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
@@ -96,16 +92,8 @@ function openEditProfilePopupHandler(evt) {
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
   editProfilePopup.classList.add('popup_opened');
-  newProfileName.focus();
+  newProfileName.focus(); // FIXME не работает фокус на поле
 }
-
-// function openaddPhotoPopupHandler(evt) {
-//   preventDefaultBehavior(evt);
-//   // никакие значения не загружем, изачально форма пуста
-//   // TODO очищать введенные значения (см вебинар)
-//   addPhotoPopup.classList.add('popup_opened');
-//   newPhotoName.focus();
-// }
 
 function closePopupHandler(evt) {
   // if (evt.key === 'Escape') {
@@ -122,13 +110,22 @@ function formEditSubmitHandler(evt) {
   editProfilePopup.classList.remove('popup_opened');
 }
 
-// function formAddSubmitHandler(evt) {
-//   preventDefaultBehavior(evt);
-//   // TODO передавать значения в js: название и ссылку
-//   // currentProfileName.textContent =
-//   // currentProfileInfo.textContent =
-//   addPhotoPopup.classList.remove('popup_opened');
-// }
+function formAddSubmitHandler(evt) {
+  preventDefaultBehavior(evt);
+  let data = [];
+  data.name = newPhotoName.value;
+  data.link = newPhotoLink.value;
+  renderCard(data, cardsGrid);
+  addPhotoPopup.classList.remove('popup_opened');
+}
+
+function openaddPhotoPopupHandler(evt) {
+  preventDefaultBehavior(evt);
+  // никакие значения не загружем, изачально форма пуста
+  // TODO очищать введенные значения (см вебинар)
+  addPhotoPopup.classList.add('popup_opened');
+  newPhotoName.focus(); // FIXME не работает фокус на поле
+}
 
 function openPhotoPreview(evt) {
   let elem = evt.target;
@@ -136,9 +133,11 @@ function openPhotoPreview(evt) {
     // взять фотку
     previewImagePopup.querySelector('.preview__photo').src = elem.src;
     // взять описание
-    previewImagePopup.querySelector('.preview__caption').textContent = elem.closest('.card').querySelector('.card__title').textContent;
+    previewImagePopup.querySelector('.preview__caption').textContent = elem
+      .closest('.card')
+      .querySelector('.card__title').textContent;
     // приклеить альт
-    previewImagePopup.querySelector('.preview__photo').alt = elem.alt;
+    // previewImagePopup.querySelector('.preview__photo').alt = elem.alt;
     previewImagePopup.classList.add('popup_opened');
   }
 }
@@ -149,9 +148,9 @@ editProfileButton.addEventListener('click', openEditProfilePopupHandler);
 
 formEdit.addEventListener('submit', formEditSubmitHandler);
 
-// addPhotoButton.addEventListener('click', openaddPhotoPopupHandler);
+addPhotoButton.addEventListener('click', openaddPhotoPopupHandler);
 
-// formAdd.addEventListener('submit', formAddSubmitHandler);
+formAdd.addEventListener('submit', formAddSubmitHandler);
 
 document.addEventListener('keyup', function (evt) {
   let elem = evt.target;
