@@ -4,5 +4,6 @@
   box-sizing: border-box;
   padding-bottom: 100%;
   position: relative;
-  background-color: #808080;
+  overflow: hidden;
+  background-color: white;
 }
