@@ -14,13 +14,13 @@ const editProfileButton = page.querySelector('.profile__edit-button');
 const addPhotoButton = page.querySelector('.profile__add-button');
 
 // POPUPS
-const editProfilePopup = page.querySelector('.popup_edit');
-const addPhotoPopup = page.querySelector('.popup_add');
-const previewPhotoPopup = page.querySelector('.popup_preview');
+const editProfilePopup = page.querySelector('.popup_type_edit');
+const addPhotoPopup = page.querySelector('.popup_type_add');
+const previewPhotoPopup = page.querySelector('.popup_type_preview');
 
 // FORMS
-const editForm = page.querySelector('.form_edit');
-const addForm = page.querySelector('.form_add');
+const editForm = page.querySelector('.form_type_edit');
+const addForm = page.querySelector('.form_type_add');
 
 // INPUTS
 const newProfileName = editProfilePopup.querySelector(
