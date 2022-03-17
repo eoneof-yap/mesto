@@ -1,4 +1,4 @@
-﻿// DOC
+// DOC
 const page = document.querySelector('.page');
 const photoGrid = page.querySelector('.photo-grid');
 
@@ -32,27 +32,27 @@ const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 const initialCards = [
   {
     name: 'Пятигорск',
-    link: '../images/pyatigorks.jpeg',
+    link: './images/pyatigorks.jpeg',
   },
   {
     name: 'Гора Эльбрус',
-    link: '../images/elbrus.jpeg',
+    link: './images/elbrus.jpeg',
   },
   {
     name: 'Домбай',
-    link: '../images/dombay-mountains.jpeg',
+    link: './images/dombay-mountains.jpeg',
   },
   {
     name: 'Домбай',
-    link: '../images/dombay-yak.jpeg',
+    link: './images/dombay-yak.jpeg',
   },
   {
     name: 'Гора Машук',
-    link: '../images/gora-mashuk.jpeg',
+    link: './images/gora-mashuk.jpeg',
   },
   {
     name: 'Кабардино-Балкария',
-    link: '../images/kabardino-balkariya.jpeg',
+    link: './images/kabardino-balkariya.jpeg',
   },
 ];
 
