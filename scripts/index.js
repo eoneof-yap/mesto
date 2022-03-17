@@ -1,4 +1,4 @@
-// DOC
+﻿// DOC
 const page = document.querySelector('.page');
 const photoGrid = page.querySelector('.photo-grid');
 
@@ -23,8 +23,12 @@ const editForm = page.querySelector('.form_edit');
 const addForm = page.querySelector('.form_add');
 
 // INPUTS
-const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
-const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
+const newProfileName = editProfilePopup.querySelector(
+  'input[name="profile-name"]',
+);
+const newProfileInfo = editProfilePopup.querySelector(
+  'input[name="profile-about"]',
+);
 const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
 const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 
@@ -113,7 +117,8 @@ function addFormSubmitHandler(evt) {
 function openPhotoPreviewHandler(evt) {
   if (evt.target.classList.contains('card__image')) {
     previewPhotoPopup.querySelector('.preview__photo').src = evt.target.src;
-    previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+    previewPhotoPopup.querySelector('.preview__caption').textContent =
+      evt.target.closest('.card').querySelector('.card__title').textContent;
     previewPhotoPopup.classList.add('popup_opened');
   }
 }
@@ -121,8 +126,6 @@ function openPhotoPreviewHandler(evt) {
 function closePopupHandler(evt) {
   if (evt.target.classList.contains('popup__close-button')) {
     evt.target.closest('.popup').classList.remove('popup_opened');
-  } else {
-    return;
   }
 }
 
@@ -132,24 +135,24 @@ function toggleLikeHandler(evt) {
   }
 }
 
-function deletecardHandler(evt) {
+function deleteCardHandler(evt) {
   if (evt.target.classList.contains('card__delete-button')) {
     evt.target.closest('.card').remove();
   }
 }
 
 // LISTENERS
+page.addEventListener('click', closePopupHandler);
+
 editProfileButton.addEventListener('click', openEditProfilePopupHandler);
 editForm.addEventListener('submit', editFormSubmitHandler);
 
 addPhotoButton.addEventListener('click', openAddPhotoPopupHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
 
-// один слушатель, чтобы править всеми
-page.addEventListener('click', function (evt) {
+photoGrid.addEventListener('click', function (evt) {
   openPhotoPreviewHandler(evt);
-  closePopupHandler(evt);
-  deletecardHandler(evt);
+  deleteCardHandler(evt);
   toggleLikeHandler(evt);
 });
 
