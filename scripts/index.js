@@ -129,6 +129,12 @@ function closePopupHandler(evt) {
   }
 }
 
+function closePopupViaEscHandler(evt) {
+  if (evt.key === 'Escape' && page.querySelector('.popup_opened') !== null) {
+    page.querySelector('.popup_opened').classList.remove('popup_opened');
+  }
+}
+
 function toggleLikeHandler(evt) {
   if (evt.target.classList.contains('card__like-button')) {
     evt.target.classList.toggle('card__like-button_active');
@@ -142,6 +148,8 @@ function deleteCardHandler(evt) {
 }
 
 // LISTENERS
+document.addEventListener('keydown', closePopupViaEscHandler);
+
 page.addEventListener('click', closePopupHandler);
 
 editProfileButton.addEventListener('click', openEditProfilePopupHandler);
