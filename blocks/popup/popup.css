@@ -7,5 +7,5 @@
   z-index: 2;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, 0.25s ease-out;
+  transition: opacity 0s, 0.25s ease-out;
 }
