@@ -68,7 +68,7 @@ function preventDefaultBehavior(evt) {
 function createCard(data) {
   let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__title').textContent = data.name;
-  cardElement.querySelector('.card__image').src = data.link;
+  cardElement.querySelector('.card__image').setAttribute('src', data.link);
   return cardElement;
 }
 
@@ -116,7 +116,7 @@ function addFormSubmitHandler(evt) {
 
 function openPhotoPreviewHandler(evt) {
   if (evt.target.classList.contains('card__image')) {
-    previewPhotoPopup.querySelector('.preview__photo').src = evt.target.src;
+    previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
     previewPhotoPopup.querySelector('.preview__caption').textContent =
       evt.target.closest('.card').querySelector('.card__title').textContent;
     previewPhotoPopup.classList.add('popup_opened');
