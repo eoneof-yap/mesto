@@ -82,19 +82,11 @@ function openEditProfilePopupHandler(evt) {
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
   editProfilePopup.classList.add('popup_opened');
-  setTimeout(function () {
-    // без таймаута не фокусируется после транзишена
-    newProfileName.focus();
-  }, 100);
 }
 
 function openAddPhotoPopupHandler(evt) {
   preventDefaultBehavior(evt);
   addPhotoPopup.classList.add('popup_opened');
-  setTimeout(function () {
-    // без таймаута не фокусируется после транзишена
-    newPhotoName.focus();
-  }, 100);
 }
 
 function editFormSubmitHandler(evt) {
@@ -116,7 +108,9 @@ function addFormSubmitHandler(evt) {
 
 function openPhotoPreviewHandler(evt) {
   if (evt.target.classList.contains('card__image')) {
-    previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
+    previewPhotoPopup
+      .querySelector('.preview__photo')
+      .setAttribute('src', evt.target.src);
     previewPhotoPopup.querySelector('.preview__caption').textContent =
       evt.target.closest('.card').querySelector('.card__title').textContent;
     previewPhotoPopup.classList.add('popup_opened');
