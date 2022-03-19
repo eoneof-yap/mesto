@@ -1,4 +1,4 @@
-// DOC
+﻿// DOC
 const page = document.querySelector('.page');
 const photoGrid = page.querySelector('.photo-grid');
 
@@ -68,6 +68,7 @@ function preventDefaultBehavior(evt) {
 function createCard(data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__title').textContent = data.name;
+  cardElement.querySelector('.card__image').setAttribute('alt', data.name);
   cardElement.querySelector('.card__image').setAttribute('src', data.link);
   return cardElement;
 }
@@ -98,7 +99,14 @@ function editFormSubmitHandler(evt) {
 
 function addFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  renderCard({ name: newPhotoName.value, link: newPhotoLink.value }, photoGrid);
+  renderCard(
+    {
+      name: newPhotoName.value,
+      link: newPhotoLink.value,
+      alt: newPhotoName.value,
+    },
+    photoGrid,
+  );
   addPhotoPopup.classList.remove('popup_opened');
   evt.currentTarget.reset();
 }
@@ -108,6 +116,9 @@ function openPhotoPreviewHandler(evt) {
     previewPhotoPopup
       .querySelector('.preview__photo')
       .setAttribute('src', evt.target.src);
+    previewPhotoPopup
+      .querySelector('.preview__photo')
+      .setAttribute('alt', evt.target.alt);
     previewPhotoPopup.querySelector('.preview__caption').textContent =
       evt.target.closest('.card').querySelector('.card__title').textContent;
     previewPhotoPopup.classList.add('popup_opened');
