@@ -1,4 +1,4 @@
-﻿// DOC
+// DOC
 const page = document.querySelector('.page');
 const photoGrid = page.querySelector('.photo-grid');
 
@@ -66,7 +66,7 @@ function preventDefaultBehavior(evt) {
 }
 
 function createCard(data) {
-  let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__title').textContent = data.name;
   cardElement.querySelector('.card__image').setAttribute('src', data.link);
   return cardElement;
