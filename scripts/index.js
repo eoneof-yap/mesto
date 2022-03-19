@@ -98,10 +98,7 @@ function editFormSubmitHandler(evt) {
 
 function addFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  let data = {};
-  data.name = newPhotoName.value;
-  data.link = newPhotoLink.value;
-  renderCard(data, photoGrid);
+  renderCard({ name: newPhotoName.value, link: newPhotoLink.value }, photoGrid);
   addPhotoPopup.classList.remove('popup_opened');
   evt.currentTarget.reset();
 }
