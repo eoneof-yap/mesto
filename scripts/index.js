@@ -23,12 +23,8 @@ const editForm = page.querySelector('.form_type_edit');
 const addForm = page.querySelector('.form_type_add');
 
 // INPUTS
-const newProfileName = editProfilePopup.querySelector(
-  'input[name="profile-name"]',
-);
-const newProfileInfo = editProfilePopup.querySelector(
-  'input[name="profile-about"]',
-);
+const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
+const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
 const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
 const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 
@@ -65,104 +61,108 @@ function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
 
+// cards
+function renderCard(data, container) {
+  container.prepend(createCard(data));
+}
 function createCard(data) {
-  let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+  // карточка — самостоятельный блок, должна работать в любом месте страницы
+  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
+  cardElement.querySelector('.card__image').addEventListener('click', createPreview);
+  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
+
   cardElement.querySelector('.card__title').textContent = data.name;
+  cardElement.querySelector('.card__image').setAttribute('alt', data.name);
   cardElement.querySelector('.card__image').setAttribute('src', data.link);
   return cardElement;
 }
 
-function renderCard(data, container) {
-  container.prepend(createCard(data));
+function toggleLike(evt) {
+  evt.target.classList.toggle('card__like-button_active');
+}
+
+function deleteCard(evt) {
+  evt.target.closest('.card').remove();
+}
+
+// popups
+function renderPreview(preview) {
+  openPopup(preview);
+}
+function createPreview(evt) {
+  previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
+  previewPhotoPopup.querySelector('.preview__photo').setAttribute('alt', evt.target.alt);
+  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  renderPreview(previewPhotoPopup);
+}
+
+function openPopup(popup) {
+  popup.querySelector('.popup__close-button').addEventListener('click', closePopupHandler);
+  document.addEventListener('keydown', closePopupViaEscHandler);
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  // слушатель нельзя удалить, если обработчик задан как анонимная функция
+  popup.querySelector('.popup__close-button').removeEventListener('click', closePopupHandler);
+  document.removeEventListener('keydown', closePopupViaEscHandler);
+  popup.classList.remove('popup_opened');
 }
 
 // HANDLERS
-function openEditProfilePopupHandler(evt) {
+
+function closePopupHandler(evt) {
+  closePopup(evt.target.closest('.popup_opened'));
+}
+
+function closePopupViaEscHandler(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(page.querySelector('.popup_opened'));
+  }
+}
+
+function editProfilePopupHandler(evt) {
   preventDefaultBehavior(evt);
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
-  editProfilePopup.classList.add('popup_opened');
-  setTimeout(function () {
-    // без таймаута не фокусируется после транзишена
-    newProfileName.focus();
-  }, 100);
-}
-
-function openAddPhotoPopupHandler(evt) {
-  preventDefaultBehavior(evt);
-  addPhotoPopup.classList.add('popup_opened');
-  setTimeout(function () {
-    // без таймаута не фокусируется после транзишена
-    newPhotoName.focus();
-  }, 100);
+  openPopup(editProfilePopup);
 }
 
 function editFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   currentProfileName.textContent = newProfileName.value;
   currentProfileInfo.textContent = newProfileInfo.value;
-  editProfilePopup.classList.remove('popup_opened');
+  closePopup(editProfilePopup);
+}
+
+function addPhotoPopupHandler(evt) {
+  // форма изначально пуста
+  preventDefaultBehavior(evt);
+  openPopup(addPhotoPopup);
 }
 
 function addFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  let data = {};
-  data.name = newPhotoName.value;
-  data.link = newPhotoLink.value;
-  renderCard(data, photoGrid);
-  addPhotoPopup.classList.remove('popup_opened');
+  renderCard(
+    {
+      name: newPhotoName.value,
+      link: newPhotoLink.value,
+      alt: newPhotoName.value,
+    },
+    photoGrid,
+  );
+  closePopup(addPhotoPopup);
   evt.currentTarget.reset();
 }
 
-function openPhotoPreviewHandler(evt) {
-  if (evt.target.classList.contains('card__image')) {
-    previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
-    previewPhotoPopup.querySelector('.preview__caption').textContent =
-      evt.target.closest('.card').querySelector('.card__title').textContent;
-    previewPhotoPopup.classList.add('popup_opened');
-  }
-}
+// ENTRY POINT
+editProfileButton.addEventListener('click', editProfilePopupHandler);
+addPhotoButton.addEventListener('click', addPhotoPopupHandler);
 
-function closePopupHandler(evt) {
-  if (evt.target.classList.contains('popup__close-button')) {
-    evt.target.closest('.popup').classList.remove('popup_opened');
-  }
-}
-
-function closePopupViaEscHandler(evt) {
-  if (evt.key === 'Escape' && page.querySelector('.popup_opened') !== null) {
-    page.querySelector('.popup_opened').classList.remove('popup_opened');
-  }
-}
-
-function toggleLikeHandler(evt) {
-  if (evt.target.classList.contains('card__like-button')) {
-    evt.target.classList.toggle('card__like-button_active');
-  }
-}
-
-function deleteCardHandler(evt) {
-  if (evt.target.classList.contains('card__delete-button')) {
-    evt.target.closest('.card').remove();
-  }
-}
-
-// LISTENERS
-document.addEventListener('keydown', closePopupViaEscHandler);
-
-page.addEventListener('click', closePopupHandler);
-
-editProfileButton.addEventListener('click', openEditProfilePopupHandler);
 editForm.addEventListener('submit', editFormSubmitHandler);
-
-addPhotoButton.addEventListener('click', openAddPhotoPopupHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
-
-photoGrid.addEventListener('click', function (evt) {
-  openPhotoPreviewHandler(evt);
-  deleteCardHandler(evt);
-  toggleLikeHandler(evt);
-});
 
 // показываем карточки по умолчанию
 initialCards.forEach(function (card) {
