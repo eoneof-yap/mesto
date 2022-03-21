@@ -13,6 +13,7 @@ const currentProfileInfo = page.querySelector('.profile__about');
 const editProfileButton = page.querySelector('.profile__edit-button');
 const addPhotoButton = page.querySelector('.profile__add-button');
 const popupCloseButton = page.querySelectorAll('.popup__close-button');
+const popupBackdrop = page.querySelectorAll('.popup__backdrop');
 
 // POPUPS
 const editProfilePopup = page.querySelector('.popup_type_edit');
@@ -24,12 +25,8 @@ const editForm = page.querySelector('.form_type_edit');
 const addForm = page.querySelector('.form_type_add');
 
 // INPUTS
-const newProfileName = editProfilePopup.querySelector(
-  'input[name="profile-name"]',
-);
-const newProfileInfo = editProfilePopup.querySelector(
-  'input[name="profile-about"]',
-);
+const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
+const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
 const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
 const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 
@@ -74,15 +71,9 @@ function createCard(data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   // карточка — самостоятельный блок, должна работать в любом месте страницы
-  cardElement
-    .querySelector('.card__delete-button')
-    .addEventListener('click', deleteCard);
-  cardElement
-    .querySelector('.card__image')
-    .addEventListener('click', createPreview);
-  cardElement
-    .querySelector('.card__like-button')
-    .addEventListener('click', toggleLike);
+  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
+  cardElement.querySelector('.card__image').addEventListener('click', createPreview);
+  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
 
   cardElement.querySelector('.card__title').textContent = data.name;
   cardElement.querySelector('.card__image').setAttribute('alt', data.name);
@@ -100,15 +91,9 @@ function deleteCard(evt) {
 
 // popups
 function createPreview(evt) {
-  previewPhotoPopup
-    .querySelector('.preview__photo')
-    .setAttribute('src', evt.target.src);
-  previewPhotoPopup
-    .querySelector('.preview__photo')
-    .setAttribute('alt', evt.target.alt);
-  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target
-    .closest('.card')
-    .querySelector('.card__title').textContent;
+  previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
+  previewPhotoPopup.querySelector('.preview__photo').setAttribute('alt', evt.target.alt);
+  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
   openPopup(previewPhotoPopup);
 }
 
@@ -173,6 +158,11 @@ editForm.addEventListener('submit', editFormSubmitHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
 
 popupCloseButton.forEach(function (item) {
+  item.addEventListener('click', closePopupHandler);
+});
+
+// закрыть попап кликом на фон
+popupBackdrop.forEach(function (item) {
   item.addEventListener('click', closePopupHandler);
 });
 
