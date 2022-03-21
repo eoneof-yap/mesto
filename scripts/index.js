@@ -151,6 +151,8 @@ function addFormSubmitHandler(evt) {
 }
 
 // ENTRY POINT
+
+// listeners
 editProfileButton.addEventListener('click', editProfilePopupHandler);
 addPhotoButton.addEventListener('click', addPhotoPopupHandler);
 

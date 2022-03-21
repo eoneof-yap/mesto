@@ -6,13 +6,15 @@
   padding: 26px 0;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-template-columns: repeat(auto-fill, 282px);
   column-gap: 17px;
   row-gap: 20px;
+  justify-content: center;
 }
 
 @media (max-width: 375px) {
   .photo-grid {
     padding: 18px 0;
+    grid-template-columns: repeat(auto-fill, minmax(282px, 282px));
   }
 }
