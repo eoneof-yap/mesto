@@ -23,8 +23,12 @@ const editForm = page.querySelector('.form_type_edit');
 const addForm = page.querySelector('.form_type_add');
 
 // INPUTS
-const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
-const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
+const newProfileName = editProfilePopup.querySelector(
+  'input[name="profile-name"]',
+);
+const newProfileInfo = editProfilePopup.querySelector(
+  'input[name="profile-about"]',
+);
 const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
 const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
 
@@ -69,9 +73,15 @@ function createCard(data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
   // карточка — самостоятельный блок, должна работать в любом месте страницы
-  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-  cardElement.querySelector('.card__image').addEventListener('click', createPreview);
-  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
+  cardElement
+    .querySelector('.card__delete-button')
+    .addEventListener('click', deleteCard);
+  cardElement
+    .querySelector('.card__image')
+    .addEventListener('click', createPreview);
+  cardElement
+    .querySelector('.card__like-button')
+    .addEventListener('click', toggleLike);
 
   cardElement.querySelector('.card__title').textContent = data.name;
   cardElement.querySelector('.card__image').setAttribute('alt', data.name);
@@ -88,31 +98,37 @@ function deleteCard(evt) {
 }
 
 // popups
-function renderPreview(preview) {
-  openPopup(preview);
-}
 function createPreview(evt) {
-  previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
-  previewPhotoPopup.querySelector('.preview__photo').setAttribute('alt', evt.target.alt);
-  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
-  renderPreview(previewPhotoPopup);
+  previewPhotoPopup
+    .querySelector('.preview__photo')
+    .setAttribute('src', evt.target.src);
+  previewPhotoPopup
+    .querySelector('.preview__photo')
+    .setAttribute('alt', evt.target.alt);
+  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target
+    .closest('.card')
+    .querySelector('.card__title').textContent;
+  openPopup(previewPhotoPopup);
 }
 
 function openPopup(popup) {
-  popup.querySelector('.popup__close-button').addEventListener('click', closePopupHandler);
+  popup
+    .querySelector('.popup__close-button')
+    .addEventListener('click', closePopupHandler);
   document.addEventListener('keydown', closePopupViaEscHandler);
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   // слушатель нельзя удалить, если обработчик задан как анонимная функция
-  popup.querySelector('.popup__close-button').removeEventListener('click', closePopupHandler);
+  popup
+    .querySelector('.popup__close-button')
+    .removeEventListener('click', closePopupHandler);
   document.removeEventListener('keydown', closePopupViaEscHandler);
   popup.classList.remove('popup_opened');
 }
 
 // HANDLERS
-
 function closePopupHandler(evt) {
   closePopup(evt.target.closest('.popup_opened'));
 }
@@ -124,7 +140,6 @@ function closePopupViaEscHandler(evt) {
 }
 
 function editProfilePopupHandler(evt) {
-  preventDefaultBehavior(evt);
   newProfileName.value = currentProfileName.textContent;
   newProfileInfo.value = currentProfileInfo.textContent;
   openPopup(editProfilePopup);
@@ -139,7 +154,6 @@ function editFormSubmitHandler(evt) {
 
 function addPhotoPopupHandler(evt) {
   // форма изначально пуста
-  preventDefaultBehavior(evt);
   openPopup(addPhotoPopup);
 }
 
