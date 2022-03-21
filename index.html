@@ -34,20 +34,29 @@
             <h2 class="form__header">Редактировать профиль</h2>
             <fieldset class="form__inputs-container">
               <input
-                class="form__input"
+                class="form__input form__input_type_error"
                 type="text"
+                id="profile-name"
                 name="profile-name"
                 placeholder="Как вас зовут?"
               />
+              <label class="form__label form__label_type_error-hint" for="profile-name"
+                >Вы пропустили это поле.</label
+              >
+              <!-- TODO проверить на пиксельперефект -->
               <input
-                class="form__input"
+                class="form__input form__input_type_error"
                 type="text"
+                id="profile-about"
                 name="profile-about"
                 placeholder="Напишите что-нибудь о себе"
               />
+              <label class="form__label form__label_type_error-hint" for="profile-about"
+                >Вы пропустили это поле.</label
+              >
             </fieldset>
             <button
-              class="button form__submit-button"
+              class="button form__submit-button button_disabled"
               form="edit-form"
               type="submit"
               name="submit"
@@ -74,20 +83,28 @@
             <h2 class="form__header">Новое место</h2>
             <fieldset class="form__inputs-container">
               <input
-                class="form__input"
+                class="form__input form__input_type_error"
                 type="text"
+                id="card-name"
                 name="card-name"
                 placeholder="Название"
               />
+              <label class="form__label form__label_type_error-hint" for="card-name"
+                >Вы пропустили это поле.</label
+              >
               <input
-                class="form__input"
+                class="form__input form__input_type_error"
                 type="text"
+                id="card-link"
                 name="card-link"
                 placeholder="Ссылка на картинку"
               />
+              <label class="form__label form__label_type_error-hint" for="card-link"
+                >Введите адрес сайта.</label
+              >
             </fieldset>
             <button
-              class="button form__submit-button"
+              class="button form__submit-button button_disabled"
               form="add-form"
               type="submit"
               name="submit"
