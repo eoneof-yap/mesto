@@ -47,6 +47,7 @@
 @import url('../blocks/form/__inputs-container/form__inputs-container.css');
 @import url('../blocks/form/__input/form__input.css');
 @import url('../blocks/form/__submit-button/form__submit-button.css');
+@import url('../blocks/button/_disabled/button_disabled.css');
 
 /* PHOTO PREVIEW */
 @import url('../blocks/preview/preview.css');
