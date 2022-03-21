@@ -12,6 +12,7 @@ const currentProfileInfo = page.querySelector('.profile__about');
 // BUTTONS
 const editProfileButton = page.querySelector('.profile__edit-button');
 const addPhotoButton = page.querySelector('.profile__add-button');
+const popupCloseButton = page.querySelectorAll('.popup__close-button');
 
 // POPUPS
 const editProfilePopup = page.querySelector('.popup_type_edit');
@@ -112,18 +113,11 @@ function createPreview(evt) {
 }
 
 function openPopup(popup) {
-  popup
-    .querySelector('.popup__close-button')
-    .addEventListener('click', closePopupHandler);
   document.addEventListener('keydown', closePopupViaEscHandler);
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
-  // слушатель нельзя удалить, если обработчик задан как анонимная функция
-  popup
-    .querySelector('.popup__close-button')
-    .removeEventListener('click', closePopupHandler);
   document.removeEventListener('keydown', closePopupViaEscHandler);
   popup.classList.remove('popup_opened');
 }
@@ -177,6 +171,10 @@ addPhotoButton.addEventListener('click', addPhotoPopupHandler);
 
 editForm.addEventListener('submit', editFormSubmitHandler);
 addForm.addEventListener('submit', addFormSubmitHandler);
+
+popupCloseButton.forEach(function (item) {
+  item.addEventListener('click', closePopupHandler);
+});
 
 // показываем карточки по умолчанию
 initialCards.forEach(function (card) {
