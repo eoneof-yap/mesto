@@ -50,9 +50,9 @@
 @import url('../blocks/form/__submit-button/form__submit-button.css');
 @import url('../blocks/button/_disabled/button_disabled.css');
 
-/* LABELS */
-@import url('../blocks/form/__label/form__label.css');
-@import url('../blocks/form/__label/_type/form__label_type_error-hint.css');
+/* ERROR HINTS */
+@import url('../blocks/form/__input-error-hint/form__input-error-hint.css');
+@import url('../blocks/form/__input-error-hint/_active/form__input-error-hint_active.css');
 
 /* PHOTO PREVIEW */
 @import url('../blocks/preview/preview.css');

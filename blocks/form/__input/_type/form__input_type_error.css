@@ -9,3 +9,5 @@
   outline: 1px solid #ff000040;
   outline-offset: 3px;
 }
+
+/* TODO переместить стили в form__input:invalid {} и form__input:invalid:focus {} */
