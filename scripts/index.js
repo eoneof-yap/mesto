@@ -21,14 +21,14 @@ const addPhotoPopup = page.querySelector('.popup_type_add');
 const previewPhotoPopup = page.querySelector('.popup_type_preview');
 
 // FORMS
-const editForm = page.querySelector('.form_type_edit');
-const addForm = page.querySelector('.form_type_add');
+const editForm = document.forms['editForm'];
+const addForm = document.forms['addForm'];
 
 // INPUTS
-const newProfileName = editProfilePopup.querySelector('input[name="profile-name"]');
-const newProfileInfo = editProfilePopup.querySelector('input[name="profile-about"]');
-const newPhotoName = addPhotoPopup.querySelector('input[name="card-name"]');
-const newPhotoLink = addPhotoPopup.querySelector('input[name="card-link"]');
+const newProfileName = editForm.elements['profileNameInput'];
+const newProfileInfo = editForm.elements['profileAboutInput'];
+const newPhotoName = addForm.elements['photoTitleInput'];
+const newPhotoLink = addForm.elements['photoLinkInput'];
 
 // DATA
 const initialCards = [

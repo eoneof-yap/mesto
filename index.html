@@ -25,39 +25,45 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="close"
+            name="closeButton"
             title="Закрыть"
           >
             Закрыть
           </button>
-          <form id="edit-form" name="edit-profile" class="form form_type_edit">
+          <form novalidate id="editForm" name="editProfile" class="form">
             <h2 class="form__header">Редактировать профиль</h2>
             <fieldset class="form__inputs-container">
               <input
                 class="form__input form__input_type_error"
                 type="text"
-                id="profile-name"
-                name="profile-name"
+                minlength="1"
+                maxlength="64"
+                id="profileNameInput"
+                name="profileNameInput"
                 placeholder="Как вас зовут?"
               />
-              <label class="form__label form__label_type_error-hint" for="profile-name"
-                >Вы пропустили это поле.</label
+              <!-- camelCase для некоторых атрибутов - иначе js выдает ошибку при обращении через document.forms -->
+              <span class="form__label form__label_type_error-hint" for="profileNameInput"
+                >Вы пропустили это поле.</span
               >
               <!-- TODO проверить на пиксельперефект -->
               <input
                 class="form__input form__input_type_error"
                 type="text"
-                id="profile-about"
-                name="profile-about"
+                minlength="1"
+                maxlength="128"
+                name="profileAboutInput"
                 placeholder="Напишите что-нибудь о себе"
               />
-              <label class="form__label form__label_type_error-hint" for="profile-about"
-                >Вы пропустили это поле.</label
+              <span
+                class="form__label form__label_type_error-hint"
+                for="profileAboutInput"
+                >Вы пропустили это поле.</span
               >
             </fieldset>
             <button
               class="button form__submit-button button_disabled"
-              form="edit-form"
+              form="editForm"
               type="submit"
               name="submit"
             >
@@ -74,38 +80,42 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="close"
+            name="closeButton"
             title="Закрыть"
           >
             Закрыть
           </button>
-          <form id="add-form" name="add-photo" class="form form_type_add">
+          <form novalidate id="addForm" name="addPhoto" class="form">
             <h2 class="form__header">Новое место</h2>
             <fieldset class="form__inputs-container">
               <input
+                required
                 class="form__input form__input_type_error"
                 type="text"
-                id="card-name"
-                name="card-name"
+                minlength="1"
+                maxlength="64"
+                name="photoTitleInput"
                 placeholder="Название"
               />
-              <label class="form__label form__label_type_error-hint" for="card-name"
-                >Вы пропустили это поле.</label
+              <span class="form__label form__label_type_error-hint" for="photoTitleInput"
+                >Вы пропустили это поле.</span
               >
               <input
+                required
                 class="form__input form__input_type_error"
-                type="text"
-                id="card-link"
-                name="card-link"
+                type="url"
+                minlength="1"
+                maxlength="1024"
+                name="photoLinkInput"
                 placeholder="Ссылка на картинку"
               />
-              <label class="form__label form__label_type_error-hint" for="card-link"
-                >Введите адрес сайта.</label
+              <span class="form__label form__label_type_error-hint" for="photoLinkInput"
+                >Введите адрес сайта.</span
               >
             </fieldset>
             <button
               class="button form__submit-button button_disabled"
-              form="add-form"
+              form="addForm"
               type="submit"
               name="submit"
             >
@@ -122,7 +132,7 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="close"
+            name="closeButton"
             title="Закрыть"
           >
             Закрыть
@@ -152,7 +162,7 @@
                   <button
                     class="button profile__edit-button"
                     type="button"
-                    name="edit"
+                    name="editButton"
                     title="Редактировать профиль"
                   ></button>
                 </div>
@@ -163,7 +173,7 @@
           <button
             class="button profile__add-button"
             type="button"
-            name="add"
+            name="addButton"
             title="Добавить фотографии"
           ></button>
         </section>
@@ -186,7 +196,7 @@
         <button
           class="button card__delete-button"
           type="button"
-          name="delete"
+          name="deleteButton"
           title="Удалить"
         ></button>
         <div class="card__image-container">
@@ -197,12 +207,13 @@
           <button
             type="button"
             class="button card__like-button"
-            name="like"
+            name="likeButton"
             title="Нравится!"
           ></button>
         </div>
       </li>
     </template>
     <script src="./scripts/index.js"></script>
+    <!-- <script src="./scripts/validate.js"></script> -->
   </body>
 </html>
