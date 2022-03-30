@@ -9,7 +9,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 const currentProfileName = page.querySelector('.profile__name');
 const currentProfileInfo = page.querySelector('.profile__about');
 
-// BUTTONS
+// PAGE BUTTONS
 const editProfileButton = page.querySelector('.profile__edit-button');
 const addPhotoButton = page.querySelector('.profile__add-button');
 const popupCloseButton = page.querySelectorAll('.popup__close-button');
@@ -21,14 +21,30 @@ const addPhotoPopup = page.querySelector('.popup_type_add');
 const previewPhotoPopup = page.querySelector('.popup_type_preview');
 
 // FORMS
-const editForm = document.forms['editForm'];
-const addForm = document.forms['addForm'];
+const editingForm = document.forms['form-edit'];
+const addingForm = document.forms['form-add'];
 
 // INPUTS
-const newProfileName = editForm.elements['profileNameInput'];
-const newProfileInfo = editForm.elements['profileAboutInput'];
-const newPhotoName = addForm.elements['photoTitleInput'];
-const newPhotoLink = addForm.elements['photoLinkInput'];
+const newProfileNameInput = editingForm.elements['name-input'];
+const newProfileInfoInput = editingForm.elements['about-input'];
+const newPhotoNameInput = addingForm.elements['photo-name-input'];
+const newPhotoLinkInput = addingForm.elements['photo-link-input'];
+
+//  ERROR HINTS
+const profileNameErrorHint = editingForm.querySelector(`.${newProfileNameInput.id}-error`);
+const profileInfoErrorHint = editingForm.querySelector(`.${newProfileInfoInput.id}-error`);
+const photoNameErrorHint = addingForm.querySelector(`.${newPhotoNameInput.id}-error`);
+const photoLinkErrorHint = addingForm.querySelector(`.${newPhotoLinkInput.id}-error`);
+
+// TODO попробовать получить массив элементов и выбрать нужные (по типу???)
+// const inputs = editingForm.elements;
+// Array.from(inputs, (item) => {
+//   console.log(item.id);
+// });
+
+// FOMS' BUTTONS
+const editingFormSubmitButton = editingForm.querySelector('.form__submit-button');
+const adingFormSubmitButton = addingForm.querySelector('.form__submit-button');
 
 // DATA
 const initialCards = [
@@ -119,15 +135,15 @@ function closePopupViaEscHandler(evt) {
 }
 
 function editProfilePopupHandler(evt) {
-  newProfileName.value = currentProfileName.textContent;
-  newProfileInfo.value = currentProfileInfo.textContent;
+  newProfileNameInput.value = currentProfileName.textContent;
+  newProfileInfoInput.value = currentProfileInfo.textContent;
   openPopup(editProfilePopup);
 }
 
-function editFormSubmitHandler(evt) {
+function editingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  currentProfileName.textContent = newProfileName.value;
-  currentProfileInfo.textContent = newProfileInfo.value;
+  currentProfileName.textContent = newProfileNameInput.value;
+  currentProfileInfo.textContent = newProfileInfoInput.value;
   closePopup(editProfilePopup);
 }
 
@@ -136,13 +152,13 @@ function addPhotoPopupHandler(evt) {
   openPopup(addPhotoPopup);
 }
 
-function addFormSubmitHandler(evt) {
+function addingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   renderCard(
     {
-      name: newPhotoName.value,
-      link: newPhotoLink.value,
-      alt: newPhotoName.value,
+      name: newPhotoNameInput.value,
+      link: newPhotoLinkInput.value,
+      alt: newPhotoNameInput.value,
     },
     photoGrid,
   );
@@ -156,8 +172,8 @@ function addFormSubmitHandler(evt) {
 editProfileButton.addEventListener('click', editProfilePopupHandler);
 addPhotoButton.addEventListener('click', addPhotoPopupHandler);
 
-editForm.addEventListener('submit', editFormSubmitHandler);
-addForm.addEventListener('submit', addFormSubmitHandler);
+editingForm.addEventListener('submit', editingFormSubmitHandler);
+addingForm.addEventListener('submit', addingFormSubmitHandler);
 
 popupCloseButton.forEach(function (item) {
   item.addEventListener('click', closePopupHandler);
