@@ -36,11 +36,12 @@
               <input
                 class="form__input form__input_type_error"
                 type="text"
-                minlength="1"
-                maxlength="64"
+                minlength="2"
+                maxlength="40"
                 id="profileNameInput"
                 name="profileNameInput"
                 placeholder="Как вас зовут?"
+                required
               />
               <!-- camelCase для некоторых атрибутов - иначе js выдает ошибку при обращении через document.forms -->
               <span class="form__label form__label_type_error-hint" for="profileNameInput"
@@ -50,10 +51,11 @@
               <input
                 class="form__input form__input_type_error"
                 type="text"
-                minlength="1"
-                maxlength="128"
+                minlength="2"
+                maxlength="200"
                 name="profileAboutInput"
                 placeholder="Напишите что-нибудь о себе"
+                required
               />
               <span
                 class="form__label form__label_type_error-hint"
@@ -89,25 +91,23 @@
             <h2 class="form__header">Новое место</h2>
             <fieldset class="form__inputs-container">
               <input
-                required
                 class="form__input form__input_type_error"
                 type="text"
-                minlength="1"
-                maxlength="64"
+                minlength="2"
+                maxlength="30"
                 name="photoTitleInput"
                 placeholder="Название"
+                required
               />
               <span class="form__label form__label_type_error-hint" for="photoTitleInput"
                 >Вы пропустили это поле.</span
               >
               <input
-                required
                 class="form__input form__input_type_error"
                 type="url"
-                minlength="1"
-                maxlength="1024"
                 name="photoLinkInput"
                 placeholder="Ссылка на картинку"
+                required
               />
               <span class="form__label form__label_type_error-hint" for="photoLinkInput"
                 >Введите адрес сайта.</span
