@@ -15,9 +15,9 @@
 
 .form__input:focus {
   border: 0;
+  outline: 0;
   box-sizing: border-box;
-  outline: 2px solid #808080;
-  outline-offset: 3px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 }
 
 .form__input::placeholder {
@@ -25,18 +25,16 @@
   opacity: 0.6;
 }
 
-/* .form__input:invalid {
-  margin: 0;
+.form__input:invalid {
   border-bottom: 1px solid #ff0000;
 }
 
 .form__input:invalid:focus {
   border: 0;
   box-sizing: border-box;
-  outline: 1px solid #ff000040;
-  border-bottom: 1px solid #ff0000;
+  border-bottom: 2px solid #ff0000;
   outline-offset: 3px;
-} */
+}
 
 @media (max-width: 375px) {
   .form__input {
