@@ -32,32 +32,31 @@
           </button>
           <form novalidate id="form-edit" name="editProfile" class="form">
             <h2 class="form__header">Редактировать профиль</h2>
-            <fieldset class="form__inputs-container">
-              <input
-                class="form__input form__input_type_error"
-                id="name-input"
-                type="text"
-                minlength="2"
-                maxlength="40"
-                placeholder="Как вас зовут?"
-                required
-              />
-              <span class="form__input-error-hint name-input-error"
-                >Вы пропустили это поле.</span
-              >
-              <!-- TODO проверить на пиксельперефект -->
-              <input
-                class="form__input form__input_type_error"
-                id="about-input"
-                type="text"
-                minlength="2"
-                maxlength="200"
-                placeholder="Напишите что-нибудь о себе"
-                required
-              />
-              <span class="form__input-error-hint about-input-error"
-                >Вы пропустили это поле.</span
-              >
+            <fieldset class="form__fieldset">
+              <div class="form__input-container">
+                <input
+                  class="form__input"
+                  id="name-input"
+                  type="text"
+                  minlength="2"
+                  maxlength="40"
+                  placeholder="Как вас зовут?"
+                  required
+                />
+                <span class="form__input-error-hint name-input-error"></span>
+              </div>
+              <div class="form__input-container">
+                <input
+                  class="form__input"
+                  id="about-input"
+                  type="text"
+                  minlength="2"
+                  maxlength="200"
+                  placeholder="Напишите что-нибудь о себе"
+                  required
+                />
+                <span class="form__input-error-hint about-input-error"></span>
+              </div>
             </fieldset>
             <button
               class="button form__submit-button"
@@ -85,31 +84,30 @@
           </button>
           <form novalidate id="form-add" name="addPhoto" class="form">
             <h2 class="form__header">Новое место</h2>
-            <fieldset class="form__inputs-container">
-              <input
-                class="form__input form__input_type_error"
-                id="photo-name-input"
-                type="text"
-                minlength="2"
-                maxlength="30"
-                placeholder="Название"
-                required
-              />
-              <span
-                class="form__input-error-hint photo-name-input-error form__input-error-hint_active"
-                >Вы пропустили это поле.</span
-              >
-              <input
-                class="form__input form__input_type_error"
-                id="photo-link-input"
-                type="url"
-                name="photoLinkInput"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span class="form__input-error-hint photo-link-input-error"
-                >Введите адрес сайта.</span
-              >
+            <fieldset class="form__fieldset">
+              <div class="form__input-container">
+                <input
+                  class="form__input"
+                  id="photo-name-input"
+                  type="text"
+                  minlength="2"
+                  maxlength="30"
+                  placeholder="Название"
+                  required
+                />
+                <span class="form__input-error-hint photo-name-input-error"></span>
+              </div>
+              <div class="form__input-container">
+                <input
+                  class="form__input"
+                  id="photo-link-input"
+                  type="url"
+                  name="photoLinkInput"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span class="form__input-error-hint photo-link-input-error"></span>
+              </div>
             </fieldset>
             <button
               class="button form__submit-button button_disabled"
@@ -213,5 +211,6 @@
     </template>
     <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
+    <script src="./scripts/playground.js"></script>
   </body>
 </html>
