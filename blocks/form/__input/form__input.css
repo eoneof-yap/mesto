@@ -17,23 +17,12 @@
   border: 0;
   outline: 0;
   box-sizing: border-box;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.8);
 }
 
 .form__input::placeholder {
   color: #000;
   opacity: 0.6;
-}
-
-.form__input:invalid {
-  border-bottom: 1px solid #ff0000;
-}
-
-.form__input:invalid:focus {
-  border: 0;
-  box-sizing: border-box;
-  border-bottom: 2px solid #ff0000;
-  outline-offset: 3px;
 }
 
 @media (max-width: 375px) {

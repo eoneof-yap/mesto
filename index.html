@@ -25,12 +25,12 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="closeButton"
+            name="close-button"
             title="Закрыть"
           >
             Закрыть
           </button>
-          <form novalidate id="form-edit" name="editProfile" class="form">
+          <form novalidate id="form-edit" name="form-edit" class="form">
             <h2 class="form__header">Редактировать профиль</h2>
             <fieldset class="form__fieldset">
               <div class="form__input-container">
@@ -59,10 +59,10 @@
               </div>
             </fieldset>
             <button
-              class="button form__submit-button"
+              class="button form__submit-button button_disabled"
               form="form-edit"
               type="submit"
-              name="submit"
+              name="submit-button"
             >
               Сохранить
             </button>
@@ -77,12 +77,12 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="closeButton"
+            name="close-button"
             title="Закрыть"
           >
             Закрыть
           </button>
-          <form novalidate id="form-add" name="addPhoto" class="form">
+          <form novalidate id="form-add" name="form-add" class="form">
             <h2 class="form__header">Новое место</h2>
             <fieldset class="form__fieldset">
               <div class="form__input-container">
@@ -102,7 +102,7 @@
                   class="form__input"
                   id="photo-link-input"
                   type="url"
-                  name="photoLinkInput"
+                  name="photo-link-input"
                   placeholder="Ссылка на картинку"
                   required
                 />
@@ -110,10 +110,10 @@
               </div>
             </fieldset>
             <button
-              class="button form__submit-button button_disabled"
+              class="button form__submit-button button_disabled button_disabled"
               form="form-add"
               type="submit"
-              name="submit"
+              name="submit-button"
             >
               Создать
             </button>
@@ -128,7 +128,7 @@
           <button
             class="button popup__close-button"
             type="button"
-            name="closeButton"
+            name="close-button"
             title="Закрыть"
           >
             Закрыть
@@ -158,7 +158,7 @@
                   <button
                     class="button profile__edit-button"
                     type="button"
-                    name="editButton"
+                    name="edit-button"
                     title="Редактировать профиль"
                   ></button>
                 </div>
@@ -169,7 +169,7 @@
           <button
             class="button profile__add-button"
             type="button"
-            name="addButton"
+            name="add-button"
             title="Добавить фотографии"
           ></button>
         </section>
@@ -192,7 +192,7 @@
         <button
           class="button card__delete-button"
           type="button"
-          name="deleteButton"
+          name="delete-button"
           title="Удалить"
         ></button>
         <div class="card__image-container">
@@ -203,7 +203,7 @@
           <button
             type="button"
             class="button card__like-button"
-            name="likeButton"
+            name="like-button"
             title="Нравится!"
           ></button>
         </div>
@@ -211,6 +211,5 @@
     </template>
     <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
-    <script src="./scripts/playground.js"></script>
   </body>
 </html>
