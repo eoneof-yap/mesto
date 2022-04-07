@@ -45,15 +45,16 @@ function renderCard(data, container) {
 }
 function createCard(data) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__image');
 
   // карточка — самостоятельный блок, должна работать в любом месте страницы
   cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-  cardElement.querySelector('.card__image').addEventListener('click', createPreview);
+  cardImage.addEventListener('click', createPreview);
   cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
 
   cardElement.querySelector('.card__title').textContent = data.name;
-  cardElement.querySelector('.card__image').setAttribute('alt', data.name);
-  cardElement.querySelector('.card__image').setAttribute('src', data.link);
+  cardImage.setAttribute('alt', data.name);
+  cardImage.setAttribute('src', data.link);
   return cardElement;
 }
 
