@@ -1,4 +1,5 @@
-﻿const validationTargets = {
+﻿//INPUT DATA
+const validationTargets = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-button',
@@ -8,6 +9,7 @@
   activeErrorClass: 'form__input-error-hint_active',
 };
 
+// MAIN LOGIC
 function showError(form, inputItem, errorMessage, targets) {
   // console.log('input is Invalid showError');
   const errorHint = form.querySelector(`.${inputItem.id}-error`);
@@ -32,14 +34,14 @@ function isValidInput(form, inputItem, targets) {
   }
 }
 
-function isValidForm(inputsList) {
+function isInvalidForm(inputsList) {
   return inputsList.some(function (inputItem) {
     return !inputItem.validity.valid;
   });
 }
 
 function toggleButtonState(inputsList, submitButton, targets) {
-  if (isValidForm(inputsList)) {
+  if (isInvalidForm(inputsList)) {
     submitButton.classList.add(targets.disabledButtonClass);
   } else {
     submitButton.classList.remove(targets.disabledButtonClass);
@@ -65,4 +67,5 @@ function enableValidation(targets) {
   });
 }
 
+// ENTRY POINT
 enableValidation(validationTargets);
