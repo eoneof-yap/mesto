@@ -30,22 +30,6 @@ const newProfileInfoInput = editingForm.elements['about-input'];
 const newPhotoNameInput = addingForm.elements['photo-name-input'];
 const newPhotoLinkInput = addingForm.elements['photo-link-input'];
 
-//  ERROR HINTS
-const profileNameErrorHint = editingForm.querySelector(`.${newProfileNameInput.id}-error`);
-const profileInfoErrorHint = editingForm.querySelector(`.${newProfileInfoInput.id}-error`);
-const photoNameErrorHint = addingForm.querySelector(`.${newPhotoNameInput.id}-error`);
-const photoLinkErrorHint = addingForm.querySelector(`.${newPhotoLinkInput.id}-error`);
-
-// TODO попробовать получить массив элементов и выбрать нужные (по типу???)
-// const inputs = editingForm.elements;
-// Array.from(inputs, (item) => {
-//   console.log(item.id);
-// });
-
-// FOMS' BUTTONS
-const editingFormSubmitButton = editingForm.querySelector('.form__submit-button');
-const adingFormSubmitButton = addingForm.querySelector('.form__submit-button');
-
 // DATA
 const initialCards = [
   {
