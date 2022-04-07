@@ -20,6 +20,10 @@ const editProfilePopup = page.querySelector('.popup_type_edit');
 const addPhotoPopup = page.querySelector('.popup_type_add');
 const previewPhotoPopup = page.querySelector('.popup_type_preview');
 
+// POPUPS BUTTONS
+const editProfileSubmitButton = editProfilePopup.querySelector('.form__submit-button');
+const addPhotoSubmintButton = addPhotoPopup.querySelector('.form__submit-button');
+
 // FORMS
 const editingForm = document.forms['form-edit'];
 const addingForm = document.forms['form-add'];
@@ -61,6 +65,16 @@ function deleteCard(evt) {
   evt.target.closest('.card').remove();
 }
 
+function disableButton(button) {
+  button.classList.add('button_disabled');
+  button.setAttribute('disabled', 'disabled');
+}
+
+function enableButton(button) {
+  button.classList.remove('button_disabled');
+  button.removeAttribute('disabled');
+}
+
 // popups
 function createPreview(evt) {
   previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
@@ -94,6 +108,7 @@ function editProfilePopupHandler(evt) {
   newProfileNameInput.value = currentProfileName.textContent;
   newProfileInfoInput.value = currentProfileInfo.textContent;
   openPopup(editProfilePopup);
+  enableButton(editProfileSubmitButton);
 }
 
 function editingFormSubmitHandler(evt) {
@@ -101,6 +116,7 @@ function editingFormSubmitHandler(evt) {
   currentProfileName.textContent = newProfileNameInput.value;
   currentProfileInfo.textContent = newProfileInfoInput.value;
   closePopup(editProfilePopup);
+  disableButton(editProfileSubmitButton);
 }
 
 function addPhotoPopupHandler(evt) {
@@ -120,6 +136,7 @@ function addingFormSubmitHandler(evt) {
   );
   closePopup(addPhotoPopup);
   evt.currentTarget.reset();
+  disableButton(addPhotoSubmintButton);
 }
 
 // ENTRY POINT

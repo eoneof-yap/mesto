@@ -43,14 +43,17 @@ function isInvalidForm(inputsList) {
 function toggleButtonState(inputsList, submitButton, targets) {
   if (isInvalidForm(inputsList)) {
     submitButton.classList.add(targets.disabledButtonClass);
+    submitButton.setAttribute('disabled', 'disabled');
   } else {
     submitButton.classList.remove(targets.disabledButtonClass);
+    submitButton.removeAttribute('disabled', 'disabled');
   }
 }
 
 function setEventListeners(form, targets) {
   const inputsList = Array.from(form.querySelectorAll(targets.inputSelector));
   const submitButton = form.querySelector(targets.submitButtonSelector);
+  toggleButtonState(inputsList, submitButton, targets);
 
   inputsList.forEach(function (inputItem) {
     inputItem.addEventListener('input', function () {
