@@ -105,7 +105,7 @@ function closePopupViaEscHandler(evt) {
   }
 }
 
-function editProfilePopupHandler(evt) {
+function editProfilePopupHandler() {
   newProfileNameInput.value = currentProfileName.textContent;
   newProfileInfoInput.value = currentProfileInfo.textContent;
   openPopup(editProfilePopup);
@@ -120,7 +120,7 @@ function editingFormSubmitHandler(evt) {
   disableButton(editProfileSubmitButton);
 }
 
-function addPhotoPopupHandler(evt) {
+function addPhotoPopupHandler() {
   // форма изначально пуста
   openPopup(addPhotoPopup);
 }
