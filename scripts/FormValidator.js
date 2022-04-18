@@ -1,0 +1,3 @@
+﻿class Formvalidator {
+  constructor() {}
+}

@@ -1,4 +1,16 @@
-﻿// DOC
+﻿import { initialCards } from './cards.js';
+
+export const cardSelectors = {
+  template: '#card-template',
+  card: '.card',
+  image: '.card__image',
+  title: '.card__title',
+  deleteButton: '.card__delete-button',
+  likeButton: '.card__like-button',
+  photoGrid: '.photo-grid',
+};
+
+// DOC
 const page = document.querySelector('.page');
 const photoGrid = page.querySelector('.photo-grid');
 
@@ -159,6 +171,6 @@ popupBackdrop.forEach(function (item) {
 });
 
 // показываем карточки по умолчанию
-initialCards.forEach(function (card) {
-  renderCard(card, photoGrid);
-});
+// initialCards.forEach(function (card) {
+//   renderCard(card, photoGrid);
+// });

@@ -1,5 +1,5 @@
 ﻿// DATA
-const initialCards = [
+export const initialCards = [
   {
     name: 'Пятигорск',
     link: './images/pyatigorks.jpeg',
