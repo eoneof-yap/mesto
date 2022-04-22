@@ -1,21 +1,20 @@
 ﻿import { initialCards } from './cards.js';
+import { Card } from './Card.js';
+export { createPreview, cardSelectors };
 
-export const cardSelectors = {
-  template: '#card-template',
+const cardSelectors = {
+  templateID: '#card-template',
   card: '.card',
   image: '.card__image',
   title: '.card__title',
   deleteButton: '.card__delete-button',
   likeButton: '.card__like-button',
-  photoGrid: '.photo-grid',
+  cardsGrid: '.cards-grid',
+  activeLike: 'card__like-button_active',
 };
 
 // DOC
 const page = document.querySelector('.page');
-const photoGrid = page.querySelector('.photo-grid');
-
-// TEMPLATES
-const cardTemplate = document.querySelector('#card-template').content;
 
 // EDITABLES
 const currentProfileName = page.querySelector('.profile__name');
@@ -30,7 +29,7 @@ const popupBackdrop = page.querySelectorAll('.popup__backdrop');
 // POPUPS
 const editProfilePopup = page.querySelector('.popup_type_edit');
 const addPhotoPopup = page.querySelector('.popup_type_add');
-const previewPhotoPopup = page.querySelector('.popup_type_preview');
+const previewImagePopup = page.querySelector('.popup_type_preview');
 
 // POPUPS BUTTONS
 const editProfileSubmitButton = editProfilePopup.querySelector('.form__submit-button');
@@ -51,33 +50,6 @@ function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
 
-// cards
-function renderCard(data, container) {
-  container.prepend(createCard(data));
-}
-function createCard(data) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-
-  // карточка — самостоятельный блок, должна работать в любом месте страницы
-  cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-  cardImage.addEventListener('click', createPreview);
-  cardElement.querySelector('.card__like-button').addEventListener('click', toggleLike);
-
-  cardElement.querySelector('.card__title').textContent = data.name;
-  cardImage.setAttribute('alt', data.name);
-  cardImage.setAttribute('src', data.link);
-  return cardElement;
-}
-
-function toggleLike(evt) {
-  evt.target.classList.toggle('card__like-button_active');
-}
-
-function deleteCard(evt) {
-  evt.target.closest('.card').remove();
-}
-
 function disableButton(button) {
   button.classList.add('button_disabled');
   button.setAttribute('disabled', 'disabled');
@@ -90,10 +62,10 @@ function enableButton(button) {
 
 // popups
 function createPreview(evt) {
-  previewPhotoPopup.querySelector('.preview__photo').setAttribute('src', evt.target.src);
-  previewPhotoPopup.querySelector('.preview__photo').setAttribute('alt', evt.target.alt);
-  previewPhotoPopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
-  openPopup(previewPhotoPopup);
+  previewImagePopup.querySelector('.preview__image').setAttribute('src', evt.target.src);
+  previewImagePopup.querySelector('.preview__image').setAttribute('alt', evt.target.alt);
+  previewImagePopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  openPopup(previewImagePopup);
 }
 
 function openPopup(popup) {
@@ -139,13 +111,15 @@ function addPhotoPopupHandler() {
 
 function addingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  renderCard(
-    {
-      name: newPhotoNameInput.value,
-      link: newPhotoLinkInput.value,
-      alt: newPhotoNameInput.value,
-    },
-    photoGrid,
+  renderElements(
+    [
+      {
+        name: newPhotoNameInput.value,
+        link: newPhotoLinkInput.value,
+        alt: newPhotoNameInput.value,
+      },
+    ],
+    cardSelectors,
   );
   closePopup(addPhotoPopup);
   evt.currentTarget.reset();
@@ -165,12 +139,16 @@ popupCloseButton.forEach(function (item) {
   item.addEventListener('click', closePopupHandler);
 });
 
-// закрыть попап кликом на фон
 popupBackdrop.forEach(function (item) {
   item.addEventListener('click', closePopupHandler);
 });
 
 // показываем карточки по умолчанию
-// initialCards.forEach(function (card) {
-//   renderCard(card, photoGrid);
-// });
+function renderElements(data, selectors) {
+  data.forEach((element) => {
+    const card = new Card(element, selectors);
+    card.renderCard();
+  });
+}
+
+renderElements(initialCards, cardSelectors);
