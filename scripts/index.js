@@ -101,7 +101,7 @@ function enableValidation({ formSelector, ...targets }) {
   const formsList = Array.from(document.querySelectorAll(formSelector));
   formsList.forEach((form) => {
     const validator = new FormValidator(form, targets);
-    validator.validateForm();
+    validator.enableValidation();
   });
 }
 

@@ -10,8 +10,7 @@ class FormValidator {
     this._activeError = targets.activeErrorClass;
   }
 
-  validateForm() {
-    // this._toggleButtonState(inputsList, submitButton);
+  enableValidation() {
     this._setEventListeners();
   }
   _setEventListeners() {
