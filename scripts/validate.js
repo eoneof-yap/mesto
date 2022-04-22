@@ -11,7 +11,6 @@ const validationTargets = {
 
 // MAIN LOGIC
 function showError(form, inputItem, errorMessage, targets) {
-  // console.log('input is Invalid showError');
   const errorHint = form.querySelector(`.${inputItem.id}-error`);
   errorHint.textContent = errorMessage;
   errorHint.classList.add(targets.activeErrorClass);
@@ -19,7 +18,6 @@ function showError(form, inputItem, errorMessage, targets) {
 }
 
 function hideError(form, inputItem, targets) {
-  // console.log('input is Valid hideError');
   const errorHint = form.querySelector(`.${inputItem.id}-error`);
   inputItem.classList.remove(targets.inputErrorClass);
   errorHint.classList.remove(targets.activeErrorClass);

@@ -1,6 +1,7 @@
-﻿import { initialCards } from './cards.js';
+﻿import { initialCards } from './cards.js'; // импортируем начальный список карточек
 import { Card } from './Card.js';
-export { createPreview, cardSelectors };
+import { FormValidator } from './FormValidator.js';
+export { createPreview, cardSelectors, validationTargets };
 
 const cardSelectors = {
   templateID: '#card-template',
@@ -11,6 +12,16 @@ const cardSelectors = {
   likeButton: '.card__like-button',
   cardsGrid: '.cards-grid',
   activeLike: 'card__like-button_active',
+};
+
+const validationTargets = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  disabledButtonClass: 'button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorHintClass: '.form__input-error-hint',
+  activeErrorClass: 'form__input-error-hint_active',
 };
 
 // DOC
@@ -78,6 +89,22 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
+function renderElements(data, selectors) {
+  data.forEach((element) => {
+    // Card.js
+    const card = new Card(element, selectors);
+    card.renderCard();
+  });
+}
+
+function enableValidation({ formSelector, ...targets }) {
+  const formsList = Array.from(document.querySelectorAll(formSelector));
+  formsList.forEach((form) => {
+    const validator = new FormValidator(form, targets);
+    validator.validateForm();
+  });
+}
+
 // HANDLERS
 function closePopupHandler(evt) {
   closePopup(evt.target.closest('.popup_opened'));
@@ -126,8 +153,6 @@ function addingFormSubmitHandler(evt) {
   disableButton(addPhotoSubmintButton);
 }
 
-// ENTRY POINT
-
 // listeners
 editProfileButton.addEventListener('click', editProfilePopupHandler);
 addPhotoButton.addEventListener('click', addPhotoPopupHandler);
@@ -143,12 +168,6 @@ popupBackdrop.forEach(function (item) {
   item.addEventListener('click', closePopupHandler);
 });
 
-// показываем карточки по умолчанию
-function renderElements(data, selectors) {
-  data.forEach((element) => {
-    const card = new Card(element, selectors);
-    card.renderCard();
-  });
-}
-
+// ENTRY POINT
 renderElements(initialCards, cardSelectors);
+enableValidation(validationTargets);

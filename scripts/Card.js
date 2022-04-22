@@ -56,6 +56,7 @@ class Card {
   }
 
   _handlePreview(evt) {
+    // from index.js
     createPreview(evt);
   }
 }
