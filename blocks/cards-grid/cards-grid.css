@@ -1,4 +1,4 @@
-﻿.photo-grid {
+﻿.cards-grid {
   margin: 0 auto;
   width: 100%;
   flex-direction: column;
@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 375px) {
-  .photo-grid {
+  .cards-grid {
     padding: 18px 0;
     grid-template-columns: repeat(auto-fill, minmax(282px, 282px));
   }

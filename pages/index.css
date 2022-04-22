@@ -57,14 +57,14 @@
 
 /* PHOTO PREVIEW */
 @import url('../blocks/preview/preview.css');
-@import url('../blocks/preview/__photo/preview__photo.css');
+@import url('../blocks/preview/__image/preview__image.css');
 @import url('../blocks/preview/__caption/preview__caption.css');
 
 /* MAIN */
 @import url('../blocks/main/main.css');
 
-/* PHOTO-GRID */
-@import url('../blocks/photo-grid/photo-grid.css');
+/* cards-grid */
+@import url('../blocks/cards-grid/cards-grid.css');
 @import url('../blocks/card/card.css');
 @import url('../blocks/card/__image-container/card__image-container.css');
 @import url('../blocks/card/__image/card__image.css');
