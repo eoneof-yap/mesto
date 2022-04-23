@@ -5,7 +5,7 @@ class Card {
   constructor(data, selectors) {
     this._name = data.name;
     this._link = data.link;
-    this._template = selectors.templateID;
+    this._template = document.querySelector(selectors.templateID);
     this._card = selectors.card;
     this._image = selectors.image;
     this._title = selectors.title;
@@ -20,7 +20,7 @@ class Card {
   }
 
   _createCard() {
-    const cardElement = this._getTemplate();
+    const cardElement = this._cloneTemplate();
     this._setEventListeners(cardElement);
     cardElement.querySelector(this._title).textContent = this._name;
     this._image = cardElement.querySelector(this._image);
@@ -29,9 +29,8 @@ class Card {
     return cardElement;
   }
 
-  _getTemplate() {
-    const cardTemplate = document.querySelector(this._template).content.querySelector(this._card).cloneNode(true);
-    return cardTemplate;
+  _cloneTemplate() {
+    return this._template.content.querySelector(this._card).cloneNode(true);
   }
 
   _setEventListeners(element) {
