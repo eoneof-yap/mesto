@@ -15,7 +15,6 @@ const cardSelectors = {
 };
 
 const validationTargets = {
-  formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-button',
   disabledButtonClass: 'button_disabled',
@@ -42,10 +41,6 @@ const editProfilePopup = page.querySelector('.popup_type_edit');
 const addPhotoPopup = page.querySelector('.popup_type_add');
 const previewImagePopup = page.querySelector('.popup_type_preview');
 
-// POPUPS BUTTONS
-const editProfileSubmitButton = editProfilePopup.querySelector('.form__submit-button');
-const addPhotoSubmintButton = addPhotoPopup.querySelector('.form__submit-button');
-
 // FORMS
 const editingForm = document.forms['form-edit'];
 const addingForm = document.forms['form-add'];
@@ -59,16 +54,6 @@ const newPhotoLinkInput = addingForm.elements['photo-link-input'];
 // FUNCTIONS
 function preventDefaultBehavior(evt) {
   evt.preventDefault();
-}
-
-function disableButton(button) {
-  button.classList.add('button_disabled');
-  button.setAttribute('disabled', 'disabled');
-}
-
-function enableButton(button) {
-  button.classList.remove('button_disabled');
-  button.removeAttribute('disabled');
 }
 
 // popups
@@ -97,12 +82,16 @@ function renderElements(data, selectors) {
   });
 }
 
-function enableValidation({ formSelector, ...targets }) {
-  const formsList = Array.from(document.querySelectorAll(formSelector));
-  formsList.forEach((form) => {
-    const validator = new FormValidator(form, targets);
-    validator.enableValidation();
-  });
+function enableValidation(form) {
+  // from FormValidator.js
+  const validator = new FormValidator(form, validationTargets);
+  validator.enableValidation();
+}
+
+function disableValidation(form) {
+  // from FormValidator.js
+  const validator = new FormValidator(form, validationTargets);
+  validator.disableValidation();
 }
 
 // HANDLERS
@@ -117,10 +106,11 @@ function closePopupViaEscHandler(evt) {
 }
 
 function editProfilePopupHandler() {
+  disableValidation(editingForm);
   newProfileNameInput.value = currentProfileName.textContent;
   newProfileInfoInput.value = currentProfileInfo.textContent;
   openPopup(editProfilePopup);
-  enableButton(editProfileSubmitButton);
+  enableValidation(editingForm);
 }
 
 function editingFormSubmitHandler(evt) {
@@ -128,12 +118,13 @@ function editingFormSubmitHandler(evt) {
   currentProfileName.textContent = newProfileNameInput.value;
   currentProfileInfo.textContent = newProfileInfoInput.value;
   closePopup(editProfilePopup);
-  disableButton(editProfileSubmitButton);
 }
 
 function addPhotoPopupHandler() {
+  disableValidation(addingForm);
   // форма изначально пуста
   openPopup(addPhotoPopup);
+  enableValidation(addingForm);
 }
 
 function addingFormSubmitHandler(evt) {
@@ -150,7 +141,6 @@ function addingFormSubmitHandler(evt) {
   );
   closePopup(addPhotoPopup);
   evt.currentTarget.reset();
-  disableButton(addPhotoSubmintButton);
 }
 
 // listeners
@@ -170,4 +160,3 @@ popupBackdrop.forEach(function (item) {
 
 // ENTRY POINT
 renderElements(initialCards, cardSelectors);
-enableValidation(validationTargets);
