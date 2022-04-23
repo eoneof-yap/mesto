@@ -43,7 +43,8 @@ class Card {
     });
 
     element.querySelector(this._image).addEventListener('click', (evt) => {
-      this._handlePreview(evt);
+      // from index.js
+      createPreview(evt);
     });
   }
 
@@ -53,10 +54,5 @@ class Card {
 
   _handleLike(evt) {
     evt.target.classList.toggle(this._activeLike);
-  }
-
-  _handlePreview(evt) {
-    // from index.js
-    createPreview(evt);
   }
 }
