@@ -1,4 +1,4 @@
-﻿import { initialCards } from './cards.js'; // импортируем начальный список карточек
+﻿import { initialCards } from './initialCards.js'; // импортируем начальный список карточек
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 export { createPreview, cardSelectors, validationTargets };
