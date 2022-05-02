@@ -17,7 +17,7 @@ module.exports = {
       prefix: '',
     }),
     new MiniCssExtractPlugin({
-      filename: 'main.[fullhash].css',
+      filename: 'main.css',
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
@@ -29,6 +29,7 @@ module.exports = {
     compress: true,
     port: 8080,
     open: true,
+    watchFiles: './src/index.html',
   },
   devtool: 'inline-source-map',
   module: {
