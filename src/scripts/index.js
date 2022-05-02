@@ -1,7 +1,8 @@
-﻿import { initialCards } from './initialCards.js'; // импортируем начальный список карточек
+﻿﻿import { initialCards } from './initialCards.js'; // импортируем начальный список карточек
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 export { createPreview, cardSelectors, validationTargets };
+import '../pages/index.css';
 
 const cardSelectors = {
   templateID: '#card-template',
@@ -60,7 +61,9 @@ function preventDefaultBehavior(evt) {
 function createPreview(evt) {
   previewImagePopup.querySelector('.preview__image').setAttribute('src', evt.target.src);
   previewImagePopup.querySelector('.preview__image').setAttribute('alt', evt.target.alt);
-  previewImagePopup.querySelector('.preview__caption').textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
+  previewImagePopup.querySelector('.preview__caption').textContent = evt.target
+    .closest('.card')
+    .querySelector('.card__title').textContent;
   openPopup(previewImagePopup);
 }
 

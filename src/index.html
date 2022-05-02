@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="shortcut icon" href="./images/mesto-favicon.svg" />
     <title>Mesto Russia</title>
   </head>
 
@@ -148,7 +146,7 @@
           <div class="profile__container">
             <img
               class="profile__photo"
-              src="./images/profile__photo.jpg"
+              src="<%=require('./images/profile__photo.jpg')%>"
               alt="Фотография пользователя."
             />
             <div class="profile__main">
@@ -209,6 +207,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
