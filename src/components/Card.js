@@ -1,4 +1,4 @@
-﻿﻿import { createPreview } from './index.js';
+﻿﻿import { createPreview } from '../pages/index.js';
 export { Card };
 
 class Card {
