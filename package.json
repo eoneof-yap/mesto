@@ -1,15 +1,15 @@
 {
-  "name": "wp",
-  "version": "1.0.0",
-  "description": "",
+  "name": "project-mesto",
+  "version": "8.0.0",
+  "description": "Interactive webpage built with vanilla html/css/js",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve"
   },
   "keywords": [],
-  "author": "eoneof",
-  "license": "ISC",
+  "author": "Nikolay Ivanov",
+  "license": "",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
