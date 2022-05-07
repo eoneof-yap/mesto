@@ -1,22 +1,35 @@
 ﻿import Popup from './Popup.js';
-import { popups } from '../utils/constants.js';
+import { forms, inputTypes } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitForm) {
+  constructor(popupSelector, formSubmitHandler) {
     super(popupSelector);
-    this._popup = document.querySelector(popupSelector);
+    this._formSubmitHandler = formSubmitHandler;
   }
 
   // open() {} // inherit
 
   close() {
+    this._popup.querySelector(forms.form).reset();
     super.close();
-    // TODO reset()
   }
 
   _seteventListeners() {
     super._seteventListeners();
-    // TODO form.addEventListener('submit', ()=>{})
+    this._popup.querySelector(forms.form).addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      console.log(this._popup.querySelector(forms.form));
+      this._formSubmitHandler(this._getInputValues());
+      this.close();
+    });
+  }
+
+  _getInputValues() {
+    const item = {
+      name: inputTypes.photoName.value,
+      link: inputTypes.photoLink.value,
+    };
+    return item;
   }
 
   // _handleEscClose(evt) {} // inherit

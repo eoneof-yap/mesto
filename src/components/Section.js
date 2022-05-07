@@ -1,13 +1,13 @@
 ﻿export default class Section {
-  /*
-    Коструктор принимает два параметра:
-    1. Объект с двумя ключами: начальный список карточек и функцию по отрисовке карточки
-    2. Селектор блока карточек на странице
+  /*  На входе:
+      1. Объект с двумя ключами: начальный список карточек
+         и функция по отрисовке карточки из `index.js`
+      2. Селектор блока карточек на странице
   */
-  constructor({ cardData, renderer }, containerSelector) {
-    this._items = cardData;
+  constructor({ items, renderer }, selector) {
+    this._items = items;
     this._renderer = renderer;
-    this._container = document.querySelector(containerSelector);
+    this._container = document.querySelector(selector);
   }
 
   addNewItem(item) {

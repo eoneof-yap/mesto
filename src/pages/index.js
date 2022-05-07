@@ -1,5 +1,4 @@
 ﻿﻿import { FormValidator } from '../components/FormValidator.js';
-export { cardSelectors, formElements };
 
 // -----------------------------------------------------------------------------
 // REFACTOR
@@ -20,14 +19,25 @@ import {
   formElements,
 } from '../utils/constants.js';
 
-// генерируем начальный список карточек
-// prettier-ignore
+export { cardSelectors, formElements };
+
 const initialCardsList = new Section(
   {
-    cardData: initialCards,
+    items: initialCards,
+    /*
+      `Section.js` и `Card.js` обмениваются данными через `renderer`
+      `item` -- это элемент списка `initialCards`, он извлекается внутри `Section.js`
+      и передается в `Card.js`
+    */
     renderer: (item) => {
-      // item извлекается из initialCards внутри Section.js
+      renderer(item);
+    },
+  },
+  cardSelectors.cardsGrid,
+);
 
+// prettier-ignore
+const renderer =  (item) => {
       const card = new Card(
         {
           previewData: item,
@@ -36,24 +46,29 @@ const initialCardsList = new Section(
             preview.open();
           },
         },
-        cardSelectors,
+        cardSelectors, // Card
       );
-      card.renderCard();
-    },
-  },
-  cardSelectors.cardsGrid,
-);
+      // card.renderCard(); // Section
+      console.log('renderCard')
+    }
+
+const formSubmitHandler = (item) => {
+  console.log(item);
+  renderer(item);
+};
 
 // LISTENERS
-
-// page buttons
-pageElements.buttons.edit.addEventListener('click', () => {
-  const editPopup = new PopupWithForm(popups.type.edit);
+pageElements.buttons.edit.addEventListener('click', (evt) => {
+  const editPopup = new PopupWithForm(popups.type.edit, () => {
+    formSubmitHandler(evt);
+  });
   editPopup.open();
 });
 
-pageElements.buttons.add.addEventListener('click', () => {
-  const addPopup = new PopupWithForm(popups.type.add);
+pageElements.buttons.add.addEventListener('click', (evt) => {
+  const addPopup = new PopupWithForm(popups.type.add, () => {
+    formSubmitHandler(evt);
+  });
   addPopup.open();
 });
 
@@ -65,50 +80,7 @@ initialCardsList.addInitialItems();
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-// FUNCTIONS
-function preventDefaultBehavior(evt) {
-  evt.preventDefault();
-}
-
-// popup
-function createPreview(evt) {
-  previewImagepopups.querySelector('.preview__image').setAttribute('src', evt.target.src);
-  previewImagepopups.querySelector('.preview__image').setAttribute('alt', evt.target.alt);
-  previewImagepopups.querySelector('.preview__caption').textContent = evt.target
-    .closest('.card')
-    .querySelector('.card__title').textContent;
-  openPopup(previewImagePopup);
-}
-
-// function openPopup(popup) {
-//   document.addEventListener('keydown', closePopupViaEscHandler);
-//   popups.classList.add('popup_opened');
-// }
-
-// function closePopup(popup) {
-//   document.removeEventListener('keydown', closePopupViaEscHandler);
-//   popups.classList.remove('popup_opened');
-// }
-
-// function renderElements(data, selectors) {
-//   data.forEach((element) => {
-//     // Card.js
-//     const card = new Card(element, selectors);
-//     card.renderCard();
-//   });
-// }
+// -----------------------------------------------------------------------------
 
 function enableValidation(form) {
   // from FormValidator.js
@@ -121,31 +93,6 @@ function disableValidation(form) {
   const validator = new FormValidator(form, formElements);
   validator.disableValidation();
 }
-
-// HANDLERS
-function closePopupHandler(evt) {
-  closePopup(evt.target.closest('.popup_opened'));
-}
-
-// function closePopupViaEscHandler(evt) {
-//   if (evt.key === 'Escape') {
-//     closePopup(page.querySelector('.popup_opened'));
-//   }
-// }
-
-// function editingFormSubmitHandler(evt) {
-//   preventDefaultBehavior(evt);
-//   pageElements.profile.name.textContent = inputTypes.profileName.value;
-//   pageElements.profile.info.textContent = inputTypes.profileInfo.value;
-//   closePopup(popups.type.edit);
-// }
-
-// function popups.type.addHandler() {
-//   disableValidation(addingForm);
-//   // форма изначально пуста
-//   openPopup(popups.type.add);
-//   enableValidation(addingForm);
-// }
 
 function addingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
@@ -162,21 +109,3 @@ function addingFormSubmitHandler(evt) {
   closePopup(popups.type.add);
   evt.currentTarget.reset();
 }
-
-// listeners
-// editProfileButton.addEventListener('click', popups.type.editHandler);
-// addPhotoButton.addEventListener('click', popups.type.addHandler);
-
-// forms.type.edit.addEventListener('submit', editingFormSubmitHandler);
-// forms.type.add.addEventListener('submit', addingFormSubmitHandler);
-
-// popupElements.closeButton.forEach(function (item) {
-//   item.addEventListener('click', closePopupHandler);
-// });
-
-// popupElements.backdrop.forEach(function (item) {
-//   item.addEventListener('click', closePopupHandler);
-// });
-
-// ENTRY POINT
-// renderElements(initialCards, cardSelectors); // REFACTORED
