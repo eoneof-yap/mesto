@@ -6,30 +6,6 @@ import image_4 from '../images/dombay-yak.jpeg';
 import image_5 from '../images/gora-mashuk.jpeg';
 import image_6 from '../images/kabardino-balkariya.jpeg';
 
-export const page = document.querySelector('.page');
-
-export const pageElements = {
-  profile: {
-    name: page.querySelector('.profile__name'),
-    info: page.querySelector('.profile__about'),
-  },
-  buttons: {
-    edit: page.querySelector('.profile__edit-button'),
-    add: page.querySelector('.profile__add-button'),
-  },
-};
-
-export const cardSelectors = {
-  templateID: '#card-template',
-  cardsGrid: '.cards-grid',
-  card: '.card',
-  image: '.card__image',
-  title: '.card__title',
-  deleteButton: '.card__delete-button',
-  likeButton: '.card__like-button',
-  activeLike: 'card__like-button_active',
-};
-
 export const initialCards = [
   {
     name: 'Пятигорск',
@@ -57,22 +33,49 @@ export const initialCards = [
   },
 ];
 
-export const popup = {
+const page = document.querySelector('.page');
+
+export const pageElements = {
+  profile: {
+    name: page.querySelector('.profile__name'),
+    info: page.querySelector('.profile__about'),
+  },
+  buttons: {
+    edit: page.querySelector('.profile__edit-button'),
+    add: page.querySelector('.profile__add-button'),
+  },
+};
+
+export const cardSelectors = {
+  templateID: '#card-template',
+  cardsGrid: '.cards-grid',
+  card: '.card',
+  image: '.card__image',
+  title: '.card__title',
+  deleteButton: '.card__delete-button',
+  likeButton: '.card__like-button',
+  activeLike: 'card__like-button_active',
+};
+
+export const popups = {
   type: {
     edit: '.popup_type_edit',
     add: '.popup_type_add',
     preview: '.popup_type_preview',
-  },
-  opened: 'popup_opened',
-  elements: {
-    closeButton: '.popup__close-button',
-    backdrop: '.popup__backdrop',
+    opened: 'popup_opened',
   },
 };
 
+export const popupElements = {
+  closeButton: '.popup__close-button',
+  backdrop: '.popup__backdrop',
+};
+
 export const forms = {
-  editProfile: document.forms['form-edit'],
-  addPhoto: document.forms['form-add'],
+  type: {
+    edit: document.forms['form-edit'],
+    add: document.forms['form-add'],
+  },
 };
 
 export const formElements = {
@@ -84,9 +87,9 @@ export const formElements = {
   activeError: 'form__input-error-hint_active',
 };
 
-export const inputs = {
-  newProfileName: forms.editProfile.elements['name-input'],
-  newProfileInfo: forms.editProfile.elements['about-input'],
-  newPhotoName: forms.addPhoto.elements['photo-name-input'],
-  newPhotoLink: forms.addPhoto.elements['photo-link-input'],
+export const inputTypes = {
+  profileName: forms.type.edit.elements['name-input'],
+  profileInfo: forms.type.edit.elements['about-input'],
+  photoName: forms.type.add.elements['photo-name-input'],
+  photoLink: forms.type.add.elements['photo-link-input'],
 };

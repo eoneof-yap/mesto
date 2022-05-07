@@ -1,8 +1,9 @@
-﻿﻿import { createPreview } from '../pages/index.js';
-export default class Card {
-  constructor(data, selectors) {
-    this._name = data.name;
-    this._link = data.link;
+﻿﻿export default class Card {
+  constructor({ previewData, previewer }, selectors) {
+    this._name = previewData.name;
+    this._link = previewData.link;
+
+    this._previewer = previewer;
 
     this._template = document.querySelector(selectors.templateID);
     this._cardsGrid = selectors.cardsGrid;
@@ -21,7 +22,7 @@ export default class Card {
   _createCard() {
     const cardElement = this._cloneTemplate();
     this._setEventListeners(cardElement);
-    cardElement.querySelector(this._title).textContent = this._name;
+    this._title = cardElement.querySelector(this._title).textContent = this._name;
     this._image = cardElement.querySelector(this._image);
     this._image.setAttribute('alt', this._name);
     this._image.setAttribute('src', this._link);
@@ -40,9 +41,8 @@ export default class Card {
       this._handleLike(evt);
     });
 
-    element.querySelector(this._image).addEventListener('click', (evt) => {
-      // from index.js
-      createPreview(evt);
+    element.querySelector(this._image).addEventListener('click', () => {
+      this._previewer(this._image, this._title);
     });
   }
 

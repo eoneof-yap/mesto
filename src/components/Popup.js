@@ -1,17 +1,17 @@
-﻿import { popup } from '../utils/constants.js';
+﻿import { popups, popupElements } from '../utils/constants.js';
 
 export default class Popup {
-  constructor(popupelector) {
-    this._popup = document.querySelector(popupelector);
+  constructor(popupSelector) {
+    this._popup = document.querySelector(popupSelector);
   }
 
   open() {
     this._seteventListeners();
-    this._popup.classList.add(popup.opened);
+    this._popup.classList.add(popups.type.opened);
   }
 
   close() {
-    this._popup.classList.remove(popup.opened);
+    this._popup.classList.remove(popups.type.opened);
   }
 
   _seteventListeners() {
@@ -19,17 +19,13 @@ export default class Popup {
       querySelector() используется внутри класса
       т.к. у каждого попапа свои элементы
     */
-    this._popup
-      .querySelector(popup.elements.closeButton)
-      .addEventListener('click', (evt) => {
-        this.close(evt);
-      });
+    this._popup.querySelector(popupElements.closeButton).addEventListener('click', () => {
+      this.close();
+    });
 
-    this._popup
-      .querySelector(popup.elements.backdrop)
-      .addEventListener('click', (evt) => {
-        this.close(evt);
-      });
+    this._popup.querySelector(popupElements.backdrop).addEventListener('click', () => {
+      this.close();
+    });
 
     document.addEventListener('keydown', (evt) => {
       this._handleEscClose(evt);
