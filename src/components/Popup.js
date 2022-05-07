@@ -1,6 +1,6 @@
 ﻿import { popups, popupElements } from '../utils/constants.js';
 
-class Popup {
+export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
   }
@@ -40,36 +40,3 @@ class Popup {
     }
   }
 }
-
-class PopupWithForm extends Popup {
-  constructor(popupSelector, submitForm) {
-    super(popupSelector);
-    this._popup = document.querySelector(popupSelector);
-  }
-
-  // open() {} // inherit
-
-  close() {
-    this._popup.classList.remove(popups.opened);
-    // TODO reset()
-  }
-
-  _seteventListeners() {
-    super._seteventListeners();
-    // TODO form.addEventListener('submit', ()=>{})
-  }
-
-  // _handleEscClose(evt) {} // inherit
-}
-
-class PopupWithImage extends Popup {
-  constructor(popupSelector, image, title) {
-    super(popupSelector);
-    this.image = image;
-    this._title = title;
-  }
-
-  // open() {} // inherit
-}
-
-export { Popup, PopupWithImage, PopupWithForm };
