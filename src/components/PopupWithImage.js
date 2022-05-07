@@ -10,11 +10,9 @@ export default class PopupWithImage extends Popup {
   open() {
     console.log(this._image, this._title);
 
-    // this._popup.querySelector('.preview__image').setAttribute('src', evt.target.src);
-    // this._popup.querySelector('.preview__image').setAttribute('alt', evt.target.alt);
-    // this._popup.querySelector('.preview__caption').textContent = evt.target
-    //   .closest('.card')
-    //   .querySelector('.card__title').textContent;
+    this._popup.querySelector('.preview__image').setAttribute('src', this._image.src);
+    this._popup.querySelector('.preview__image').setAttribute('alt', this._title.alt);
+    this._popup.querySelector('.preview__caption').textContent = this._title;
 
     super.open();
   }
