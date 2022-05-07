@@ -1,5 +1,5 @@
 ﻿﻿import { FormValidator } from '../components/FormValidator.js';
-export { createPreview, cardSelectors, validationTargets };
+export { createPreview, cardSelectors, formElements };
 
 // -----------------------------------------------------------------------------
 // REFACTOR
@@ -7,7 +7,17 @@ export { createPreview, cardSelectors, validationTargets };
 import '../pages/index.css';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-import { initialCards, cardSelectors } from '../utils/constants.js';
+import { Popup, PopupWithImage, PopupWithForm } from '../components/Popup.js';
+import {
+  initialCards,
+  cardSelectors,
+  editProfileButton,
+  addPhotoButton,
+  editingForm,
+  addingForm,
+  formElements,
+  popups,
+} from '../utils/constants.js';
 
 // генерируем начальный список карточек
 const initialCardsList = new Section(
@@ -22,9 +32,16 @@ const initialCardsList = new Section(
   cardSelectors.cardsGridSelector,
 );
 
+// Открываем попап
+editProfileButton.addEventListener('click', () => {
+  const editPopup = new PopupWithForm(popups.editProfilePopup); // FIXME to direct const
+  editPopup.open();
+});
+
 // ENTRY POINT
 initialCardsList.addInitialItems();
 
+// -----------------------------------------------------------------------------
 //
 //
 //
@@ -40,43 +57,6 @@ initialCardsList.addInitialItems();
 //
 //
 //
-
-const validationTargets = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  disabledButtonClass: 'button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorHintClass: '.form__input-error-hint',
-  activeErrorClass: 'form__input-error-hint_active',
-};
-
-// DOC
-const page = document.querySelector('.page');
-
-// EDITABLES
-const currentProfileName = page.querySelector('.profile__name');
-const currentProfileInfo = page.querySelector('.profile__about');
-
-// PAGE BUTTONS
-const editProfileButton = page.querySelector('.profile__edit-button');
-const addPhotoButton = page.querySelector('.profile__add-button');
-const popupCloseButton = page.querySelectorAll('.popup__close-button');
-const popupBackdrop = page.querySelectorAll('.popup__backdrop');
-
-// POPUPS
-const editProfilePopup = page.querySelector('.popup_type_edit');
-const addPhotoPopup = page.querySelector('.popup_type_add');
-const previewImagePopup = page.querySelector('.popup_type_preview');
-
-// FORMS
-const editingForm = document.forms['form-edit'];
-const addingForm = document.forms['form-add'];
-
-// INPUTS
-const newProfileNameInput = editingForm.elements['name-input'];
-const newProfileInfoInput = editingForm.elements['about-input'];
-const newPhotoNameInput = addingForm.elements['photo-name-input'];
-const newPhotoLinkInput = addingForm.elements['photo-link-input'];
 
 // FUNCTIONS
 function preventDefaultBehavior(evt) {
@@ -93,15 +73,15 @@ function createPreview(evt) {
   openPopup(previewImagePopup);
 }
 
-function openPopup(popup) {
-  document.addEventListener('keydown', closePopupViaEscHandler);
-  popup.classList.add('popup_opened');
-}
+// function openPopup(popup) {
+//   document.addEventListener('keydown', closePopupViaEscHandler);
+//   popup.classList.add('popup_opened');
+// }
 
-function closePopup(popup) {
-  document.removeEventListener('keydown', closePopupViaEscHandler);
-  popup.classList.remove('popup_opened');
-}
+// function closePopup(popup) {
+//   document.removeEventListener('keydown', closePopupViaEscHandler);
+//   popup.classList.remove('popup_opened');
+// }
 
 // function renderElements(data, selectors) {
 //   data.forEach((element) => {
@@ -113,13 +93,13 @@ function closePopup(popup) {
 
 function enableValidation(form) {
   // from FormValidator.js
-  const validator = new FormValidator(form, validationTargets);
+  const validator = new FormValidator(form, formElements);
   validator.enableValidation();
 }
 
 function disableValidation(form) {
   // from FormValidator.js
-  const validator = new FormValidator(form, validationTargets);
+  const validator = new FormValidator(form, formElements);
   validator.disableValidation();
 }
 
@@ -128,19 +108,11 @@ function closePopupHandler(evt) {
   closePopup(evt.target.closest('.popup_opened'));
 }
 
-function closePopupViaEscHandler(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(page.querySelector('.popup_opened'));
-  }
-}
-
-function editProfilePopupHandler() {
-  disableValidation(editingForm);
-  newProfileNameInput.value = currentProfileName.textContent;
-  newProfileInfoInput.value = currentProfileInfo.textContent;
-  openPopup(editProfilePopup);
-  enableValidation(editingForm);
-}
+// function closePopupViaEscHandler(evt) {
+//   if (evt.key === 'Escape') {
+//     closePopup(page.querySelector('.popup_opened'));
+//   }
+// }
 
 function editingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
@@ -173,19 +145,19 @@ function addingFormSubmitHandler(evt) {
 }
 
 // listeners
-editProfileButton.addEventListener('click', editProfilePopupHandler);
+// editProfileButton.addEventListener('click', editProfilePopupHandler);
 addPhotoButton.addEventListener('click', addPhotoPopupHandler);
 
 editingForm.addEventListener('submit', editingFormSubmitHandler);
 addingForm.addEventListener('submit', addingFormSubmitHandler);
 
-popupCloseButton.forEach(function (item) {
-  item.addEventListener('click', closePopupHandler);
-});
+// popupElements.closeButton.forEach(function (item) {
+//   item.addEventListener('click', closePopupHandler);
+// });
 
-popupBackdrop.forEach(function (item) {
-  item.addEventListener('click', closePopupHandler);
-});
+// popupElements.backdrop.forEach(function (item) {
+//   item.addEventListener('click', closePopupHandler);
+// });
 
 // ENTRY POINT
 // renderElements(initialCards, cardSelectors); // REFACTORED

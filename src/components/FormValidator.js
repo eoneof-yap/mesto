@@ -2,12 +2,12 @@
 class FormValidator {
   constructor(form, targets) {
     this._form = form;
-    this._inputsList = Array.from(this._form.querySelectorAll(targets.inputSelector));
-    this._submitButton = this._form.querySelector(targets.submitButtonSelector);
-    this._disabledButton = targets.disabledButtonClass;
-    this._inputError = targets.inputErrorClass;
-    this._errorHint = targets.errorHintClass;
-    this._activeError = targets.activeErrorClass;
+    this._inputsList = Array.from(this._form.querySelectorAll(targets.input));
+    this._submitButton = this._form.querySelector(targets.submitButton);
+    this._disabledButton = targets.disabledButton;
+    this._inputError = targets.inputError;
+    this._errorHint = targets.errorHint;
+    this._activeError = targets.activeError;
   }
 
   enableValidation() {
