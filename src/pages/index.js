@@ -1,19 +1,45 @@
-﻿﻿import { initialCards } from '../utils/initialCards.js'; // импортируем начальный список карточек
-import { Card } from '../components/Card.js';
-import { FormValidator } from '../components/FormValidator.js';
+﻿﻿import { FormValidator } from '../components/FormValidator.js';
 export { createPreview, cardSelectors, validationTargets };
-import '../pages/index.css';
 
-const cardSelectors = {
-  templateID: '#card-template',
-  card: '.card',
-  image: '.card__image',
-  title: '.card__title',
-  deleteButton: '.card__delete-button',
-  likeButton: '.card__like-button',
-  cardsGrid: '.cards-grid',
-  activeLike: 'card__like-button_active',
-};
+// -----------------------------------------------------------------------------
+// REFACTOR
+
+import '../pages/index.css';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import { initialCards, cardSelectors } from '../utils/constants.js';
+
+// генерируем начальный список карточек
+const initialCardsList = new Section(
+  {
+    data: initialCards,
+    renderer: (item) => {
+      // item извлекается из initialCards внутри Section.js
+      const card = new Card(item, cardSelectors);
+      card.renderCard();
+    },
+  },
+  cardSelectors.cardsGridSelector,
+);
+
+// ENTRY POINT
+initialCardsList.addInitialItems();
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 const validationTargets = {
   inputSelector: '.form__input',
@@ -77,13 +103,13 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function renderElements(data, selectors) {
-  data.forEach((element) => {
-    // Card.js
-    const card = new Card(element, selectors);
-    card.renderCard();
-  });
-}
+// function renderElements(data, selectors) {
+//   data.forEach((element) => {
+//     // Card.js
+//     const card = new Card(element, selectors);
+//     card.renderCard();
+//   });
+// }
 
 function enableValidation(form) {
   // from FormValidator.js
@@ -140,7 +166,7 @@ function addingFormSubmitHandler(evt) {
         alt: newPhotoNameInput.value,
       },
     ],
-    cardSelectors,
+    cardSelectorss,
   );
   closePopup(addPhotoPopup);
   evt.currentTarget.reset();
@@ -162,4 +188,4 @@ popupBackdrop.forEach(function (item) {
 });
 
 // ENTRY POINT
-renderElements(initialCards, cardSelectors);
+// renderElements(initialCards, cardSelectors); // REFACTORED

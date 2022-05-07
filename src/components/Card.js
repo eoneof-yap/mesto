@@ -1,17 +1,16 @@
 ﻿﻿import { createPreview } from '../pages/index.js';
-export { Card };
-
-class Card {
+export default class Card {
   constructor(data, selectors) {
     this._name = data.name;
     this._link = data.link;
+
     this._template = document.querySelector(selectors.templateID);
+    this._cardsGrid = selectors.cardsGrid;
     this._card = selectors.card;
     this._image = selectors.image;
     this._title = selectors.title;
     this._deleteButton = selectors.deleteButton;
     this._likeButton = selectors.likeButton;
-    this._cardsGrid = selectors.cardsGrid;
     this._activeLike = selectors.activeLike;
   }
 
