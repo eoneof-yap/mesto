@@ -8,19 +8,17 @@ import '../pages/index.css';
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
+// import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
 import {
   initialCards,
   cardSelectors,
-  editProfileButton,
-  addPhotoButton,
-  editingForm,
-  addingForm,
+  pageElements,
   formElements,
-  popups,
+  popup,
+  forms,
 } from '../utils/constants.js';
 
 // генерируем начальный список карточек
@@ -36,10 +34,17 @@ const initialCardsList = new Section(
   cardSelectors.cardsGridSelector,
 );
 
-// Открываем попап
-editProfileButton.addEventListener('click', () => {
-  const editPopup = new PopupWithForm(popups.editProfilePopup); // FIXME to direct const
+// LISTENERS
+
+// page buttons
+pageElements.buttons.edit.addEventListener('click', () => {
+  const editPopup = new PopupWithForm(popup.type.edit); // FIXME to direct const
   editPopup.open();
+});
+
+pageElements.buttons.add.addEventListener('click', () => {
+  const addPopup = new PopupWithForm(popup.type.add); // FIXME to direct const
+  addPopup.open();
 });
 
 // ENTRY POINT
@@ -67,7 +72,7 @@ function preventDefaultBehavior(evt) {
   evt.preventDefault();
 }
 
-// popups
+// popup
 function createPreview(evt) {
   previewImagePopup.querySelector('.preview__image').setAttribute('src', evt.target.src);
   previewImagePopup.querySelector('.preview__image').setAttribute('alt', evt.target.alt);
@@ -120,46 +125,46 @@ function closePopupHandler(evt) {
 
 function editingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
-  currentProfileName.textContent = newProfileNameInput.value;
-  currentProfileInfo.textContent = newProfileInfoInput.value;
-  closePopup(editProfilePopup);
+  currentProfileName.textContent = forms.inputs.newProfileName.value;
+  currentProfileInfo.textContent = forms.inputs.newProfileInfo.value;
+  closePopup(popup.type.edit);
 }
 
-function addPhotoPopupHandler() {
-  disableValidation(addingForm);
-  // форма изначально пуста
-  openPopup(addPhotoPopup);
-  enableValidation(addingForm);
-}
+// function popup.type.addHandler() {
+//   disableValidation(addingForm);
+//   // форма изначально пуста
+//   openPopup(popup.type.add);
+//   enableValidation(addingForm);
+// }
 
 function addingFormSubmitHandler(evt) {
   preventDefaultBehavior(evt);
   renderElements(
     [
       {
-        name: newPhotoNameInput.value,
-        link: newPhotoLinkInput.value,
-        alt: newPhotoNameInput.value,
+        name: newPhotoName.value,
+        link: newPhotoLink.value,
+        alt: newPhotoName.value,
       },
     ],
     cardSelectorss,
   );
-  closePopup(addPhotoPopup);
+  closePopup(popup.type.add);
   evt.currentTarget.reset();
 }
 
 // listeners
-// editProfileButton.addEventListener('click', editProfilePopupHandler);
-addPhotoButton.addEventListener('click', addPhotoPopupHandler);
+// editProfileButton.addEventListener('click', popup.type.editHandler);
+// addPhotoButton.addEventListener('click', popup.type.addHandler);
 
-editingForm.addEventListener('submit', editingFormSubmitHandler);
-addingForm.addEventListener('submit', addingFormSubmitHandler);
+forms.editProfile.addEventListener('submit', editingFormSubmitHandler);
+forms.addPhoto.addEventListener('submit', addingFormSubmitHandler);
 
-// popupElements.closeButton.forEach(function (item) {
+// popup.elements.closeButton.forEach(function (item) {
 //   item.addEventListener('click', closePopupHandler);
 // });
 
-// popupElements.backdrop.forEach(function (item) {
+// popup.elements.backdrop.forEach(function (item) {
 //   item.addEventListener('click', closePopupHandler);
 // });
 

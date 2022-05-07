@@ -6,7 +6,30 @@ import image_4 from '../images/dombay-yak.jpeg';
 import image_5 from '../images/gora-mashuk.jpeg';
 import image_6 from '../images/kabardino-balkariya.jpeg';
 
-// Данные карточек
+export const page = document.querySelector('.page');
+
+export const pageElements = {
+  profile: {
+    name: page.querySelector('.profile__name'),
+    info: page.querySelector('.profile__about'),
+  },
+  buttons: {
+    edit: page.querySelector('.profile__edit-button'),
+    add: page.querySelector('.profile__add-button'),
+  },
+};
+
+export const cardSelectors = {
+  templateID: '#card-template',
+  cardsGrid: '.cards-grid',
+  card: '.card',
+  image: '.card__image',
+  title: '.card__title',
+  deleteButton: '.card__delete-button',
+  likeButton: '.card__like-button',
+  activeLike: 'card__like-button_active',
+};
+
 export const initialCards = [
   {
     name: 'Пятигорск',
@@ -34,53 +57,22 @@ export const initialCards = [
   },
 ];
 
-// DOC
-export const page = document.querySelector('.page');
-
-// EDITABLES
-export const currentProfileName = page.querySelector('.profile__name');
-export const currentProfileInfo = page.querySelector('.profile__about');
-
-// PAGE BUTTONS
-export const editProfileButton = page.querySelector('.profile__edit-button');
-export const addPhotoButton = page.querySelector('.profile__add-button');
-
-// POPUPS
-export const editProfilePopup = page.querySelector('.popup_type_edit');
-export const addPhotoPopup = page.querySelector('.popup_type_add');
-export const previewImagePopup = page.querySelector('.popup_type_preview');
-
-// FORMS
-export const editingForm = document.forms['form-edit'];
-export const addingForm = document.forms['form-add'];
-
-// INPUTS
-export const newProfileNameInput = editingForm.elements['name-input'];
-export const newProfileInfoInput = editingForm.elements['about-input'];
-export const newPhotoNameInput = addingForm.elements['photo-name-input'];
-export const newPhotoLinkInput = addingForm.elements['photo-link-input'];
-
-export const cardSelectors = {
-  templateID: '#card-template',
-  cardsGrid: '.cards-grid',
-  card: '.card',
-  image: '.card__image',
-  title: '.card__title',
-  deleteButton: '.card__delete-button',
-  likeButton: '.card__like-button',
-  activeLike: 'card__like-button_active',
-};
-
-export const popups = {
-  editProfilePopup: '.popup_type_edit',
-  addPhotoPopup: '.popup_type_add',
-  previewImagePopup: '.popup_type_preview',
+export const popup = {
+  type: {
+    edit: '.popup_type_edit',
+    add: '.popup_type_add',
+    preview: '.popup_type_preview',
+  },
   opened: 'popup_opened',
+  elements: {
+    closeButton: '.popup__close-button',
+    backdrop: '.popup__backdrop',
+  },
 };
 
-export const popupElements = {
-  closeButton: '.popup__close-button',
-  backdrop: '.popup__backdrop',
+export const forms = {
+  editProfile: document.forms['form-edit'],
+  addPhoto: document.forms['form-add'],
 };
 
 export const formElements = {
@@ -90,4 +82,11 @@ export const formElements = {
   inputError: 'form__input_type_error',
   errorHint: '.form__input-error-hint',
   activeError: 'form__input-error-hint_active',
+};
+
+export const inputs = {
+  newProfileName: forms.editProfile.elements['name-input'],
+  newProfileInfo: forms.editProfile.elements['about-input'],
+  newPhotoName: forms.addPhoto.elements['photo-name-input'],
+  newPhotoLink: forms.addPhoto.elements['photo-link-input'],
 };

@@ -1,16 +1,16 @@
 ﻿import Popup from './Popup.js';
-import { popups, popupElements } from '../utils/constants.js';
+import { popup } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitForm) {
-    super(popupSelector);
-    this._popup = document.querySelector(popupSelector);
+  constructor(popupelector, submitForm) {
+    super(popupelector);
+    this._popup = document.querySelector(popupelector);
   }
 
   // open() {} // inherit
 
   close() {
-    this._popup.classList.remove(popups.opened);
+    super.close();
     // TODO reset()
   }
 
