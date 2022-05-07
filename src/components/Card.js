@@ -37,6 +37,7 @@
     element.querySelector(this._deleteButton).addEventListener('click', (evt) => {
       this._handleDelete(evt);
     });
+
     element.querySelector(this._likeButton).addEventListener('click', (evt) => {
       this._handleLike(evt);
     });

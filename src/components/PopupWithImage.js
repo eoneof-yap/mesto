@@ -1,4 +1,5 @@
 ﻿import Popup from './Popup.js';
+import { popupElements } from '../utils/constants.js';
 
 export default class PopupWithImage extends Popup {
   constructor(popupSelector, image, title) {
@@ -7,13 +8,11 @@ export default class PopupWithImage extends Popup {
     this._title = title;
   }
 
+  // prettier-ignore
   open() {
-    console.log(this._image, this._title);
-
-    this._popup.querySelector('.preview__image').setAttribute('src', this._image.src);
-    this._popup.querySelector('.preview__image').setAttribute('alt', this._title.alt);
-    this._popup.querySelector('.preview__caption').textContent = this._title;
-
+    this._popup.querySelector(popupElements.previewImage).setAttribute('src', this._image.src);
+    this._popup.querySelector(popupElements.previewImage).setAttribute('alt', this._title.alt);
+    this._popup.querySelector(popupElements.previewCaption).textContent = this._title;
     super.open();
   }
 }

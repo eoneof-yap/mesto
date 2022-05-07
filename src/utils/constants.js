@@ -69,6 +69,8 @@ export const popups = {
 export const popupElements = {
   closeButton: '.popup__close-button',
   backdrop: '.popup__backdrop',
+  previewImage: '.preview__image',
+  previewCaption: '.preview__caption',
 };
 
 export const forms = {
