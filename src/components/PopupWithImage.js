@@ -1,18 +1,19 @@
 ﻿import Popup from './Popup.js';
-import { popupSelectors } from '../utils/constants.js';
 
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector, image, title) {
+  constructor(popupSelector, { link, title }, selectors) {
     super(popupSelector);
-    this._image = image;
+    this._image = link;
     this._title = title;
+    this._previewImage = this._popup.querySelector(selectors.previewImage);
+    this._previewCaption = this._popup.querySelector(selectors.previewCaption);
   }
 
   // prettier-ignore
   open() {
-    this._popup.querySelector(popupSelectors.previewImage).setAttribute('src', this._image.src);
-    this._popup.querySelector(popupSelectors.previewImage).setAttribute('alt', this._title.alt);
-    this._popup.querySelector(popupSelectors.previewCaption).textContent = this._title;
+    this._previewImage.setAttribute('src', this._image);
+    this._previewImage.setAttribute('alt', this._title);
+    this._previewCaption.textContent = this._title;
     super.open();
   }
 }

@@ -15,7 +15,6 @@
   }
 
   createItem(item) {
-    console.log(item);
     this._container.prepend(item);
   }
 

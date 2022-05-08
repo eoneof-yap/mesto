@@ -36,9 +36,8 @@
       this._handleLike(evt);
     });
 
-    element.querySelector(this._image).addEventListener('click', (evt) => {
-      console.log(this._image);
-      this._previewer(this._image, this.title);
+    element.querySelector(this._image).addEventListener('click', () => {
+      this._previewer();
     });
   }
 

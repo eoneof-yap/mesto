@@ -25,13 +25,15 @@ export { cardSelectors, formSelectors };
 */
 
 const createItem = (item) => {
-  console.log(item);
   const newItem = new Card(
     {
-      // prettier-ignore
       item,
-      previewer: (image, title) => {
-        const preview = new PopupWithImage(image, title, popupSelectors.popupPreview);
+      previewer: () => {
+        const preview = new PopupWithImage(
+          popupSelectors.popupPreview,
+          item,
+          popupSelectors,
+        );
         preview.open();
       },
     },
