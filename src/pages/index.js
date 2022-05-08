@@ -11,13 +11,15 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
 import {
-  pageElements,
+  profile,
+  pageButtons,
   cardSelectors,
   initialCards,
   popups,
   forms,
   formElements,
 } from '../utils/constants.js';
+import UserInfo from '../components/UserInfo.js';
 
 export { cardSelectors, formElements };
 
@@ -36,6 +38,7 @@ const initialCardsList = new Section(
   cardSelectors.cardsGrid,
 );
 
+// FIXME вынесенный из `new Section()` рендерер + submitHandler с каждой попыткой добавляет в два раза больше карточек
 // prettier-ignore
 const renderer =  (item) => {
       const card = new Card(
@@ -48,26 +51,23 @@ const renderer =  (item) => {
         },
         cardSelectors, // Card
       );
-      // card.renderCard(); // Section
+      card.renderCard(); // Section
       console.log('renderCard')
     }
 
 const formSubmitHandler = (item) => {
-  console.log(item);
   renderer(item);
 };
 
 // LISTENERS
-pageElements.buttons.edit.addEventListener('click', (evt) => {
-  const editPopup = new PopupWithForm(popups.type.edit, () => {
-    formSubmitHandler(evt);
-  });
-  editPopup.open();
+pageButtons.edit.addEventListener('click', () => {
+  const info = new UserInfo(profile);
+  info.getUserInfo();
 });
 
-pageElements.buttons.add.addEventListener('click', (evt) => {
-  const addPopup = new PopupWithForm(popups.type.add, () => {
-    formSubmitHandler(evt);
+pageButtons.add.addEventListener('click', () => {
+  const addPopup = new PopupWithForm(popups.type.add, (item) => {
+    formSubmitHandler(item);
   });
   addPopup.open();
 });
@@ -94,18 +94,18 @@ function disableValidation(form) {
   validator.disableValidation();
 }
 
-function addingFormSubmitHandler(evt) {
-  preventDefaultBehavior(evt);
-  renderElements(
-    [
-      {
-        name: photoName.value,
-        link: photoLink.value,
-        alt: photoName.value,
-      },
-    ],
-    cardSelectorss,
-  );
-  closePopup(popups.type.add);
-  evt.currentTarget.reset();
-}
+// function addingFormSubmitHandler(evt) {
+//   preventDefaultBehavior(evt);
+//   renderElements(
+//     [
+//       {
+//         name: photoName.value,
+//         link: photoLink.value,
+//         alt: photoName.value,
+//       },
+//     ],
+//     cardSelectorss,
+//   );
+//   closePopup(popups.type.add);
+//   evt.currentTarget.reset();
+// }

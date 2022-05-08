@@ -1,14 +1,13 @@
 ﻿﻿const page = document.querySelector('.page');
 
-export const pageElements = {
-  profile: {
-    name: page.querySelector('.profile__name'),
-    info: page.querySelector('.profile__about'),
-  },
-  buttons: {
-    edit: page.querySelector('.profile__edit-button'),
-    add: page.querySelector('.profile__add-button'),
-  },
+export const profile = {
+  name: page.querySelector('.profile__name'),
+  info: page.querySelector('.profile__about'),
+};
+
+export const pageButtons = {
+  edit: page.querySelector('.profile__edit-button'),
+  add: page.querySelector('.profile__add-button'),
 };
 
 export const cardSelectors = {
