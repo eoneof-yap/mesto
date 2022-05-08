@@ -10,11 +10,16 @@
     this._container = document.querySelector(selector);
   }
 
-  addNewItem(item) {
-    this._container.append(item);
+  renderItem(item) {
+    this._renderer(item);
   }
 
-  addInitialItems() {
+  createItem(item) {
+    console.log(item);
+    this._container.prepend(item);
+  }
+
+  createInitialItems() {
     this._items.forEach((item) => {
       this._renderer(item);
     });
