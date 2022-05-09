@@ -34,18 +34,11 @@ export const formSelectors = {
   formsArray: Array.from(document.forms),
   formSelector: '.form',
   formInputSelector: '.form__input',
-  submitButton: '.form__submit-button',
-  disabledButton: 'button_disabled',
-  inputError: 'form__input_type_error',
-  errorHint: '.form__input-error-hint',
-  activeError: 'form__input-error-hint_active',
-};
-
-export const formInputsNames = {
-  profileName: 'name-input',
-  profileInfo: 'about-input',
-  photoTitle: 'photo-name-input',
-  photoLink: 'photo-link-input',
+  formSubmitButtonSelector: '.form__submit-button',
+  formDisabledButtonClass: 'button_disabled',
+  formInpuErrorClass: 'form__input_type_error',
+  formErrorHintSelector: '.form__input-error-hint',
+  formActiveErrorClass: 'form__input-error-hint_active',
 };
 
 // Имопртируем изображения для корректной сборки вебпаком
