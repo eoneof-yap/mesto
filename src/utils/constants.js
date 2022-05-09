@@ -31,15 +31,25 @@ export const popupSelectors = {
 };
 
 export const formSelectors = {
+  forms: Array.from(document.forms),
   form: '.form',
-  edit: 'form-edit', // document.forms['form-edit'],
-  add: 'form-add', // document.forms['form-add'],
+  // edit: 'form-edit', // document.forms['form-edit'],
+  // add: 'form-add', // document.forms['form-add'],
   input: '.form__input',
   submitButton: '.form__submit-button',
   disabledButton: 'button_disabled',
   inputError: 'form__input_type_error',
   errorHint: '.form__input-error-hint',
   activeError: 'form__input-error-hint_active',
+};
+
+export const config = {
+  inputSelector: '.popup__input',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error',
+  errorClass: 'popup__error_active',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
 };
 
 export const formInputsNames = {

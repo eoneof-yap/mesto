@@ -14,7 +14,7 @@ class FormValidator {
     this._setEventListeners();
   }
 
-  disableValidation() {
+  resetValidation() {
     this._toggleButtonState();
     this._inputsList.forEach((inputItem) => {
       this._hideError(inputItem);
@@ -66,12 +66,12 @@ class FormValidator {
   }
 
   _hideError(inputItem) {
-    inputItem.classList.remove(this._inputError);
+    console.log(inputItem.classList.remove(this._inputError));
     this._getHintClassName(inputItem).classList.remove(this._activeError);
     this._getHintClassName(inputItem).textContent = '';
   }
 
   _getHintClassName(inputItem) {
-    return this._form.querySelector(`.${inputItem.id}-error`);
+    return this._form.querySelector(`.${inputItem.name}-input-error`);
   }
 }

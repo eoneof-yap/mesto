@@ -6,7 +6,6 @@ import {
   cardSelectors,
   popupSelectors,
   formSelectors,
-  formInputsNames,
   initialCards,
 } from '../utils/constants.js';
 
@@ -18,42 +17,28 @@ import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 
 const userInfo = new UserInfo(profileSelectors);
+export const validators = {};
 
-function handleEditButton() {
-  popupEdit.setInputValues(
-    // get user info from page to inputs
-    userInfo.getUserInfo(),
-  );
-  popupEdit.open();
-}
-
-//prettier-ignore
 const popupEdit = new PopupWithForm(
   popupSelectors.popupEdit,
   formSelectors,
   // formSubmitHandler
-  (inputValues) => {userInfo.setUserInfo(inputValues);
+  (inputValues) => {
+    userInfo.setUserInfo(inputValues);
     popupEdit.close();
   },
 );
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 const popupAdd = new PopupWithForm(
   popupSelectors.popupAdd,
   formSelectors,
   (inputValues) => {
-    userInfo.setUserInfo(inputValues);
+    const data = {
+      title: inputValues.title,
+      link: inputValues.link,
+    };
+
+    initialCardsList.renderItem(data);
     popupAdd.close();
   },
 );
@@ -87,9 +72,29 @@ const createItem = (item) => {
   return newItem;
 };
 
-function handleAddButton() {
-  popupAdd.open();
+function handleEditButton() {
+  validators['form-edit'].resetValidation();
+  // => PopupWithForm.js => UserInfo.js
+  popupEdit.setInputValues(userInfo.getUserInfo());
+  popupEdit.open(); // => PopupWithForm.js
+  validators['form-edit'].enableValidation();
 }
+
+function handleAddButton() {
+  validators['form-add'].resetValidation();
+  popupAdd.open();
+  validators['form-add'].enableValidation();
+}
+
+function enableValidation(formSelectors) {
+  formSelectors.forms.forEach((item) => {
+    const validator = new FormValidator(item, formSelectors);
+    const formID = item.getAttribute('id');
+    validators[formID] = validator;
+    validator.enableValidation();
+  });
+}
+enableValidation(formSelectors);
 
 // LISTENERS
 pageButtons.edit.addEventListener('click', handleEditButton);
@@ -97,15 +102,3 @@ pageButtons.add.addEventListener('click', handleAddButton);
 
 // ENTRY POINT
 initialCardsList.createInitialItems();
-
-// function enableValidation(form) {
-//   // from FormValidator.js
-//   const validator = new FormValidator(form, formSelectors);
-//   validator.enableValidation();
-// }
-
-// function disableValidation(form) {
-//   // from FormValidator.js
-//   const validator = new FormValidator(form, formSelectors);
-//   validator.disableValidation();
-// }
