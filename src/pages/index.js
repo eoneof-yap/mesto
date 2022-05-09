@@ -19,7 +19,7 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 const userInfo = new UserInfo(profileSelectors);
 
 const popupEdit = new PopupWithForm(
-  popupSelectors.popupEdit,
+  popupSelectors.popupEditSelector,
   formSelectors,
   // formSubmitHandler
   (inputValues) => {
@@ -29,7 +29,7 @@ const popupEdit = new PopupWithForm(
 );
 
 const popupAdd = new PopupWithForm(
-  popupSelectors.popupAdd,
+  popupSelectors.popupAddSelector,
   formSelectors,
   (inputValues) => {
     const data = {
@@ -47,7 +47,7 @@ const createItem = (item) => {
       item,
       previewer: () => {
         const preview = new PopupWithImage(
-          popupSelectors.popupPreview,
+          popupSelectors.popupPreviewSelector,
           item,
           popupSelectors,
         );
@@ -66,7 +66,7 @@ const initialCardsList = new Section(
       initialCardsList.createItem(createItem(item).createCard());
     },
   },
-  cardSelectors.cardsGrid,
+  cardSelectors.cardsGridSelector,
 );
 
 const validators = {};
@@ -86,7 +86,7 @@ function handleAddButton() {
 }
 
 function enableValidation(formSelectors) {
-  formSelectors.forms.forEach((item) => {
+  formSelectors.formsArray.forEach((item) => {
     const validator = new FormValidator(item, formSelectors);
     const formID = item.getAttribute('id');
     validators[formID] = validator;
@@ -96,8 +96,8 @@ function enableValidation(formSelectors) {
 enableValidation(formSelectors);
 
 // LISTENERS
-pageButtons.edit.addEventListener('click', handleEditButton);
-pageButtons.add.addEventListener('click', handleAddButton);
+pageButtons.editButton.addEventListener('click', handleEditButton);
+pageButtons.addButton.addEventListener('click', handleAddButton);
 
 // ENTRY POINT
 initialCardsList.createInitialItems();

@@ -7,11 +7,11 @@ export default class Popup {
 
   open() {
     this._seteventListeners();
-    this._popup.classList.add(popupSelectors.popupOpened);
+    this._popup.classList.add(popupSelectors.popupOpenedClass);
   }
 
   close() {
-    this._popup.classList.remove(popupSelectors.popupOpened);
+    this._popup.classList.remove(popupSelectors.popupOpenedClass);
   }
 
   _seteventListeners() {
@@ -20,13 +20,13 @@ export default class Popup {
       т.к. у каждого попапа свои элементы
     */
     this._popup
-      .querySelector(popupSelectors.closeButton)
+      .querySelector(popupSelectors.popupCloseButtonSelector)
       .addEventListener('click', () => {
         this.close();
       });
 
     this._popup
-      .querySelector(popupSelectors.popupBackdrop)
+      .querySelector(popupSelectors.popupBackdropSelector)
       .addEventListener('click', () => {
         this.close();
       });

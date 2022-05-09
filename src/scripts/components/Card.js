@@ -4,14 +4,14 @@
     this._previewer = previewer;
     this._titleValue = item.title;
     this._link = item.link;
-    this._template = document.querySelector(selectors.templateID);
-    this._card = selectors.card;
-    this._image = selectors.image;
-    this._titleSelector = selectors.title;
-    this._deleteButton = selectors.deleteButton;
-    this._likeButton = selectors.likeButton;
-    this._cardsGrid = document.querySelector(selectors.cardsGrid);
-    this._activeLike = selectors.activeLike;
+    this._template = document.querySelector(selectors.cardTemplateId);
+    this._card = selectors.cardItemSelector;
+    this._image = selectors.cardImageSelector;
+    this._titleSelector = selectors.cardTitleSelector;
+    this._deleteButton = selectors.cardDeleteButtonSelector;
+    this._likeButton = selectors.cardLikeButtonSelector;
+    this._cardsGrid = document.querySelector(selectors.cardsGridSelector);
+    this._activeLike = selectors.cardActiveLikeSelector;
   }
 
   createCard() {

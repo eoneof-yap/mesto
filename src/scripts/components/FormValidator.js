@@ -1,7 +1,7 @@
 ﻿﻿export { FormValidator };
 class FormValidator {
-  constructor(form, targets) {
-    this._form = form;
+  constructor(formSelector, targets) {
+    this._form = formSelector;
     this._inputsList = Array.from(this._form.querySelectorAll(targets.input));
     this._submitButton = this._form.querySelector(targets.submitButton);
     this._disabledButton = targets.disabledButton;

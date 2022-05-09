@@ -1,53 +1,44 @@
 ﻿﻿export const profileSelectors = {
-  name: '.profile__name',
-  about: '.profile__about',
+  nameSelector: '.profile__name',
+  aboutSelector: '.profile__about',
 };
 
 export const pageButtons = {
-  edit: document.querySelector('.profile__edit-button'),
-  add: document.querySelector('.profile__add-button'),
+  editButton: document.querySelector('.profile__edit-button'),
+  addButton: document.querySelector('.profile__add-button'),
 };
 
 export const cardSelectors = {
-  card: '.card',
-  cardsGrid: '.cards-grid',
-  image: '.card__image',
-  title: '.card__title',
-  deleteButton: '.card__delete-button',
-  likeButton: '.card__like-button',
-  activeLike: 'card__like-button_active',
-  templateID: '#card-template',
+  cardItemSelector: '.card',
+  cardsGridSelector: '.cards-grid',
+  cardImageSelector: '.card__image',
+  cardTitleSelector: '.card__title',
+  cardDeleteButtonSelector: '.card__delete-button',
+  cardLikeButtonSelector: '.card__like-button',
+  cardActiveLikeSelector: 'card__like-button_active',
+  cardTemplateId: '#card-template',
 };
 
 export const popupSelectors = {
-  popupEdit: '.popup_type_edit',
-  popupAdd: '.popup_type_add',
-  popupPreview: '.popup_type_preview',
-  popupOpened: 'popup_opened',
-  closeButton: '.popup__close-button',
-  popupBackdrop: '.popup__backdrop',
-  previewImage: '.preview__image',
-  previewCaption: '.preview__caption',
+  popupEditSelector: '.popup_type_edit',
+  popupAddSelector: '.popup_type_add',
+  popupPreviewSelector: '.popup_type_preview',
+  popupOpenedClass: 'popup_opened',
+  popupCloseButtonSelector: '.popup__close-button',
+  popupBackdropSelector: '.popup__backdrop',
+  popupPreviewImageSelector: '.preview__image',
+  popupPreviewCaptionSelector: '.preview__caption',
 };
 
 export const formSelectors = {
-  forms: Array.from(document.forms),
-  form: '.form',
-  input: '.form__input',
+  formsArray: Array.from(document.forms),
+  formSelector: '.form',
+  formInputSelector: '.form__input',
   submitButton: '.form__submit-button',
   disabledButton: 'button_disabled',
   inputError: 'form__input_type_error',
   errorHint: '.form__input-error-hint',
   activeError: 'form__input-error-hint_active',
-};
-
-export const config = {
-  inputSelector: '.popup__input',
-  inputErrorClass: 'popup__input_type_error',
-  errorSelector: '.popup__error',
-  errorClass: 'popup__error_active',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
 };
 
 export const formInputsNames = {
