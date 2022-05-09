@@ -1,20 +1,19 @@
-﻿export { FormValidator };
-class FormValidator {
-  constructor(form, targets) {
-    this._form = form;
-    this._inputsList = Array.from(this._form.querySelectorAll(targets.inputSelector));
-    this._submitButton = this._form.querySelector(targets.submitButtonSelector);
-    this._disabledButton = targets.disabledButtonClass;
-    this._inputError = targets.inputErrorClass;
-    this._errorHint = targets.errorHintClass;
-    this._activeError = targets.activeErrorClass;
+﻿﻿export default class FormValidator {
+  constructor(formSelector, targets) {
+    this._form = formSelector;
+    this._inputsList = Array.from(this._form.querySelectorAll(targets.formInputSelector));
+    this._submitButton = this._form.querySelector(targets.formSubmitButtonSelector);
+    this._disabledButton = targets.formDisabledButtonClass;
+    this._inputError = targets.formInpuErrorClass;
+    this._errorHint = targets.formErrorHintSelector;
+    this._activeError = targets.formActiveErrorClass;
   }
 
   enableValidation() {
     this._setEventListeners();
   }
 
-  disableValidation() {
+  resetValidation() {
     this._toggleButtonState();
     this._inputsList.forEach((inputItem) => {
       this._hideError(inputItem);
@@ -72,6 +71,6 @@ class FormValidator {
   }
 
   _getHintClassName(inputItem) {
-    return this._form.querySelector(`.${inputItem.id}-error`);
+    return this._form.querySelector(`.${inputItem.name}-input-error`);
   }
 }
