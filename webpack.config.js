@@ -20,7 +20,7 @@ module.exports = {
       filename: 'main.css',
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
+      template: path.resolve(__dirname, 'src/pages', 'index.html'),
     }),
   ],
   mode: 'development',
@@ -29,7 +29,7 @@ module.exports = {
     compress: true,
     port: 8080,
     open: true,
-    watchFiles: './src/index.html',
+    watchFiles: './src/pages/index.html',
   },
   devtool: 'inline-source-map',
   module: {
