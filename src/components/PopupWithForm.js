@@ -15,25 +15,25 @@ export default class PopupWithForm extends Popup {
   }
 
   setInputValues(data) {
-    this._inputsList.forEach((input, index) => {
-      // чтобы не привязываться к именам инпутов берем значения по индексу
-      input.value = Object.values(data)[index];
+    this._inputsList.forEach((input) => {
+      input.value = data[input.name];
     });
   }
 
   _getInputValues() {
     const inputValues = {};
-    this._inputsList.forEach((input, index) => {
-      inputValues[index] = input.value;
+    this._inputsList.forEach((input) => {
+      inputValues[input.name] = input.value;
     });
+    console.log(inputValues);
     return inputValues;
   }
 
   _seteventListeners() {
-    super._seteventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._formSubmitHandler(this._getInputValues());
     });
+    super._seteventListeners();
   }
 }

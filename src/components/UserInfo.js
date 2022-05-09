@@ -9,7 +9,6 @@
       name: this._name.textContent,
       about: this._about.textContent,
     };
-    console.log(userInfo);
     return userInfo;
     // => index.js => hanldeEditButton() => PopupWithForm.setInputvalues()
   }
