@@ -30,7 +30,6 @@ export default class PopupWithForm extends Popup {
       inputValues[input.name] = input.value;
     });
     this._seteventListeners();
-    console.log(this._inputsList);
     return inputValues;
   }
 
