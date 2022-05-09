@@ -33,8 +33,6 @@ export const popupSelectors = {
 export const formSelectors = {
   forms: Array.from(document.forms),
   form: '.form',
-  // edit: 'form-edit', // document.forms['form-edit'],
-  // add: 'form-add', // document.forms['form-add'],
   input: '.form__input',
   submitButton: '.form__submit-button',
   disabledButton: 'button_disabled',
@@ -53,10 +51,10 @@ export const config = {
 };
 
 export const formInputsNames = {
-  profileName: 'name-input', // formSelectors.edit.elements['name-input'],
-  profileInfo: 'about-input', // formSelectors.edit.elements['about-input'],
-  photoTitle: 'photo-name-input', // formSelectors.add.elements['photo-name-input'],
-  photoLink: 'photo-link-input', // formSelectors.add.elements['photo-link-input'],
+  profileName: 'name-input',
+  profileInfo: 'about-input',
+  photoTitle: 'photo-name-input',
+  photoLink: 'photo-link-input',
 };
 
 // Имопртируем изображения для корректной сборки вебпаком

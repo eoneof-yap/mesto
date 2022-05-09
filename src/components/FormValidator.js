@@ -66,7 +66,7 @@ class FormValidator {
   }
 
   _hideError(inputItem) {
-    console.log(inputItem.classList.remove(this._inputError));
+    inputItem.classList.remove(this._inputError);
     this._getHintClassName(inputItem).classList.remove(this._activeError);
     this._getHintClassName(inputItem).textContent = '';
   }

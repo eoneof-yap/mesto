@@ -17,7 +17,6 @@ import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 
 const userInfo = new UserInfo(profileSelectors);
-export const validators = {};
 
 const popupEdit = new PopupWithForm(
   popupSelectors.popupEdit,
@@ -37,21 +36,9 @@ const popupAdd = new PopupWithForm(
       title: inputValues.title,
       link: inputValues.link,
     };
-
     initialCardsList.renderItem(data);
     popupAdd.close();
   },
-);
-
-const initialCardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const element = createItem(item).createCard();
-      initialCardsList.createItem(element);
-    },
-  },
-  cardSelectors.cardsGrid,
 );
 
 const createItem = (item) => {
@@ -71,6 +58,18 @@ const createItem = (item) => {
   );
   return newItem;
 };
+
+const initialCardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      initialCardsList.createItem(createItem(item).createCard());
+    },
+  },
+  cardSelectors.cardsGrid,
+);
+
+const validators = {};
 
 function handleEditButton() {
   validators['form-edit'].resetValidation();
