@@ -1,5 +1,5 @@
-﻿﻿export const profile = {
-  title: '.profile__title',
+﻿﻿export const profileSelectors = {
+  name: '.profile__name',
   about: '.profile__about',
 };
 
@@ -42,7 +42,7 @@ export const formSelectors = {
   activeError: 'form__input-error-hint_active',
 };
 
-export const formInputs = {
+export const formInputsNames = {
   profileName: 'name-input', // formSelectors.edit.elements['name-input'],
   profileInfo: 'about-input', // formSelectors.edit.elements['about-input'],
   photoTitle: 'photo-name-input', // formSelectors.add.elements['photo-name-input'],

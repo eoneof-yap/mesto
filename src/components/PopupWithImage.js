@@ -9,7 +9,6 @@ export default class PopupWithImage extends Popup {
     this._previewCaption = this._popup.querySelector(selectors.previewCaption);
   }
 
-  // prettier-ignore
   open() {
     this._previewImage.setAttribute('src', this._image);
     this._previewImage.setAttribute('alt', this._title);

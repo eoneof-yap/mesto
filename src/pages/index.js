@@ -1,12 +1,12 @@
 ﻿import '../pages/index.css';
 
 import {
-  profile,
+  profileSelectors,
   pageButtons,
   cardSelectors,
   popupSelectors,
   formSelectors,
-  formInputs,
+  formInputsNames,
   initialCards,
 } from '../utils/constants.js';
 
@@ -16,13 +16,58 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
-export { cardSelectors, formSelectors };
 
-/*
-`Section.js` и `Card.js` обмениваются данными через `renderer`
-`item` -- это элемент списка `initialCards`, он извлекается внутри `Section.js`
-и передается в `Card.js`
-*/
+const userInfo = new UserInfo(profileSelectors);
+
+function handleEditButton() {
+  popupEdit.setInputValues(
+    // get user info from page to inputs
+    userInfo.getUserInfo(),
+  );
+  popupEdit.open();
+}
+
+//prettier-ignore
+const popupEdit = new PopupWithForm(
+  popupSelectors.popupEdit,
+  formSelectors,
+  // formSubmitHandler
+  (inputValues) => {userInfo.setUserInfo(inputValues);
+    popupEdit.close();
+  },
+);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+const popupAdd = new PopupWithForm(
+  popupSelectors.popupAdd,
+  formSelectors,
+  (inputValues) => {
+    userInfo.setUserInfo(inputValues);
+    popupAdd.close();
+  },
+);
+
+const initialCardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const element = createItem(item).createCard();
+      initialCardsList.createItem(element);
+    },
+  },
+  cardSelectors.cardsGrid,
+);
 
 const createItem = (item) => {
   const newItem = new Card(
@@ -42,52 +87,25 @@ const createItem = (item) => {
   return newItem;
 };
 
-const initialCardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const element = createItem(item).createCard();
-      initialCardsList.createItem(element);
-    },
-  },
-  cardSelectors.cardsGrid,
-);
-
-initialCardsList.createInitialItems();
-
-const userInfo = new UserInfo(profile);
-
-const formSubmitHandler = (item) => {
-  renderer(item);
-};
+function handleAddButton() {
+  popupAdd.open();
+}
 
 // LISTENERS
-pageButtons.edit.addEventListener('click', () => {
-  info.getUserInfo(); // TODO
-});
+pageButtons.edit.addEventListener('click', handleEditButton);
+pageButtons.add.addEventListener('click', handleAddButton);
 
-pageButtons.add.addEventListener('click', () => {
-  const addPopup = new PopupWithForm(popupSelectors.popupAdd, (item) => {
-    formSubmitHandler(item);
-  });
-  addPopup.open();
-});
+// ENTRY POINT
+initialCardsList.createInitialItems();
 
-// -----------------------------------------------------------------------------
-//
-//
-//
-//
-// -----------------------------------------------------------------------------
+// function enableValidation(form) {
+//   // from FormValidator.js
+//   const validator = new FormValidator(form, formSelectors);
+//   validator.enableValidation();
+// }
 
-function enableValidation(form) {
-  // from FormValidator.js
-  const validator = new FormValidator(form, formSelectors);
-  validator.enableValidation();
-}
-
-function disableValidation(form) {
-  // from FormValidator.js
-  const validator = new FormValidator(form, formSelectors);
-  validator.disableValidation();
-}
+// function disableValidation(form) {
+//   // from FormValidator.js
+//   const validator = new FormValidator(form, formSelectors);
+//   validator.disableValidation();
+// }

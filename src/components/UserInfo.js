@@ -1,16 +1,22 @@
 ﻿export default class UserInfo {
   constructor({ name, about }) {
-    this._userName = document.querySelector(name);
-    this._userInfo = document.querySelector(about);
+    this._name = document.querySelector(name);
+    this._about = document.querySelector(about);
   }
 
   getUserInfo() {
     const userInfo = {
-      name: this._userName.textContent,
-      about: this._userInfo.textContent,
+      name: this._name.textContent,
+      about: this._about.textContent,
     };
+    console.log(userInfo);
     return userInfo;
+    // => index.js => hanldeEditButton() => PopupWithForm.setInputvalues()
   }
 
-  setUserInfo() {}
+  setUserInfo({ name, about }) {
+    // from form to page
+    this._name.textContent = name;
+    this._about.textContent = about;
+  }
 }
