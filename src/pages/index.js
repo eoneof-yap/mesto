@@ -20,7 +20,7 @@ const userInfo = new UserInfo(profileSelectors);
 
 // prettier-ignore
 // PopupWithForm.js => formSubmitHandler
-function handleEditInfo (inputValues) { // <= _getInputValues()
+function handleInfoSubmit(inputValues) { // <= _getInputValues()
   userInfo.setUserInfo(inputValues);
   popupEdit.close();
 }
@@ -28,12 +28,12 @@ function handleEditInfo (inputValues) { // <= _getInputValues()
 const popupEdit = new PopupWithForm(
   popupSelectors.popupEditSelector,
   formSelectors,
-  handleEditInfo,
+  handleInfoSubmit,
 );
 
 // prettier-ignore
 // PopupWithForm.js => formSubmitHandler
-function handleAddCard(inputValues) { // <= _getInputValues()
+function handleAddSubmit(inputValues) { // <= _getInputValues()
   const data = {
     title: inputValues.title,
     link: inputValues.link,
@@ -45,7 +45,7 @@ function handleAddCard(inputValues) { // <= _getInputValues()
 const popupAdd = new PopupWithForm(
   popupSelectors.popupAddSelector,
   formSelectors,
-  handleAddCard,
+  handleAddSubmit,
 );
 
 const createItem = (item) => {
