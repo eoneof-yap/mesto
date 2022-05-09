@@ -14,31 +14,38 @@ import Section from '../scripts/components/Section.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import UserInfo from '../scripts/components/UserInfo.js';
-import { FormValidator } from '../scripts/components/FormValidator.js';
+import FormValidator from '../scripts/components/FormValidator.js';
 
 const userInfo = new UserInfo(profileSelectors);
+
+// prettier-ignore
+// PopupWithForm.js => formSubmitHandler
+function handleEditInfo (inputValues) { // <= _getInputValues()
+  userInfo.setUserInfo(inputValues);
+  popupEdit.close();
+}
 
 const popupEdit = new PopupWithForm(
   popupSelectors.popupEditSelector,
   formSelectors,
-  // formSubmitHandler
-  (inputValues) => {
-    userInfo.setUserInfo(inputValues);
-    popupEdit.close();
-  },
+  handleEditInfo,
 );
+
+// prettier-ignore
+// PopupWithForm.js => formSubmitHandler
+function handleAddCard(inputValues) { // <= _getInputValues()
+  const data = {
+    title: inputValues.title,
+    link: inputValues.link,
+  };
+  initialCardsList.renderItem(data);
+  popupAdd.close();
+}
 
 const popupAdd = new PopupWithForm(
   popupSelectors.popupAddSelector,
   formSelectors,
-  (inputValues) => {
-    const data = {
-      title: inputValues.title,
-      link: inputValues.link,
-    };
-    initialCardsList.renderItem(data);
-    popupAdd.close();
-  },
+  handleAddCard,
 );
 
 const createItem = (item) => {
@@ -71,6 +78,7 @@ const initialCardsList = new Section(
 
 const validators = {};
 
+// FUNCTIONS
 function handleEditButton() {
   validators['form-edit'].resetValidation();
   // => PopupWithForm.js => UserInfo.js
