@@ -100,11 +100,13 @@ function enableValidation(formSelectors) {
     validator.enableValidation();
   });
 }
-enableValidation(formSelectors);
 
 // LISTENERS
 pageButtons.editButton.addEventListener('click', handleEditButton);
 pageButtons.addButton.addEventListener('click', handleAddButton);
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
 
 // ENTRY POINT
 initialCardsList.createInitialItems();
+enableValidation(formSelectors);

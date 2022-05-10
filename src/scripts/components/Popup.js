@@ -8,15 +8,15 @@ export default class Popup {
 
   open() {
     this._popup.classList.add(popupSelectors.popupOpenedClass);
-    this._setEventListeners();
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._popup.classList.remove(popupSelectors.popupOpenedClass);
-    this._removeEventListeners();
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     /*
       querySelector() используется внутри класса
       т.к. у каждого попапа свои элементы
@@ -32,12 +32,6 @@ export default class Popup {
       .addEventListener('click', () => {
         this.close();
       });
-
-    document.addEventListener('keydown', this._handleEscClose);
-  }
-
-  _removeEventListeners() {
-    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(evt) {
