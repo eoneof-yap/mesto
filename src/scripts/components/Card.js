@@ -10,7 +10,6 @@
     this._titleSelector = selectors.cardTitleSelector;
     this._deleteButton = selectors.cardDeleteButtonSelector;
     this._likeButton = selectors.cardLikeButtonSelector;
-    this._cardsGrid = document.querySelector(selectors.cardsGridSelector);
     this._activeLike = selectors.cardActiveLikeSelector;
   }
 
@@ -37,7 +36,7 @@
     });
 
     element.querySelector(this._image).addEventListener('click', () => {
-      this._previewer();
+      this._previewer({ image: this._image, title: this._title });
     });
   }
 

@@ -8,7 +8,7 @@ export default class Popup {
 
   open() {
     this._popup.classList.add(popupSelectors.popupOpenedClass);
-    this._seteventListeners();
+    this._setEventListeners();
   }
 
   close() {
@@ -16,7 +16,7 @@ export default class Popup {
     this._removeEventListeners();
   }
 
-  _seteventListeners() {
+  _setEventListeners() {
     /*
       querySelector() используется внутри класса
       т.к. у каждого попапа свои элементы

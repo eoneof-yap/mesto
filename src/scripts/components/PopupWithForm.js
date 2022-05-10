@@ -30,12 +30,12 @@ export default class PopupWithForm extends Popup {
     this._inputsList.forEach((input) => {
       inputValues[input.name] = input.value;
     });
-    this._seteventListeners();
+    this._setEventListeners();
     return inputValues;
   }
 
-  _seteventListeners() {
-    super._seteventListeners();
+  _setEventListeners() {
+    super._setEventListeners();
     this._form.addEventListener('submit', this._handleSubmit);
   }
 
@@ -44,6 +44,7 @@ export default class PopupWithForm extends Popup {
     this._form.removeEventListener('submit', this._handleSubmit);
   }
 
+  // теперь можно навешивать слушатели при каждом создании
   _handleSubmit(evt) {
     evt.preventDefault();
     this._formSubmitHandler(this._getInputValues());

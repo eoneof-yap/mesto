@@ -55,10 +55,9 @@ const createItem = (item) => {
       previewer: () => {
         const preview = new PopupWithImage(
           popupSelectors.popupPreviewSelector,
-          item,
           popupSelectors,
         );
-        preview.open();
+        preview.open(item);
       },
     },
     cardSelectors,
