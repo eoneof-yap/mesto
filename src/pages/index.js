@@ -25,13 +25,11 @@ function handleEditButton() {
   // => PopupWithForm.js => UserInfo.js
   popupEdit.setInputValues(userInfo.getUserInfo());
   popupEdit.open(); // => PopupWithForm.js
-  validators['form-edit'].enableValidation();
 }
 
 function handleAddButton() {
   validators['form-add'].resetValidation();
   popupAdd.open();
-  validators['form-add'].enableValidation();
 }
 
 function enableValidation(formSelectors) {
