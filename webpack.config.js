@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
-  entry: './src/pages/index.js',
+  entry: './src/pages/index/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.[fullhash].js',
@@ -20,7 +20,7 @@ module.exports = {
       filename: 'main.css',
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/pages', 'index.html'),
+      template: path.resolve(__dirname, 'src/pages/index', 'index.html'),
     }),
   ],
   mode: 'development',
@@ -29,7 +29,7 @@ module.exports = {
     compress: true,
     port: 8080,
     open: true,
-    watchFiles: './src/pages/index.html',
+    watchFiles: './src/pages/index/index.html',
   },
   devtool: 'inline-source-map',
   module: {
