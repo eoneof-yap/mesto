@@ -71,6 +71,45 @@
         <div class="popup__backdrop"></div>
       </section>
 
+      <!-- UPDATE PROFILE PHOTO -->
+      <section class="popup popup_type_update">
+        <div class="popup__container">
+          <button
+            class="button popup__close-button"
+            type="button"
+            name="close-button"
+            title="Закрыть"
+          >
+            Закрыть
+          </button>
+          <form novalidate id="form-update" name="form-update" class="form">
+            <h2 class="form__header">Обновить аватар</h2>
+            <fieldset class="form__fieldset">
+              <div class="form__input-container">
+                <input
+                  class="form__input"
+                  id="updateInput"
+                  name="update"
+                  type="url"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span class="form__input-error-hint update-input-error"></span>
+              </div>
+            </fieldset>
+            <button
+              class="button form__submit-button"
+              form="form-update"
+              type="submit"
+              name="submit-button"
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+        <div class="popup__backdrop"></div>
+      </section>
+
       <!-- ADD PHOTO -->
       <section class="popup popup_type_add">
         <div class="popup__container">
@@ -147,11 +186,13 @@
         <!-- PROFILE -->
         <section class="profile">
           <div class="profile__container">
-            <img
-              class="profile__photo"
-              src="<%=require('../../images/profile__photo.jpg')%>"
-              alt="Фотография пользователя."
-            />
+            <div class="profile__photo-overlay">
+              <img
+                class="profile__photo"
+                src="<%=require('../../images/profile__photo.jpg')%>"
+                alt="Фотография пользователя."
+              />
+            </div>
             <div class="profile__main">
               <div class="profile__headings">
                 <div class="profile__header">

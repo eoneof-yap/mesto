@@ -20,6 +20,12 @@ const validators = {};
 
 // FUNCTIONS
 
+function handleUpdateButton() {
+  validators['form-update'].resetValidation();
+  // => PopupWithForm.js => UserInfo.js
+  popupUpdate.open(); // => PopupWithForm.js
+}
+
 function handleEditButton() {
   validators['form-edit'].resetValidation();
   // => PopupWithForm.js => UserInfo.js
@@ -39,6 +45,11 @@ function enableValidation(formSelectors) {
     validators[formID] = validator;
     validator.enableValidation();
   });
+}
+
+function handleUpdateSubmit(inputValues) {
+  // <= _getInputValues()
+  popupUpdate.close();
 }
 
 // prettier-ignore
@@ -66,6 +77,12 @@ const userInfo = new UserInfo(profileSelectors);
 const popupPreview = new PopupWithImage(
   popupSelectors.popupPreviewSelector,
   popupSelectors,
+);
+
+const popupUpdate = new PopupWithForm(
+  popupSelectors.popupUpdateSelector,
+  formSelectors,
+  handleUpdateSubmit,
 );
 
 const popupEdit = new PopupWithForm(
@@ -105,9 +122,11 @@ const initialCardsList = new Section(
 
 // LISTENERS
 
-pageButtons.editButton.addEventListener('click', handleEditButton);
-pageButtons.addButton.addEventListener('click', handleAddButton);
+pageButtons.updateButtonElement.addEventListener('click', handleUpdateButton);
+pageButtons.editButtonElement.addEventListener('click', handleEditButton);
+pageButtons.addButtonElement.addEventListener('click', handleAddButton);
 
+popupUpdate.setEventListeners();
 popupPreview.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();

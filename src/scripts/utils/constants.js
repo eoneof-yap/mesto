@@ -4,8 +4,9 @@
 };
 
 export const pageButtons = {
-  editButton: document.querySelector('.profile__edit-button'),
-  addButton: document.querySelector('.profile__add-button'),
+  editButtonElement: document.querySelector('.profile__edit-button'),
+  addButtonElement: document.querySelector('.profile__add-button'),
+  updateButtonElement: document.querySelector('.profile__photo'),
 };
 
 export const cardSelectors = {
@@ -20,6 +21,7 @@ export const cardSelectors = {
 };
 
 export const popupSelectors = {
+  popupUpdateSelector: '.popup_type_update',
   popupEditSelector: '.popup_type_edit',
   popupAddSelector: '.popup_type_add',
   popupPreviewSelector: '.popup_type_preview',
