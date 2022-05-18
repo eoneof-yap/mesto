@@ -1,5 +1,4 @@
 ﻿﻿export default class Card {
-  // constructor({ name, link }, previewer, selectors) {
   constructor({ item, previewer }, selectors) {
     this._previewer = previewer;
     this._titleValue = item.title;
@@ -41,6 +40,8 @@
   }
 
   _handleDelete(evt) {
+    // TODO resolve user ID
+    document.querySelector('.popup_type_confirm').classList.add('popup_opened'); // TODO move to variables
     evt.target.closest(this._card).remove();
   }
 

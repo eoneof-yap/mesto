@@ -11,6 +11,7 @@ import {
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
+import Popup from '../../scripts/components/Popup.js';
 import PopupWithForm from '../../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../../scripts/components/PopupWithImage.js';
 import UserInfo from '../../scripts/components/UserInfo.js';
@@ -19,6 +20,12 @@ import FormValidator from '../../scripts/components/FormValidator.js';
 const validators = {};
 
 // FUNCTIONS
+
+function handleConfirmDeleteCard() {
+  validators['form-update'].resetValidation();
+  // => PopupWithForm.js => UserInfo.js
+  popupConfirm.open(); // => PopupWithForm.js
+}
 
 function handleUpdateButton() {
   validators['form-update'].resetValidation();
@@ -45,6 +52,10 @@ function enableValidation(formSelectors) {
     validators[formID] = validator;
     validator.enableValidation();
   });
+}
+function handleConfirmSubmit(inputValues) {
+  // <= _getInputValues()
+  popupConfirm.close();
 }
 
 function handleUpdateSubmit(inputValues) {
@@ -77,6 +88,13 @@ const userInfo = new UserInfo(profileSelectors);
 const popupPreview = new PopupWithImage(
   popupSelectors.popupPreviewSelector,
   popupSelectors,
+);
+
+// TODO create class PopupWithButton ??
+const popupConfirm = new Popup(
+  popupSelectors.popupConfirmSelector,
+  // formSelectors,
+  // handleConfirmDeleteCard,
 );
 
 const popupUpdate = new PopupWithForm(
@@ -126,6 +144,7 @@ pageButtons.updateButtonElement.addEventListener('click', handleUpdateButton);
 pageButtons.editButtonElement.addEventListener('click', handleEditButton);
 pageButtons.addButtonElement.addEventListener('click', handleAddButton);
 
+popupConfirm.setEventListeners();
 popupUpdate.setEventListeners();
 popupPreview.setEventListeners();
 popupEdit.setEventListeners();

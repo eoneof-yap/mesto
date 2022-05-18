@@ -21,6 +21,7 @@ export const cardSelectors = {
 };
 
 export const popupSelectors = {
+  popupConfirmSelector: '.popup_type_confirm',
   popupUpdateSelector: '.popup_type_update',
   popupEditSelector: '.popup_type_edit',
   popupAddSelector: '.popup_type_add',

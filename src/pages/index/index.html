@@ -181,6 +181,32 @@
         <div class="popup__backdrop popup__backdrop_place_preview"></div>
       </section>
 
+      <!-- CONFIRM POPUP -->
+      <section class="popup popup_type_confirm">
+        <div class="popup__container">
+          <button
+            class="button popup__close-button"
+            type="button"
+            name="close-button"
+            title="Закрыть"
+          >
+            Закрыть
+          </button>
+          <form novalidate id="form-confirm" name="form-confirm" class="form">
+            <h2 class="form__header">Вы уверены?</h2>
+            <button
+              class="button form__submit-button"
+              form="form-confirm"
+              type="submit"
+              name="submit-button"
+            >
+              Да
+            </button>
+          </form>
+        </div>
+        <div class="popup__backdrop"></div>
+      </section>
+
       <!-- MAIN -->
       <main class="main">
         <!-- PROFILE -->
