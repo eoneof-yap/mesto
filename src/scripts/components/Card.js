@@ -46,6 +46,9 @@
   }
 
   _handleLike(evt) {
+    console.log(evt.target.nextElementSibling);
     evt.target.classList.toggle(this._activeLike);
+    evt.target.parentElement.classList.toggle('card__like-container_is-liked');
+    evt.target.nextElementSibling.classList.toggle('card__like-counter_visible');
   }
 }
