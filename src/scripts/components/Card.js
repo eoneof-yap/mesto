@@ -1,5 +1,5 @@
 ﻿﻿export default class Card {
-  constructor({ item, previewer }, selectors) {
+  constructor({ item, previewer }, selectors, deleteHandler) {
     this._previewer = previewer;
     this._titleValue = item.title;
     this._link = item.link;
@@ -10,6 +10,8 @@
     this._deleteButton = selectors.cardDeleteButtonSelector;
     this._likeButton = selectors.cardLikeButtonSelector;
     this._activeLike = selectors.cardActiveLikeSelector;
+    this._deleteHandler = deleteHandler;
+    this._handleDelete = this._handleDelete.bind(this);
   }
 
   createCard() {
@@ -40,9 +42,7 @@
   }
 
   _handleDelete(evt) {
-    // TODO resolve user ID
-    document.querySelector('.popup_type_confirm').classList.add('popup_opened'); // TODO move to variables
-    evt.target.closest(this._card).remove();
+    this._deleteHandler(evt.target.closest(this._card));
   }
 
   _handleLike(evt) {

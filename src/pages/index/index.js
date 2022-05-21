@@ -11,7 +11,7 @@ import {
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
-import Popup from '../../scripts/components/Popup.js';
+import PopupConfirm from '../../scripts/components/PopupConfirm.js';
 import PopupWithForm from '../../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../../scripts/components/PopupWithImage.js';
 import UserInfo from '../../scripts/components/UserInfo.js';
@@ -20,12 +20,6 @@ import FormValidator from '../../scripts/components/FormValidator.js';
 const validators = {};
 
 // FUNCTIONS
-
-function handleConfirmDeleteCard() {
-  validators['form-update'].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
-  popupConfirm.open(); // => PopupWithForm.js
-}
 
 function handleUpdateButton() {
   validators['form-update'].resetValidation();
@@ -53,13 +47,22 @@ function enableValidation(formSelectors) {
     validator.enableValidation();
   });
 }
-function handleConfirmSubmit(inputValues) {
-  // <= _getInputValues()
-  popupConfirm.close();
+
+// обработчик нажатия на козину
+// Card._handleDelete(){}
+function handleDeleteCardButton() {
+  popupConfirm.open();
 }
 
-function handleUpdateSubmit(inputValues) {
-  // <= _getInputValues()
+// обработчик подтверждения удаления карточки
+// PopupConfirm._handleSubmit(){}
+function handleConfirmDeleteCard(target) {
+  console.log(target);
+  popupConfirm.close();
+  // target.remove();
+}
+
+function handleUpdateSubmit() {
   popupUpdate.close();
 }
 
@@ -90,11 +93,10 @@ const popupPreview = new PopupWithImage(
   popupSelectors,
 );
 
-// TODO create class PopupWithButton ??
-const popupConfirm = new Popup(
-  popupSelectors.popupConfirmSelector,
-  // formSelectors,
-  // handleConfirmDeleteCard,
+const popupConfirm = new PopupConfirm(
+  popupSelectors,
+  formSelectors,
+  handleConfirmDeleteCard,
 );
 
 const popupUpdate = new PopupWithForm(
@@ -124,6 +126,7 @@ const createItem = (item) => {
       },
     },
     cardSelectors,
+    handleDeleteCardButton,
   );
   return newItem;
 };
