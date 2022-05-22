@@ -205,7 +205,12 @@
         <!-- PROFILE -->
         <section class="profile">
           <div class="profile__container">
-            <div class="profile__photo-overlay">
+            <div
+              class="profile__photo-container"
+              type="button"
+              name="update-profile-photo-button"
+            >
+              <button class="profile__photo-overlay"></button>
               <img
                 class="profile__photo"
                 src="<%=require('../../images/profile__photo.jpg')%>"

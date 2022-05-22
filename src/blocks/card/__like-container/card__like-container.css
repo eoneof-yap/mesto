@@ -5,9 +5,3 @@
   transform: translate(0, 10px);
   transition: transform cubic-bezier(0, 0.6, 0.82, 1.03) 0.3s;
 }
-
-// TODO move to separate file
-.card__like-container_is-liked {
-  transform: translate(0, 0);
-  transition: transform cubic-bezier(0, 0.6, 0.82, 1.03) 0.3s;
-}
