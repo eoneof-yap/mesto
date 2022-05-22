@@ -20,6 +20,10 @@ module.exports = {
       value: 'refactor',
       name: 'refactor:  Правки кода без исправления ошибок или добавления новых функций',
     },
+    {
+      value: 'chore',
+      name: 'chore:  Переименование или перемещение файлов',
+    },
     { value: 'revert', name: 'revert:    Откат на предыдущие коммиты' },
     {
       value: 'style',
@@ -30,10 +34,11 @@ module.exports = {
 
   // Область. Она характеризует фрагмент кода, которую затронули изменения
   scopes: [
-    { name: 'components' },
-    { name: 'utils' },
-    { name: 'pages' },
-    { name: 'root' },
+    { name: 'scripts' },
+    { name: 'blocks' },
+    { name: 'markup' },
+    { name: 'project' },
+    { name: 'config' },
   ],
 
   // Возможность задать спец ОБЛАСТЬ для определенного типа коммита (пример для 'fix')
