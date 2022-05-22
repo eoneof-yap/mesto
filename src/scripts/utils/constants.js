@@ -1,20 +1,25 @@
 ﻿﻿export const profileSelectors = {
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about',
+  profilePhotoSelector: '.profile__photo',
 };
 
 export const pageButtons = {
   editButtonElement: document.querySelector('.profile__edit-button'),
   addButtonElement: document.querySelector('.profile__add-button'),
-  updateButtonElement: document.querySelector('.profile__photo'),
+  updateButtonElement: document.querySelector('.profile__photo-overlay'),
 };
 
 export const cardSelectors = {
-  cardItemSelector: '.card',
+  cardSelector: '.card',
   cardsGridSelector: '.cards-grid',
   cardImageSelector: '.card__image',
-  cardTitleSelector: '.card__title',
+  cardNameSelector: '.card__title',
   cardDeleteButtonSelector: '.card__delete-button',
+  cardLikeContainerSelector: '.card__like-container',
+  cardLikeContainerIsLikedClass: 'card__like-container_is-liked',
+  cardLikeCounterSelector: '.card__like-counter',
+  cardLikeCounterVisibleClass: 'card__like-counter_visible',
   cardLikeButtonSelector: '.card__like-button',
   cardActiveLikeSelector: 'card__like-button_active',
   cardTemplateId: '#card-template',
@@ -54,27 +59,27 @@ import image_6 from '../../images/kabardino-balkariya.jpeg';
 
 export const initialCards = [
   {
-    title: 'Пятигорск',
+    name: 'Пятигорск',
     link: image_1,
   },
   {
-    title: 'Гора Эльбрус',
+    name: 'Гора Эльбрус',
     link: image_2,
   },
   {
-    title: 'Домбай',
+    name: 'Домбай',
     link: image_3,
   },
   {
-    title: 'Домбай',
+    name: 'Домбай',
     link: image_4,
   },
   {
-    title: 'Гора Машук',
+    name: 'Гора Машук',
     link: image_5,
   },
   {
-    title: 'Кабардино-Балкария',
+    name: 'Кабардино-Балкария',
     link: image_6,
   },
 ];

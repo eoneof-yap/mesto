@@ -6,8 +6,10 @@ import {
   cardSelectors,
   popupSelectors,
   formSelectors,
-  initialCards,
+  /*   initialCards, */
 } from '../../scripts/utils/constants.js';
+
+import { initialCards } from '../../scripts/utils/mockData.js';
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
@@ -62,13 +64,16 @@ function handleConfirmDeleteCard(target) {
   // target.remove();
 }
 
-function handleUpdateSubmit() {
+function handleUpdateSubmit(inputValues) {
+  console.log(inputValues);
+  userInfo.setUserProfilePhoto(inputValues);
   popupUpdate.close();
 }
 
 // prettier-ignore
 // PopupWithForm.js => formSubmitHandler
 function handleInfoSubmit(inputValues) { // <= _getInputValues()
+  console.log(inputValues)
   userInfo.setUserInfo(inputValues);
   popupEdit.close();
 }
@@ -77,10 +82,10 @@ function handleInfoSubmit(inputValues) { // <= _getInputValues()
 // PopupWithForm.js => formSubmitHandler
 function handleAddSubmit(inputValues) { // <= _getInputValues()
   const data = {
-    title: inputValues.title,
+    name: inputValues.name,
     link: inputValues.link,
   };
-  initialCardsList.renderItem(data);
+  initialCardsList.renderSectionItem(data);
   popupAdd.close();
 }
 
@@ -117,7 +122,7 @@ const popupAdd = new PopupWithForm(
   handleAddSubmit,
 );
 
-const createItem = (item) => {
+const addCard = (item) => {
   const newItem = new Card(
     {
       item,
@@ -135,7 +140,8 @@ const initialCardsList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      initialCardsList.createItem(createItem(item).createCard());
+      // Section => fn@125 => Card
+      initialCardsList.createSectionItem(addCard(item).createCard());
     },
   },
   cardSelectors.cardsGridSelector,

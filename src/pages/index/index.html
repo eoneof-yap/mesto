@@ -89,12 +89,12 @@
                 <input
                   class="form__input"
                   id="updateInput"
-                  name="update"
+                  name="link"
                   type="url"
                   placeholder="Ссылка на картинку"
                   required
                 />
-                <span class="form__input-error-hint update-input-error"></span>
+                <span class="form__input-error-hint link-input-error"></span>
               </div>
             </fieldset>
             <button
@@ -127,15 +127,15 @@
               <div class="form__input-container">
                 <input
                   class="form__input"
-                  id="photoTitleInput"
-                  name="title"
+                  id="photoNameInput"
+                  name="name"
                   type="text"
                   minlength="2"
                   maxlength="30"
                   placeholder="Название"
                   required
                 />
-                <span class="form__input-error-hint title-input-error"></span>
+                <span class="form__input-error-hint name-input-error"></span>
               </div>
               <div class="form__input-container">
                 <input
@@ -209,6 +209,7 @@
               class="profile__photo-container"
               type="button"
               name="update-profile-photo-button"
+              title="Изменить фотографию профиля"
             >
               <button class="profile__photo-overlay"></button>
               <img
@@ -254,7 +255,7 @@
 
     <!-- CARD -->
     <template id="card-template">
-      <li class="cards-grid__item card">
+      <li class="cards-grid__item card" id="">
         <button
           class="button card__delete-button"
           type="button"
@@ -273,7 +274,7 @@
               name="like-button"
               title="Нравится!"
             ></button>
-            <span class="card__like-counter">6</span>
+            <span class="card__like-counter">0</span>
           </div>
         </div>
       </li>

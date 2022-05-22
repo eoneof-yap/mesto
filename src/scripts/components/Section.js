@@ -10,11 +10,11 @@
     this._container = document.querySelector(selector);
   }
 
-  renderItem(item) {
+  renderSectionItem(item) {
     this._renderer(item);
   }
 
-  createItem(item) {
+  createSectionItem(item) {
     this._container.prepend(item);
   }
 

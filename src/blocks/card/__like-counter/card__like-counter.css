@@ -8,10 +8,12 @@
   margin: 3px 0 0 0;
   opacity: 0;
   transition: opacity cubic-bezier(0, 0.6, 0.82, 1.03) 0.1s;
+  transition-delay: 0.3s;
 }
 
 /* TODO move to separate file */
 .card__like-counter_visible {
   opacity: 100;
   transition: opacity cubic-bezier(0, 0.9, 0.82, 1.03) 0.5s;
+  transition-delay: 0.3s;
 }
