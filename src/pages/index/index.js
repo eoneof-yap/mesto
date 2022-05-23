@@ -6,10 +6,11 @@ import {
   cardSelectors,
   popupSelectors,
   formSelectors,
+  apiConfig,
   /*   initialCards, */
 } from '../../scripts/utils/constants.js';
 
-import { initialCards } from '../../scripts/utils/mockData.js';
+// import { initialCards } from '../../scripts/utils/mockData.js';
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
@@ -18,6 +19,7 @@ import PopupWithForm from '../../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../../scripts/components/PopupWithImage.js';
 import UserInfo from '../../scripts/components/UserInfo.js';
 import FormValidator from '../../scripts/components/FormValidator.js';
+import Api from '../../scripts/components/Api';
 
 const validators = {};
 
@@ -90,6 +92,30 @@ function handleAddSubmit(inputValues) { // <= _getInputValues()
 }
 
 // OBJECTS INSTANCES
+const api = new Api(apiConfig);
+const initialCards = api.getAllCards();
+initialCards.then((data) => {
+  const initialCardsList = new Section(
+    {
+      items: data.map((item) => {
+        return {
+          likes: item.likes,
+          _id: item._id,
+          name: item.name,
+          link: item.link,
+          owner: item.owner._id,
+          createdAt: item.createdAt,
+        };
+      }),
+      renderer: (item) => {
+        // Section => fn@125 => Card
+        initialCardsList.createSectionItem(addCard(item).createCard());
+      },
+    },
+    cardSelectors.cardsGridSelector,
+  );
+  initialCardsList.createInitialItems();
+});
 
 const userInfo = new UserInfo(profileSelectors);
 
@@ -136,17 +162,6 @@ const addCard = (item) => {
   return newItem;
 };
 
-const initialCardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      // Section => fn@125 => Card
-      initialCardsList.createSectionItem(addCard(item).createCard());
-    },
-  },
-  cardSelectors.cardsGridSelector,
-);
-
 // LISTENERS
 
 pageButtons.updateButtonElement.addEventListener('click', handleUpdateButton);
@@ -161,5 +176,4 @@ popupAdd.setEventListeners();
 
 // ENTRY POINT
 
-initialCardsList.createInitialItems();
 enableValidation(formSelectors);

@@ -49,6 +49,16 @@ export const formSelectors = {
   formActiveErrorClass: 'form__input-error-hint_active',
 };
 
+export const apiConfig = {
+  serverURL: 'https://mesto.nomoreparties.co/v1/cohort-41/',
+  cardsURL: 'cards/',
+  usersURL: 'users/',
+  headers: {
+    authorization: '848b0ef8-66eb-43ea-8417-eaa76415cd34',
+    'content-type': 'application/json',
+  },
+};
+
 // Имопртируем изображения для корректной сборки вебпаком
 import image_1 from '../../images/pyatigorks.jpeg';
 import image_2 from '../../images/elbrus.jpeg';

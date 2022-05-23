@@ -1,35 +1,17 @@
-﻿import { AUTH_TOKEN } from "../../../assets/auth.js";
-
-export default class Api {
-  constructor(server, method, data='') {
-    this._token = AUTH_TOKEN
-    this._server = server
-    this._method = method
-    this._data = data
+﻿export default class Api {
+  constructor(apiConfig) {
+    this._server = apiConfig.serverURL;
+    this._headers = apiConfig.headers;
+    this._cardsEndPoint = apiConfig.cardsURL;
+    this._usersEndPoint = apiConfig.usersURL;
   }
 
-  makeRequest() {
-    fetch(this._server, {
-    method: this._method,
-    headers: { authorization: this._token, 'Content-Type': 'application/json' },
-    body: JSON.stringify(this._data)
-  })
-    .then(response => {
-      if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response);
-      }
-      return Promise.reject(new Error(response.statusText));
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log(result);
-    })
-    .catch(error => {
-      console.log(error);
-      return null;
+  getAllCards() {
+    return fetch(`${this._server}${this._cardsEndPoint}`, {
+      method: 'GET',
+      headers: this._headers,
+    }).then((res) => {
+      return res.json();
     });
   }
 }
-
-const request = new Api('GET')
-request.makeRequest()

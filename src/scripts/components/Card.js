@@ -45,6 +45,9 @@
     const cardImage = cardElement.querySelector(this._cardImage);
     cardImage.setAttribute('alt', this._cardItem.name);
     cardImage.setAttribute('src', this._cardItem.link);
+    cardImage.setAttribute('data-card-id', this._cardItem._id);
+    cardImage.setAttribute('data-owner-id', this._cardItem.owner);
+    cardImage.setAttribute('data-created-at', this._cardItem.createdAt);
     return cardElement;
   }
 
