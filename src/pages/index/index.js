@@ -7,10 +7,8 @@ import {
   popupSelectors,
   formSelectors,
   apiConfig,
-  /*   initialCards, */
+  validators,
 } from '../../scripts/utils/constants.js';
-
-// import { initialCards } from '../../scripts/utils/mockData.js';
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
@@ -21,7 +19,10 @@ import UserInfo from '../../scripts/components/UserInfo.js';
 import FormValidator from '../../scripts/components/FormValidator.js';
 import Api from '../../scripts/components/Api';
 
-const validators = {};
+const api = new Api(apiConfig);
+const userData = api.getUser();
+const userInfo = new UserInfo(profileSelectors, userData);
+userInfo.getUserInfo();
 
 // FUNCTIONS
 
@@ -34,6 +35,7 @@ function handleUpdateButton() {
 function handleEditButton() {
   validators['form-edit'].resetValidation();
   // => PopupWithForm.js => UserInfo.js
+  console.log(userInfo.getUserInfo());
   popupEdit.setInputValues(userInfo.getUserInfo());
   popupEdit.open(); // => PopupWithForm.js
 }
@@ -62,6 +64,7 @@ function handleDeleteCardButton() {
 // PopupConfirm._handleSubmit(){}
 function handleConfirmDeleteCard(target) {
   console.log(target);
+  card;
   popupConfirm.close();
   // target.remove();
 }
@@ -75,7 +78,6 @@ function handleUpdateSubmit(inputValues) {
 // prettier-ignore
 // PopupWithForm.js => formSubmitHandler
 function handleInfoSubmit(inputValues) { // <= _getInputValues()
-  console.log(inputValues)
   userInfo.setUserInfo(inputValues);
   popupEdit.close();
 }
@@ -91,33 +93,34 @@ function handleAddSubmit(inputValues) { // <= _getInputValues()
   popupAdd.close();
 }
 
-// OBJECTS INSTANCES
-const api = new Api(apiConfig);
+// get cards from a server
 const initialCards = api.getAllCards();
-initialCards.then((data) => {
-  const initialCardsList = new Section(
-    {
-      items: data.map((item) => {
-        return {
-          likes: item.likes,
-          _id: item._id,
-          name: item.name,
-          link: item.link,
-          owner: item.owner._id,
-          createdAt: item.createdAt,
-        };
-      }),
-      renderer: (item) => {
-        // Section => fn@125 => Card
-        initialCardsList.createSectionItem(addCard(item).createCard());
+initialCards
+  .then((data) => {
+    const initialCardsList = new Section(
+      {
+        items: data.map((item) => {
+          // extract keys and return the new object
+          return {
+            likes: item.likes,
+            _id: item._id,
+            name: item.name,
+            link: item.link,
+            owner: item.owner._id,
+            createdAt: item.createdAt,
+          };
+        }),
+        // pass the object to renderer
+        renderer: (item) => {
+          // Section => fn@125 => Card
+          initialCardsList.createSectionItem(addCard(item).createCard());
+        },
       },
-    },
-    cardSelectors.cardsGridSelector,
-  );
-  initialCardsList.createInitialItems();
-});
-
-const userInfo = new UserInfo(profileSelectors);
+      cardSelectors.cardsGridSelector,
+    );
+    initialCardsList.createInitialItems();
+  })
+  .catch((err) => alert(err));
 
 const popupPreview = new PopupWithImage(
   popupSelectors.popupPreviewSelector,
@@ -126,7 +129,7 @@ const popupPreview = new PopupWithImage(
 
 const popupConfirm = new PopupConfirm(
   popupSelectors,
-  formSelectors,
+  formSelectors, // передаем только кнопку
   handleConfirmDeleteCard,
 );
 
@@ -147,7 +150,6 @@ const popupAdd = new PopupWithForm(
   formSelectors,
   handleAddSubmit,
 );
-
 const addCard = (item) => {
   const newItem = new Card(
     {

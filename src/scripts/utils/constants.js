@@ -1,4 +1,5 @@
 ﻿﻿export const profileSelectors = {
+  profileSelector: '.profile',
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about',
   profilePhotoSelector: '.profile__photo',
@@ -52,12 +53,14 @@ export const formSelectors = {
 export const apiConfig = {
   serverURL: 'https://mesto.nomoreparties.co/v1/cohort-41/',
   cardsURL: 'cards/',
-  usersURL: 'users/',
+  userURL: 'users/me/',
   headers: {
     authorization: '848b0ef8-66eb-43ea-8417-eaa76415cd34',
     'content-type': 'application/json',
   },
 };
+
+export const validators = {};
 
 // Имопртируем изображения для корректной сборки вебпаком
 import image_1 from '../../images/pyatigorks.jpeg';
