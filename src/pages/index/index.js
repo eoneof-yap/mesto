@@ -20,6 +20,7 @@ import FormValidator from '../../scripts/components/FormValidator.js';
 import Api from '../../scripts/components/Api';
 
 const api = new Api(apiConfig);
+
 const userData = api.getUser();
 const userInfo = new UserInfo(profileSelectors, userData);
 userInfo.getUserInfo();
