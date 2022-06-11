@@ -203,7 +203,7 @@
       <!-- MAIN -->
       <main class="main">
         <!-- PROFILE -->
-        <section class="profile">
+        <section class="profile" data-user-id="" data-user-cohort="">
           <div class="profile__container">
             <div
               class="profile__photo-container"
@@ -212,16 +212,12 @@
               title="Изменить фотографию профиля"
             >
               <button class="profile__photo-overlay"></button>
-              <img
-                class="profile__photo"
-                src="<%=require('../../images/profile__photo.jpg')%>"
-                alt="Фотография пользователя."
-              />
+              <img class="profile__photo" src="" alt="Фотография пользователя." />
             </div>
             <div class="profile__main">
               <div class="profile__headings">
                 <div class="profile__header">
-                  <h1 class="profile__name">Жак-Ив Кусто</h1>
+                  <h1 class="profile__name"></h1>
                   <button
                     class="button profile__edit-button"
                     type="button"
@@ -229,7 +225,7 @@
                     title="Редактировать профиль"
                   ></button>
                 </div>
-                <p class="profile__about">Исследователь океана</p>
+                <p class="profile__about"></p>
               </div>
             </div>
           </div>
