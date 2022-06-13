@@ -19,32 +19,7 @@ import UserInfo from '../../scripts/components/UserInfo.js';
 import FormValidator from '../../scripts/components/FormValidator.js';
 import Api from '../../scripts/components/Api';
 
-const api = new Api(apiConfig);
-
-const userData = api.getUser();
-const userInfo = new UserInfo(profileSelectors, userData);
-userInfo.getUserInfo();
-
 // FUNCTIONS
-
-function handleUpdateButton() {
-  validators['form-update'].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
-  popupUpdate.open(); // => PopupWithForm.js
-}
-
-function handleEditButton() {
-  validators['form-edit'].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
-  console.log(userInfo.getUserInfo());
-  popupEdit.setInputValues(userInfo.getUserInfo());
-  popupEdit.open(); // => PopupWithForm.js
-}
-
-function handleAddButton() {
-  validators['form-add'].resetValidation();
-  popupAdd.open();
-}
 
 function enableValidation(formSelectors) {
   formSelectors.formsArray.forEach((item) => {
@@ -55,31 +30,63 @@ function enableValidation(formSelectors) {
   });
 }
 
-// обработчик нажатия на козину
+function handleUpdateButton() {
+  validators['form-update'].resetValidation();
+  // => PopupWithForm.js => UserInfo.js
+  popupUpdate.open(); // => PopupWithForm.js
+}
+
+function handleEditButton() {
+  validators['form-edit'].resetValidation();
+  // => PopupWithForm.js => UserInfo.js
+  // popupEdit.setInputValues(localUserData.getUserInfo());
+  popupEdit.open(); // => PopupWithForm.js
+}
+
+function handleAddButton() {
+  validators['form-add'].resetValidation();
+  popupAdd.open();
+}
+
 // Card._handleDelete(){}
 function handleDeleteCardButton() {
   popupConfirm.open();
 }
 
-// обработчик подтверждения удаления карточки
 // PopupConfirm._handleSubmit(){}
 function handleConfirmDeleteCard(target) {
-  console.log(target);
-  card;
   popupConfirm.close();
-  // target.remove();
+  api
+    .deleteCard(carId)
+    .then
+    // target.remove();
+    ();
 }
 
+// // TODO delete
+// const newAva = {
+//   avatar:
+//     'http://basementrejects.com/wp-content/uploads/2015/06/blue-velvet-david-lynch-candy-colored-clown-they-call-the-sandman-ben-singing-dean-stockwell-review.jpg',
+//   // avatar: 'https://i.imgur.com/Tix9xxl.png',
+// };
+// // end of TODO
 function handleUpdateSubmit(inputValues) {
-  console.log(inputValues);
-  userInfo.setUserProfilePhoto(inputValues);
+  // Update Profile Photo
+  api
+    .setAvatar(inputValues)
+    .then((res) => {
+      localUserInfo.setUserProfilePhoto(res.avatar);
+    })
+    .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
+
   popupUpdate.close();
 }
 
 // prettier-ignore
 // PopupWithForm.js => formSubmitHandler
 function handleInfoSubmit(inputValues) { // <= _getInputValues()
-  userInfo.setUserInfo(inputValues);
+  console.log('d',inputValues)
+  localUserInfo.setUserInfo(inputValues);
   popupEdit.close();
 }
 
@@ -94,7 +101,13 @@ function handleAddSubmit(inputValues) { // <= _getInputValues()
   popupAdd.close();
 }
 
-// get cards from a server
+// INSTANCES OF CLASSES
+const api = new Api(apiConfig);
+
+const remoteUserData = api.getUser();
+const localUserInfo = new UserInfo(profileSelectors);
+localUserInfo.setUserInfo(remoteUserData);
+
 const initialCards = api.getAllCards();
 initialCards
   .then((data) => {
@@ -121,7 +134,7 @@ initialCards
     );
     initialCardsList.createInitialItems();
   })
-  .catch((err) => alert(err));
+  .catch((err) => console.warn(err));
 
 const popupPreview = new PopupWithImage(
   popupSelectors.popupPreviewSelector,
@@ -130,7 +143,7 @@ const popupPreview = new PopupWithImage(
 
 const popupConfirm = new PopupConfirm(
   popupSelectors,
-  formSelectors, // передаем только кнопку
+  formSelectors,
   handleConfirmDeleteCard,
 );
 
@@ -176,7 +189,5 @@ popupUpdate.setEventListeners();
 popupPreview.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
-
-// ENTRY POINT
 
 enableValidation(formSelectors);

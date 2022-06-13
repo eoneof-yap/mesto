@@ -24,7 +24,6 @@
     const likeContainer = cardElement.querySelector(this._likeContainer);
     const likeButton = cardElement.querySelector(this._likeButton);
 
-    // TODO перевести на API
     if (Object.keys(this._cardItem).indexOf('likes') > -1) {
       counterElement.textContent = this._cardItem.likes.length;
     } else {
@@ -97,5 +96,13 @@
       evt.target.nextElementSibling.textContent =
         parseInt(evt.target.nextElementSibling.textContent) + 1;
     }
+  }
+
+  getId() {
+    return this._cardItem._id;
+  }
+
+  getOwnerId() {
+    return this._cardItem.owner;
   }
 }
