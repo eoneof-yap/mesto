@@ -212,7 +212,11 @@
               title="Изменить фотографию профиля"
             >
               <button class="profile__photo-overlay"></button>
-              <img class="profile__photo" src="" alt="Фотография пользователя." />
+              <img
+                class="profile__photo"
+                alt="Фотография пользователя."
+                src="<%=require('../../images/avatar-placeholder.svg')%>"
+              />
             </div>
             <div class="profile__main">
               <div class="profile__headings">
@@ -236,6 +240,11 @@
             title="Добавить фотографии"
           ></button>
         </section>
+
+        <!-- PRELOADER -->
+        <div class="preloader">
+          <div class="spinner spinner_visible"></div>
+        </div>
 
         <!-- PHOTOS -->
         <section class="photos" aria-label="Фотографии пользователя">

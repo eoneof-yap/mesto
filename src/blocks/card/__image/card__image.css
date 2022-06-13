@@ -8,6 +8,7 @@
   transform: scale(1);
   transition: transform 0.3s ease;
   transform-origin: bottom;
+  background-image: url("../../../images/card-image-placeholder.svg");
 }
 
 .card__image:hover {

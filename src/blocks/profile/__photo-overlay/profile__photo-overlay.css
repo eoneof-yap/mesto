@@ -22,3 +22,38 @@
   transition: opacity cubic-bezier(0, 0.6, 0.82, 1.03) 0.3s,
     background cubic-bezier(0, 0.6, 0.82, 1.03) 1s;
 }
+
+/* TODO make a block, insert at the first position in index.css */
+.preloader {
+  margin: 40px auto;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+
+  border: 2px solid #f3f3f333;
+  border-top: 3px solid #f3f3f3;
+  border-radius: 1000%;
+
+  /* top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0; */
+
+  animation: spin 2.2s infinite linear;
+}
+
+.spinner_visible {
+  display: block;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
