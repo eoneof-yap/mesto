@@ -4,65 +4,92 @@
     this._headers = apiConfig.headers;
     this._cards = apiConfig.cardsURL;
     this._user = apiConfig.userURL;
+    this._avatar = apiConfig.avatarURL;
   }
 
   getUser() {
     return fetch(`${this._server}${this._user}`, {
       method: 'GET',
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch((err) => alert(err));
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
   }
-  // });
-  // }
 
-  // return this._errorHandler();
-  // }); // TODO hamdle error
-  // }
+  setUser(data) {
+    return fetch(`${this._server}${this._user}`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
+  }
 
-  editUser() {}
+  setAvatar(data) {
+    return fetch(`${this._server}${this._user}${this._avatar}`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(data),
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
+  }
 
   getAllCards() {
     return fetch(`${this._server}${this._cards}`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return this._errorHandler();
-    }); // TODO hamdle error;
-  }
-
-  addCard() {
-    return fetch(`${this._server}${this._cards}`, {
-      method: 'POST',
-      headers: this._headers,
-    }).then((res) => {
-      return res.json();
+      return this._handleResponse(res);
     });
   }
 
-  deleteCard() {
+  addCard(data) {
+    return fetch(`${this._server}${this._cards}`, {
+      method: 'POST',
+      headers: this._headers,
+      body: { data },
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
+  }
+
+  deleteCard(data) {
+    // card id
+    return fetch(`${this._server}${this._cards}${data}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
+  }
+
+  likeCard(data) {
+    // my id
+    return fetch(`${this._server}${this._cards}`, {
+      method: 'PUT',
+      headers: this._headers,
+      body: { data },
+    }).then((res) => {
+      return this._handleResponse(res);
+    });
+  }
+
+  unlikeCard() {
+    // my id
     return fetch(`${this._server}${this._cards}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
-      return res.json();
+      return this._handleResponse(res);
     });
   }
 
-  likeCard() {}
-
-  unlikeCard() {}
-
-  _errorHandler() {
-    return Promise.reject('Не пошло...'); // TODO callback ?
+  _handleResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
   }
 }
