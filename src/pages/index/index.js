@@ -67,9 +67,6 @@ export const popupAdd = new PopupWithForm(
  * Cards
  ************************************************************/
 export const api = new Api(consts.apiConfig);
-const remoteUserData = api.getUser();
-const remoteCardsData = api.getAllCards();
-
 export const user = new UserInfo(profileElements);
 
 const initialCards = (...args) => {
@@ -80,14 +77,15 @@ const newCard = (...args) => {
   return new Card(...args);
 };
 
-// prettier-ignore
-remoteUserData
+api
+  .getUser()
   .then((res) => {
     user.setUserInfo(res);
   })
-  .catch((err) => console.warn(err));
+  .catch((err) => console.warn(`Пользователь не загрузился: ${err}`));
 
-remoteCardsData
+api
+  .getAllCards()
   .then((res) => {
     const localCardsList = initialCards(
       {
@@ -100,7 +98,7 @@ remoteCardsData
     );
     localCardsList.createInitialItems();
   })
-  .catch((err) => console.warn(err));
+  .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
 const addCardItem = (item) => {
   return newCard(

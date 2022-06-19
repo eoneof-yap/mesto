@@ -31,11 +31,12 @@
     };
   }
 
-  updateUserInfo() {
-    this._handleUserData(data);
+  updateUserInfo(inputValues) {
+    this._name.textContent = inputValues.name;
+    this._about.textContent = inputValues.about;
   }
 
-  updateUserProfilePhoto(data) {
-    this._photo.setAttribute('src', data);
+  updateUserProfilePhoto(link) {
+    this._photo.setAttribute('src', link);
   }
 }

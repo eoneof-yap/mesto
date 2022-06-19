@@ -14,13 +14,11 @@ import { api, popupUpdate, popupEdit, popupAdd, popupConfirm, user } from '../..
  ************************************************************/
 export function handleUpdatePhotoButton() {
   consts.validators[consts.formSelectors.formUpdatePhotoID].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
   popupUpdate.open(); // => PopupWithForm.js
 }
 
 export function handleEditProfileButton() {
   consts.validators[consts.formSelectors.formEditInfoID].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
   popupEdit.setInputValues(user.pickUserInfo());
   popupEdit.open(); // => PopupWithForm.js
 }
@@ -30,29 +28,36 @@ export function handleAddCardButton() {
   popupAdd.open();
 }
 
-// Card._handleDelete(){}
 export function handleDeleteCardButton() {
   popupConfirm.open();
 }
 
-export function handleUserPhotoSubmit(inputValues) {
-  // Update Profile Photo
+/**
+ * Edit user photo (avatar)
+ */
+export function handleUserPhotoSubmit(inputValue) {
   api
-    .setAvatar(inputValues)
+    .setAvatar(inputValue)
     .then((res) => {
-      localUserInfo.setUserProfilePhoto(res.avatar);
+      user.updateUserProfilePhoto(res.avatar);
     })
     .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
   popupUpdate.close();
 }
-// prettier-ignore
-// PopupWithForm.js => formSubmitHandler
+
+/**
+ * Edit user info
+ */
 export function handleUserInfoSubmit(inputValues) {
-  localUserInfo.setUserInfo(inputValues);
+  api.setUser(inputValues).then((res) => {
+    user.updateUserInfo(res);
+  });
   popupEdit.close();
 }
-// prettier-ignore
-// PopupWithForm.js => formSubmitHandler
+
+/**
+ * Add new card
+ */
 export function handleCardSubmit(inputValues) {
   const data = {
     name: inputValues.name,
@@ -62,7 +67,6 @@ export function handleCardSubmit(inputValues) {
   popupAdd.close();
 }
 
-// PopupConfirm._handleSubmit(){}
 export function handleCardDeleteConfirm(target) {
   popupConfirm.close();
   api.deleteCard(carId).then();
