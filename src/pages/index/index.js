@@ -86,13 +86,8 @@ const newCard = (...args) => {
 remoteUserData
   .then((res) => {
     const localUserData = newUser(
-      consts.profileSelectors,
-      {
-        userData: utils.mapUserData(res),
-      //   userDataHandler: (data) => {
-      //     localUserData.setUserInfo();
-      //   },
-      }
+      profileElements,
+      res
     );
     localUserData.setUserInfo()
   })

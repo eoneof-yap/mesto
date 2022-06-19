@@ -81,12 +81,12 @@ export const mapCardsData = (arr) => {
   });
 };
 
-export const mapUserData = (data) => {
-  return {
-    id: data._id,
-    photo: data.avatar,
-    name: data.name,
-    about: data.about,
-    cohort: data.cohort,
-  };
-};
+// export const mapUserData = (data) => {
+//   return {
+//     id: data._id,
+//     photo: data.avatar,
+//     name: data.name,
+//     about: data.about,
+//     cohort: data.cohort,
+//   };
+// };
