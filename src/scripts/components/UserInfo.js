@@ -1,41 +1,54 @@
 ﻿export default class UserInfo {
-  constructor({ profileElement, nameElement, aboutElement, photoElement }, userData) {
-    // debugger;
-    this._profile = profileElement;
-    this._name = nameElement;
-    this._about = aboutElement;
-    this._photo = photoElement;
-    // this._userData = userData;
-    // this._id = userData._id;
+  constructor(
+    { profileSelector, nameSelector, aboutSelector, profilePhotoSelector },
+    { userData },
+    userDataHandler,
+  ) {
+    this._profileElement = document.querySelector(profileSelector);
+    this._nameElement = document.querySelector(nameSelector);
+    this._aboutElement = document.querySelector(aboutSelector);
+    this._photoElement = document.querySelector(profilePhotoSelector);
+    this._userData = userData;
+    // this._id = userData.id;
     // this._name = userData.name;
-    // this._about = userData.abour;
+    // this._about = userData.about;
     // this._photo = userData.photo;
     // this._cohort = userData.cohort;
-    // debugger;
+    this._userDataHandler = userDataHandler;
+    this._handleUserData = this._handleUserData.bind(this);
   }
+
+  _handleUserData(data) {
+    this._userDataHandler(data);
+  }
+
   getUserInfo() {
-    // get from the page the old way
+    this._handleUserData(this._userData);
   }
 
-  setUserInfo(data) {
-    data.then((user) => {
-      const data = {
-        _id: user._id,
-        photo: user.avatar,
-        name: user.name,
-        about: user.about,
-        cohort: user.cohort,
-      };
-      this._name.textContent = data.name;
-      this._about.textContent = data.about;
-      this._profile.setAttribute('data-user-id', data.id);
-      this._profile.setAttribute('data-user-cohort', data.cohort);
-      this._photo.setAttribute('src', data.photo);
-      return data;
-    });
+  setUserInfo() {
+    console.log('👉this._userData:', this._userData.name);
+    this._nameElement.textContent = this._userData.name;
+    this._aboutElement.textContent = this._userData.about;
+    this._profileElement.setAttribute('data-user-id', this._userData._id);
+    this._profileElement.setAttribute('data-user-cohort', this._userData.cohort);
+    this._photoElement.setAttribute('src', this._userData.photo);
+    // return this._userData;
   }
 
-  setUserProfilePhoto(data) {
-    this._photo.setAttribute('src', data);
+  pickUserInfo() {
+    const userInfo = {
+      name: this._nameElement.textContent,
+      about: this._aboutElement.textContent,
+    };
+    return userInfo;
+  }
+
+  updateUserInfo() {
+    this._handleUserData(data);
+  }
+
+  updateUserProfilePhoto(data) {
+    this._photoElement.setAttribute('src', data);
   }
 }

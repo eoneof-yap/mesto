@@ -1,6 +1,6 @@
 ﻿import './index.css';
 
-import * as constants from '../../scripts/utils/constants.js';
+import * as consts from '../../scripts/utils/constants.js';
 import * as utils from '../../scripts/utils/utils';
 
 import Card from '../../scripts/components/Card.js';
@@ -17,109 +17,121 @@ import Api from '../../scripts/components/Api';
  ************************************************************/
 const documentForms = Array.from(document.forms);
 
-const editUserButtonElement = document.querySelector(constants.buttonsSelectors.editButtonSelector);
-const addCardButtonElement = document.querySelector(constants.buttonsSelectors.addButtonSelector);
+const editUserButtonElement = document.querySelector(consts.buttonsSelectors.editButtonSelector);
+const addCardButtonElement = document.querySelector(consts.buttonsSelectors.addButtonSelector);
 const editPhotoButtonElement = document.querySelector(
-  constants.buttonsSelectors.updatePhotoButtonSelector,
+  consts.buttonsSelectors.updatePhotoButtonSelector,
 );
-const sectionElement = document.querySelector(constants.cardSelectors.cardsGridSelector);
+const cardsContainer = document.querySelector(consts.cardSelectors.cardsGridSelector);
 
-const profileItems = {
-  profileElement: document.querySelector(constants.profileSelectors.profileSelector),
-  nameElement: document.querySelector(constants.profileSelectors.nameSelector),
-  aboutElement: document.querySelector(constants.profileSelectors.aboutSelector),
-  photoElement: document.querySelector(constants.profileSelectors.profilePhotoSelector),
+const profileElements = {
+  profileContainer: document.querySelector(consts.profileSelectors.profileSelector),
+  nameElement: document.querySelector(consts.profileSelectors.nameSelector),
+  aboutElement: document.querySelector(consts.profileSelectors.aboutSelector),
+  photoElement: document.querySelector(consts.profileSelectors.profilePhotoSelector),
 };
 
 /************************************************************
  * Popups
  ************************************************************/
 const popupPreview = new PopupWithImage(
-  constants.popupSelectors.popupPreviewSelector,
-  constants.popupSelectors,
+  consts.popupSelectors.popupPreviewSelector,
+  consts.popupSelectors,
 );
 
 export const popupConfirm = new PopupConfirm(
-  constants.popupSelectors,
-  constants.formSelectors,
-  utils.handleConfirmDeleteCard,
+  consts.popupSelectors,
+  consts.formSelectors,
+  utils.handleCardDeleteConfirm,
 );
 
 export const popupUpdate = new PopupWithForm(
-  constants.popupSelectors.popupUpdateSelector,
-  constants.formSelectors,
-  utils.handleUpdateSubmit,
+  consts.popupSelectors.popupUpdateSelector,
+  consts.formSelectors,
+  utils.handleUserPhotoSubmit,
 );
 
 export const popupEdit = new PopupWithForm(
-  constants.popupSelectors.popupEditSelector,
-  constants.formSelectors,
-  utils.handleInfoSubmit,
+  consts.popupSelectors.popupEditSelector,
+  consts.formSelectors,
+  utils.handleUserInfoSubmit,
 );
 
 export const popupAdd = new PopupWithForm(
-  constants.popupSelectors.popupAddSelector,
-  constants.formSelectors,
-  utils.handleAddSubmit,
+  consts.popupSelectors.popupAddSelector,
+  consts.formSelectors,
+  utils.handleCardSubmit,
 );
 
 /************************************************************
  * Cards
  ************************************************************/
-export const api = new Api(constants.apiConfig);
-export const localUserInfo = new UserInfo(profileItems);
+export const api = new Api(consts.apiConfig);
+const remoteUserData = api.getUser();
+const remoteCardsData = api.getAllCards();
 
-const initialCards = api.getAllCards();
-initialCards
-  .then((data) => {
-    const initialCardsList = new Section(
+const newUser = (...args) => {
+  return new UserInfo(...args);
+};
+
+const initialCards = (...args) => {
+  return new Section(...args);
+};
+
+const newCard = (...args) => {
+  return new Card(...args);
+};
+
+// prettier-ignore
+remoteUserData
+  .then((res) => {
+    const localUserData = newUser(
+      consts.profileSelectors,
       {
-        items: data.map((item) => {
-          // extract keys and return the new object
-          return {
-            likes: item.likes,
-            _id: item._id,
-            name: item.name,
-            link: item.link,
-            owner: item.owner._id,
-            createdAt: item.createdAt,
-          };
-        }),
-        // pass the object to renderer
-        renderer: (item) => {
-          // Section => fn@125 => Card
-          initialCardsList.createSectionItem(addCard(item).createCard());
-        },
-      },
-      sectionElement,
+        userData: utils.mapUserData(res),
+      //   userDataHandler: (data) => {
+      //     localUserData.setUserInfo();
+      //   },
+      }
     );
-    initialCardsList.createInitialItems();
+    localUserData.setUserInfo()
   })
   .catch((err) => console.warn(err));
 
-const addCard = (item) => {
-  const newItem = new Card(
+remoteCardsData
+  .then((res) => {
+    const localCardsList = initialCards(
+      {
+        items: utils.mapCardsData(res),
+        renderer: (item) => {
+          localCardsList.createSectionItem(addCardItem(item).createCard());
+        },
+      },
+      cardsContainer,
+    );
+    localCardsList.createInitialItems();
+  })
+  .catch((err) => console.warn(err));
+
+const addCardItem = (item) => {
+  return newCard(
     {
       item,
       previewer: () => {
         popupPreview.open(item);
       },
     },
-    constants.cardSelectors,
+    consts.cardSelectors,
     utils.handleDeleteCardButton,
   );
-  return newItem;
 };
-
-const remoteUserData = api.getUser();
-localUserInfo.setUserInfo(remoteUserData);
 
 /************************************************************
  * Listeners
  ************************************************************/
-editPhotoButtonElement.addEventListener('click', utils.handleUpdateButton);
-editUserButtonElement.addEventListener('click', utils.handleEditButton);
-addCardButtonElement.addEventListener('click', utils.handleAddButton);
+editPhotoButtonElement.addEventListener('click', utils.handleUpdatePhotoButton);
+editUserButtonElement.addEventListener('click', utils.handleEditProfileButton);
+addCardButtonElement.addEventListener('click', utils.handleAddCardButton);
 
 popupConfirm.setEventListeners();
 popupUpdate.setEventListeners();
@@ -134,9 +146,9 @@ function enableValidation(formSelectors) {
   documentForms.forEach((item) => {
     const validator = new FormValidator(item, formSelectors);
     const formID = item.getAttribute('id');
-    constants.validators[formID] = validator;
+    consts.validators[formID] = validator;
     validator.enableValidation();
   });
 }
 
-enableValidation(constants.formSelectors);
+enableValidation(consts.formSelectors);
