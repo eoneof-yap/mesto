@@ -36,23 +36,34 @@ export function handleDeleteCardButton() {
  * Edit user photo (avatar)
  */
 export function handleUserPhotoSubmit(inputValue) {
+  popupUpdate.displayLoader();
   api
     .setAvatar(inputValue)
     .then((res) => {
       user.updateUserProfilePhoto(res.avatar);
     })
+    .then((res) => {
+      popupUpdate.hideLoader();
+      popupUpdate.close();
+    })
     .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
-  popupUpdate.close();
 }
 
 /**
  * Edit user info
  */
 export function handleUserInfoSubmit(inputValues) {
-  api.setUser(inputValues).then((res) => {
-    user.updateUserInfo(res);
-  });
-  popupEdit.close();
+  popupEdit.displayLoader();
+  api
+    .setUser(inputValues)
+    .then((res) => {
+      user.editUserInfo(res);
+    })
+    .then((res) => {
+      popupEdit.hideLoader();
+      popupEdit.close();
+    })
+    .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
 }
 
 /**

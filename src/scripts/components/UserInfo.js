@@ -31,7 +31,7 @@
     };
   }
 
-  updateUserInfo(inputValues) {
+  editUserInfo(inputValues) {
     this._name.textContent = inputValues.name;
     this._about.textContent = inputValues.about;
   }

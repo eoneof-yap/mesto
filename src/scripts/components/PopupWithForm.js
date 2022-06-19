@@ -3,7 +3,7 @@
 export default class PopupWithForm extends Popup {
   constructor(
     popupSelector,
-    { formSelector, formInputSelector, formSubmitButtonSelector },
+    { formSelector, formInputSelector, formSubmitButtonSelector, formDisabledButtonClass },
     formSubmitHandler,
   ) {
     super(popupSelector);
@@ -11,7 +11,20 @@ export default class PopupWithForm extends Popup {
     this._inputsList = this._popup.querySelectorAll(formInputSelector);
     this._submitButton = this._form.querySelector(formSubmitButtonSelector);
     this._formSubmitHandler = formSubmitHandler;
+    this._disabledButton = formDisabledButtonClass;
     this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  displayLoader() {
+    this._submitButton.classList.add(this._disabledButton);
+    this._submitButton.setAttribute('disabled', 'disabled');
+    this._submitButton.textContent = 'Сохранение...';
+  }
+
+  hideLoader() {
+    this._submitButton.classList.remove(this._disabledButton);
+    this._submitButton.removeAttribute('disabled', 'disabled');
+    this._submitButton.textContent = 'Сохранить';
   }
 
   close() {
