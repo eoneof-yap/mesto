@@ -1,5 +1,5 @@
-﻿import * as constants from './constants.js';
-import { api, popupUpdate, popupEdit, popupAdd, popupConfirm } from '../../pages/index/index';
+﻿import * as consts from './constants.js';
+import { api, popupUpdate, popupEdit, popupAdd, popupConfirm, user } from '../../pages/index/index';
 
 // // TODO delete
 // const newAva = {
@@ -13,20 +13,20 @@ import { api, popupUpdate, popupEdit, popupAdd, popupConfirm } from '../../pages
  * Handlers
  ************************************************************/
 export function handleUpdatePhotoButton() {
-  constants.validators[constants.formSelectors.formUpdatePhotoID].resetValidation();
+  consts.validators[consts.formSelectors.formUpdatePhotoID].resetValidation();
   // => PopupWithForm.js => UserInfo.js
   popupUpdate.open(); // => PopupWithForm.js
 }
 
 export function handleEditProfileButton() {
-  constants.validators[constants.formSelectors.formEditInfoID].resetValidation();
+  consts.validators[consts.formSelectors.formEditInfoID].resetValidation();
   // => PopupWithForm.js => UserInfo.js
-  // popupEdit.setInputValues(localUserData.getUserInfo());
+  popupEdit.setInputValues(user.pickUserInfo());
   popupEdit.open(); // => PopupWithForm.js
 }
 
 export function handleAddCardButton() {
-  constants.validators[constants.formSelectors.formAddCardID].resetValidation();
+  consts.validators[consts.formSelectors.formAddCardID].resetValidation();
   popupAdd.open();
 }
 

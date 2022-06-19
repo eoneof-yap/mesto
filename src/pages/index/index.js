@@ -70,9 +70,7 @@ export const api = new Api(consts.apiConfig);
 const remoteUserData = api.getUser();
 const remoteCardsData = api.getAllCards();
 
-const newUser = (...args) => {
-  return new UserInfo(...args);
-};
+export const user = new UserInfo(profileElements);
 
 const initialCards = (...args) => {
   return new Section(...args);
@@ -85,11 +83,7 @@ const newCard = (...args) => {
 // prettier-ignore
 remoteUserData
   .then((res) => {
-    const localUserData = newUser(
-      profileElements,
-      res
-    );
-    localUserData.setUserInfo()
+    user.setUserInfo(res);
   })
   .catch((err) => console.warn(err));
 

@@ -1,10 +1,9 @@
 ﻿export default class UserInfo {
-  constructor(profileElements, userData, userDataHandler) {
+  constructor(profileElements, userDataHandler) {
     this._profile = profileElements.profileContainer;
     this._name = profileElements.nameElement;
     this._about = profileElements.aboutElement;
     this._photo = profileElements.photoElement;
-    this._data = userData;
     this._handler = userDataHandler;
     this._handleUserData = this._handleUserData.bind(this);
   }
@@ -17,19 +16,19 @@
     this._handleUserData(this._data);
   }
 
-  setUserInfo() {
-    this._name.textContent = this._data.name;
-    this._about.textContent = this._data.about;
-    this._profile.setAttribute('data-user-id', this._data._id);
-    this._profile.setAttribute('data-user-cohort', this._data.cohort);
-    this._photo.setAttribute('src', this._data.avatar);
+  setUserInfo(userData) {
+    this._name.textContent = userData.name;
+    this._about.textContent = userData.about;
+    this._profile.setAttribute('data-user-id', userData._id);
+    this._profile.setAttribute('data-user-cohort', userData.cohort);
+    this._photo.setAttribute('src', userData.avatar);
   }
 
   pickUserInfo() {
-    return (userInfo = {
+    return {
       name: this._name.textContent,
       about: this._about.textContent,
-    });
+    };
   }
 
   updateUserInfo() {
