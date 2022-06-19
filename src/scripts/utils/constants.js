@@ -5,10 +5,10 @@
   profilePhotoSelector: '.profile__photo',
 };
 
-export const pageButtons = {
-  editButtonElement: document.querySelector('.profile__edit-button'),
-  addButtonElement: document.querySelector('.profile__add-button'),
-  updateButtonElement: document.querySelector('.profile__photo-overlay'),
+export const buttonsSelectors = {
+  editButtonSelector: '.profile__edit-button',
+  addButtonSelector: '.profile__add-button',
+  updatePhotoButtonSelector: '.profile__photo-overlay',
 };
 
 export const cardSelectors = {
@@ -40,7 +40,6 @@ export const popupSelectors = {
 };
 
 export const formSelectors = {
-  formsArray: Array.from(document.forms),
   formSelector: '.form',
   formInputSelector: '.form__input',
   formSubmitButtonSelector: '.form__submit-button',
@@ -48,6 +47,9 @@ export const formSelectors = {
   formInpuErrorClass: 'form__input_type_error',
   formErrorHintSelector: '.form__input-error-hint',
   formActiveErrorClass: 'form__input-error-hint_active',
+  formAddCardID: 'form-add',
+  formUpdatePhotoID: 'form-update',
+  formEditInfoID: 'form-edit',
 };
 
 export const apiConfig = {

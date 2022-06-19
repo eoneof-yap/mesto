@@ -1,14 +1,7 @@
 ﻿import './index.css';
 
-import {
-  profileSelectors,
-  pageButtons,
-  cardSelectors,
-  popupSelectors,
-  formSelectors,
-  apiConfig,
-  validators,
-} from '../../scripts/utils/constants.js';
+import * as constants from '../../scripts/utils/constants.js';
+import * as utils from '../../scripts/utils/utils';
 
 import Card from '../../scripts/components/Card.js';
 import Section from '../../scripts/components/Section.js';
@@ -19,94 +12,62 @@ import UserInfo from '../../scripts/components/UserInfo.js';
 import FormValidator from '../../scripts/components/FormValidator.js';
 import Api from '../../scripts/components/Api';
 
-// FUNCTIONS
+/************************************************************
+ * DOM nodes
+ ************************************************************/
+const documentForms = Array.from(document.forms);
 
-function enableValidation(formSelectors) {
-  formSelectors.formsArray.forEach((item) => {
-    const validator = new FormValidator(item, formSelectors);
-    const formID = item.getAttribute('id');
-    validators[formID] = validator;
-    validator.enableValidation();
-  });
-}
+const editUserButtonElement = document.querySelector(constants.buttonsSelectors.editButtonSelector);
+const addCardButtonElement = document.querySelector(constants.buttonsSelectors.addButtonSelector);
+const editPhotoButtonElement = document.querySelector(
+  constants.buttonsSelectors.updatePhotoButtonSelector,
+);
+const sectionElement = document.querySelector(constants.cardSelectors.cardsGridSelector);
 
-function handleUpdateButton() {
-  validators['form-update'].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
-  popupUpdate.open(); // => PopupWithForm.js
-}
+const profileItems = {
+  profileElement: document.querySelector(constants.profileSelectors.profileSelector),
+  nameElement: document.querySelector(constants.profileSelectors.nameSelector),
+  aboutElement: document.querySelector(constants.profileSelectors.aboutSelector),
+  photoElement: document.querySelector(constants.profileSelectors.profilePhotoSelector),
+};
 
-function handleEditButton() {
-  validators['form-edit'].resetValidation();
-  // => PopupWithForm.js => UserInfo.js
-  // popupEdit.setInputValues(localUserData.getUserInfo());
-  popupEdit.open(); // => PopupWithForm.js
-}
+/************************************************************
+ * Popups
+ ************************************************************/
+const popupPreview = new PopupWithImage(
+  constants.popupSelectors.popupPreviewSelector,
+  constants.popupSelectors,
+);
 
-function handleAddButton() {
-  validators['form-add'].resetValidation();
-  popupAdd.open();
-}
+export const popupConfirm = new PopupConfirm(
+  constants.popupSelectors,
+  constants.formSelectors,
+  utils.handleConfirmDeleteCard,
+);
 
-// Card._handleDelete(){}
-function handleDeleteCardButton() {
-  popupConfirm.open();
-}
+export const popupUpdate = new PopupWithForm(
+  constants.popupSelectors.popupUpdateSelector,
+  constants.formSelectors,
+  utils.handleUpdateSubmit,
+);
 
-// PopupConfirm._handleSubmit(){}
-function handleConfirmDeleteCard(target) {
-  popupConfirm.close();
-  api
-    .deleteCard(carId)
-    .then
-    // target.remove();
-    ();
-}
+export const popupEdit = new PopupWithForm(
+  constants.popupSelectors.popupEditSelector,
+  constants.formSelectors,
+  utils.handleInfoSubmit,
+);
 
-// // TODO delete
-// const newAva = {
-//   avatar:
-//     'http://basementrejects.com/wp-content/uploads/2015/06/blue-velvet-david-lynch-candy-colored-clown-they-call-the-sandman-ben-singing-dean-stockwell-review.jpg',
-//   // avatar: 'https://i.imgur.com/Tix9xxl.png',
-// };
-// // end of TODO
-function handleUpdateSubmit(inputValues) {
-  // Update Profile Photo
-  api
-    .setAvatar(inputValues)
-    .then((res) => {
-      localUserInfo.setUserProfilePhoto(res.avatar);
-    })
-    .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
+export const popupAdd = new PopupWithForm(
+  constants.popupSelectors.popupAddSelector,
+  constants.formSelectors,
+  utils.handleAddSubmit,
+);
 
-  popupUpdate.close();
-}
-
-// prettier-ignore
-// PopupWithForm.js => formSubmitHandler
-function handleInfoSubmit(inputValues) { // <= _getInputValues()
-  console.log('d',inputValues)
-  localUserInfo.setUserInfo(inputValues);
-  popupEdit.close();
-}
-
-// prettier-ignore
-// PopupWithForm.js => formSubmitHandler
-function handleAddSubmit(inputValues) { // <= _getInputValues()
-  const data = {
-    name: inputValues.name,
-    link: inputValues.link,
-  };
-  initialCardsList.renderSectionItem(data);
-  popupAdd.close();
-}
-
-// INSTANCES OF CLASSES
-const api = new Api(apiConfig);
-
-const remoteUserData = api.getUser();
-const localUserInfo = new UserInfo(profileSelectors);
-localUserInfo.setUserInfo(remoteUserData);
+/************************************************************
+ * Cards
+ ************************************************************/
+export const api = new Api(constants.apiConfig);
+export const localUserInfo = new UserInfo(profileItems);
 
 const initialCards = api.getAllCards();
 initialCards
@@ -130,40 +91,12 @@ initialCards
           initialCardsList.createSectionItem(addCard(item).createCard());
         },
       },
-      cardSelectors.cardsGridSelector,
+      sectionElement,
     );
     initialCardsList.createInitialItems();
   })
   .catch((err) => console.warn(err));
 
-const popupPreview = new PopupWithImage(
-  popupSelectors.popupPreviewSelector,
-  popupSelectors,
-);
-
-const popupConfirm = new PopupConfirm(
-  popupSelectors,
-  formSelectors,
-  handleConfirmDeleteCard,
-);
-
-const popupUpdate = new PopupWithForm(
-  popupSelectors.popupUpdateSelector,
-  formSelectors,
-  handleUpdateSubmit,
-);
-
-const popupEdit = new PopupWithForm(
-  popupSelectors.popupEditSelector,
-  formSelectors,
-  handleInfoSubmit,
-);
-
-const popupAdd = new PopupWithForm(
-  popupSelectors.popupAddSelector,
-  formSelectors,
-  handleAddSubmit,
-);
 const addCard = (item) => {
   const newItem = new Card(
     {
@@ -172,17 +105,21 @@ const addCard = (item) => {
         popupPreview.open(item);
       },
     },
-    cardSelectors,
-    handleDeleteCardButton,
+    constants.cardSelectors,
+    utils.handleDeleteCardButton,
   );
   return newItem;
 };
 
-// LISTENERS
+const remoteUserData = api.getUser();
+localUserInfo.setUserInfo(remoteUserData);
 
-pageButtons.updateButtonElement.addEventListener('click', handleUpdateButton);
-pageButtons.editButtonElement.addEventListener('click', handleEditButton);
-pageButtons.addButtonElement.addEventListener('click', handleAddButton);
+/************************************************************
+ * Listeners
+ ************************************************************/
+editPhotoButtonElement.addEventListener('click', utils.handleUpdateButton);
+editUserButtonElement.addEventListener('click', utils.handleEditButton);
+addCardButtonElement.addEventListener('click', utils.handleAddButton);
 
 popupConfirm.setEventListeners();
 popupUpdate.setEventListeners();
@@ -190,4 +127,16 @@ popupPreview.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
 
-enableValidation(formSelectors);
+/************************************************************
+ * Validation
+ ************************************************************/
+function enableValidation(formSelectors) {
+  documentForms.forEach((item) => {
+    const validator = new FormValidator(item, formSelectors);
+    const formID = item.getAttribute('id');
+    constants.validators[formID] = validator;
+    validator.enableValidation();
+  });
+}
+
+enableValidation(constants.formSelectors);
