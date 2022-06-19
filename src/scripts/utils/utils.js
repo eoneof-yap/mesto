@@ -1,13 +1,15 @@
 ﻿import * as consts from './constants.js';
-import { api, popupUpdate, popupEdit, popupAdd, popupConfirm, user } from '../../pages/index/index';
-
-// // TODO delete
-// const newAva = {
-//   avatar:
-//     'http://basementrejects.com/wp-content/uploads/2015/06/blue-velvet-david-lynch-candy-colored-clown-they-call-the-sandman-ben-singing-dean-stockwell-review.jpg',
-//   // avatar: 'https://i.imgur.com/Tix9xxl.png',
-// };
-// // end of TODO
+import {
+  api,
+  popupUpdate,
+  popupEdit,
+  popupAdd,
+  popupConfirm,
+  user,
+  pagePreloader,
+  cardsContainer,
+  profileElements,
+} from '../../pages/index/index';
 
 /************************************************************
  * Handlers
@@ -84,6 +86,7 @@ export function handleCardDeleteConfirm(target) {
 }
 
 export const mapCardsData = (arr) => {
+  console.log('👉arr:', arr);
   return arr.map((item) => {
     return {
       likes: item.likes,
@@ -96,12 +99,8 @@ export const mapCardsData = (arr) => {
   });
 };
 
-// export const mapUserData = (data) => {
-//   return {
-//     id: data._id,
-//     photo: data.avatar,
-//     name: data.name,
-//     about: data.about,
-//     cohort: data.cohort,
-//   };
-// };
+export const hidePagePreloader = () => {
+  pagePreloader.classList.add('hidden');
+  cardsContainer.classList.remove(consts.hiddenClass);
+  profileElements.profileContainer.classList.remove(consts.hiddenClass);
+};

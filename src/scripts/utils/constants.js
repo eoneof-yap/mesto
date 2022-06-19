@@ -1,4 +1,11 @@
-﻿﻿export const profileSelectors = {
+﻿﻿export const hiddenClass = 'hidden';
+
+export const preloaderSelectors = {
+  pagePreloaderSelector: '.preloader',
+  spinnerSelector: '.spinner',
+};
+
+export const profileSelectors = {
   profileSelector: '.profile',
   nameSelector: '.profile__name',
   aboutSelector: '.profile__about',

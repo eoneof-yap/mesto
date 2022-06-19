@@ -17,14 +17,19 @@ import Api from '../../scripts/components/Api';
  ************************************************************/
 const documentForms = Array.from(document.forms);
 
+export const pagePreloader = document.querySelector(
+  consts.preloaderSelectors.pagePreloaderSelector,
+);
+export const pageSpinner = pagePreloader.querySelector(consts.preloaderSelectors.spinnerSelector);
+
 const editUserButtonElement = document.querySelector(consts.buttonsSelectors.editButtonSelector);
 const addCardButtonElement = document.querySelector(consts.buttonsSelectors.addButtonSelector);
 const editPhotoButtonElement = document.querySelector(
   consts.buttonsSelectors.updatePhotoButtonSelector,
 );
-const cardsContainer = document.querySelector(consts.cardSelectors.cardsGridSelector);
+export const cardsContainer = document.querySelector(consts.cardSelectors.cardsGridSelector);
 
-const profileElements = {
+export const profileElements = {
   profileContainer: document.querySelector(consts.profileSelectors.profileSelector),
   nameElement: document.querySelector(consts.profileSelectors.nameSelector),
   aboutElement: document.querySelector(consts.profileSelectors.aboutSelector),
@@ -77,28 +82,48 @@ const newCard = (...args) => {
   return new Card(...args);
 };
 
-api
-  .getUser()
-  .then((res) => {
-    user.setUserInfo(res);
-  })
-  .catch((err) => console.warn(`Пользователь не загрузился: ${err}`));
+const loadData = () => {
+  Promise.all([api.getUser(), api.getAllCards()])
+    .then(([userData, cardsData]) => {
+      user.setUserInfo(userData);
 
-api
-  .getAllCards()
-  .then((res) => {
-    const localCardsList = initialCards(
-      {
-        items: utils.mapCardsData(res),
-        renderer: (item) => {
-          localCardsList.createSectionItem(addCardItem(item).createCard());
+      const localCardsList = initialCards(
+        {
+          items: utils.mapCardsData(cardsData),
+          renderer: (item) => {
+            localCardsList.createSectionItem(addCardItem(item).createCard());
+          },
         },
-      },
-      cardsContainer,
-    );
-    localCardsList.createInitialItems();
-  })
-  .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
+        cardsContainer,
+      );
+      localCardsList.createInitialItems();
+      utils.hidePagePreloader();
+    })
+    .catch((err) => console.warn(`Промис Олл: ${err}`));
+};
+
+// api
+//   .getUser()
+//   .then((res) => {
+//     user.setUserInfo(res);
+//   })
+//   .catch((err) => console.warn(`Пользователь не загрузился: ${err}`));
+
+// api
+//   .getAllCards()
+//   .then((res) => {
+//     const localCardsList = initialCards(
+//       {
+//         items: utils.mapCardsData(res),
+//         renderer: (item) => {
+//           localCardsList.createSectionItem(addCardItem(item).createCard());
+//         },
+//       },
+//       cardsContainer,
+//     );
+//     localCardsList.createInitialItems();
+//   })
+//   .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
 const addCardItem = (item) => {
   return newCard(
@@ -139,3 +164,4 @@ function enableValidation(formSelectors) {
 }
 
 enableValidation(consts.formSelectors);
+loadData();

@@ -23,9 +23,32 @@
     background cubic-bezier(0, 0.6, 0.82, 1.03) 1s;
 }
 
+/* TODO create `hidden` block, add via script as className*/
+/* .photos {
+  display: none;
+}
+
+.profile {
+  display: none;
+} */
+
 /* TODO make a block, insert at the first position in index.css */
 .preloader {
-  margin: 40px auto;
+  width: 100%;
+  position: absolute;
+  top: 120px;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 76px 0;
+  box-sizing: border-box;
+  background-color: #000;
+  display: flex;
+  z-index: 2;
+}
+
+.hidden {
+  display: none;
 }
 
 .spinner {
@@ -36,17 +59,7 @@
   border-top: 3px solid #f3f3f3;
   border-radius: 1000%;
 
-  /* top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0; */
-
   animation: spin 2.2s infinite linear;
-}
-
-.spinner_visible {
-  display: block;
 }
 
 @keyframes spin {
