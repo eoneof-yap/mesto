@@ -1,16 +1,26 @@
 ﻿import Popup from './Popup.js';
 
 export default class PopupConfirm extends Popup {
-  constructor(
-    { popupConfirmSelector, popupOpenedClass },
-    { formSubmitButtonSelector },
-    submitHandler,
-  ) {
-    super(popupConfirmSelector);
-    this._submitButton = this._popup.querySelector(formSubmitButtonSelector);
-    this._popupOpenedClass = popupOpenedClass;
+  constructor(popupSelector, selectors, formSelectors, submitHandler) {
+    super(popupSelector, selectors);
+    this._submitButton = this._popup.querySelector(
+      formSelectors.formSubmitButtonSelector,
+    );
     this._submitHandler = submitHandler;
-    this._handleClick = this._handleConfirmClick.bind(this);
+    this._handleConfirmClick = this._handleConfirmClick.bind(this);
+    this._disabledButton = formSelectors.formDisabledButtonClass;
+  }
+
+  displayLoader() {
+    this._submitButton.classList.add(this._disabledButton);
+    this._submitButton.setAttribute('disabled', 'disabled');
+    this._submitButton.textContent = 'Удаление...';
+  }
+
+  hideLoader() {
+    this._submitButton.classList.remove(this._disabledButton);
+    this._submitButton.removeAttribute('disabled', 'disabled');
+    this._submitButton.textContent = 'Да';
   }
 
   setEventListeners() {
@@ -19,8 +29,6 @@ export default class PopupConfirm extends Popup {
   }
 
   _handleConfirmClick() {
-    // index.js => handleConfirmDeleteCard()
-    // как-то передавать evt.target отсюда, а не из Card._handleDelete()
-    this._submitHandler(this);
+    this._submitHandler();
   }
 }

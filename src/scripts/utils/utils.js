@@ -5,39 +5,52 @@ import {
   popupEdit,
   popupAdd,
   popupConfirm,
+  popupPreview,
   user,
+  card,
   pagePreloader,
   cardsContainer,
   profileElements,
 } from '../../pages/index/index';
 
 /************************************************************
- * Handlers
+ * Page buttons handlers
  ************************************************************/
-export function handleUpdatePhotoButton() {
+export function updateUserPhotoButtonHandler() {
   consts.validators[consts.formSelectors.formUpdatePhotoID].resetValidation();
   popupUpdate.open(); // => PopupWithForm.js
 }
 
-export function handleEditProfileButton() {
+export function editUserInfoButtonHandler() {
   consts.validators[consts.formSelectors.formEditInfoID].resetValidation();
   popupEdit.setInputValues(user.pickUserInfo());
   popupEdit.open(); // => PopupWithForm.js
 }
 
-export function handleAddCardButton() {
+export function addNewCardButtonHandler() {
   consts.validators[consts.formSelectors.formAddCardID].resetValidation();
   popupAdd.open();
 }
 
-export function handleDeleteCardButton() {
+/************************************************************
+ * Card buttons handlers
+ ************************************************************/
+export function trashButtonClickHandler(target) {
   popupConfirm.open();
 }
 
-/**
- * Edit user photo (avatar)
- */
-export function handleUserPhotoSubmit(inputValue) {
+export function cardImagePreviewHandler(item) {
+  popupPreview.open(item);
+}
+
+export function likeButtonClickHandler(target) {
+  console.log(target);
+}
+
+/************************************************************
+ * Popups buttons handlers
+ ************************************************************/
+export function submitNewUserPhotoHandler(inputValue) {
   popupUpdate.displayLoader();
   api
     .setAvatar(inputValue)
@@ -48,30 +61,28 @@ export function handleUserPhotoSubmit(inputValue) {
       popupUpdate.hideLoader();
       popupUpdate.close();
     })
-    .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
+    .catch((err) => {
+      requestErrorHandler(err);
+    });
 }
 
-/**
- * Edit user info
- */
-export function handleUserInfoSubmit(inputValues) {
+export function submitUserInfoHandler(inputValues) {
   popupEdit.displayLoader();
   api
     .setUser(inputValues)
     .then((res) => {
-      user.editUserInfo(res);
+      user.setUserInfo(res);
     })
     .then((res) => {
       popupEdit.hideLoader();
       popupEdit.close();
     })
-    .catch((err) => console.warn(`Произошла непоправимая ошибка: ${err}`));
+    .catch((err) => {
+      requestErrorHandler(err);
+    });
 }
 
-/**
- * Add new card
- */
-export function handleCardSubmit(inputValues) {
+export function submitNewCardHandler(inputValues) {
   const data = {
     name: inputValues.name,
     link: inputValues.link,
@@ -80,13 +91,18 @@ export function handleCardSubmit(inputValues) {
   popupAdd.close();
 }
 
-export function handleCardDeleteConfirm(target) {
+export function submitConfirmButtonClickHandler() {
+  // api.deleteCard(carId).then();
+  popupConfirm.displayLoader();
+  card.deleteCard();
   popupConfirm.close();
-  api.deleteCard(carId).then();
+  popupConfirm.hideLoader();
 }
 
-export const mapCardsData = (arr) => {
-  console.log('👉arr:', arr);
+/************************************************************
+ * Misc handlers
+ ************************************************************/
+export function mapCardsData(arr) {
   return arr.map((item) => {
     return {
       likes: item.likes,
@@ -97,10 +113,14 @@ export const mapCardsData = (arr) => {
       createdAt: item.createdAt,
     };
   });
-};
+}
 
-export const hidePagePreloader = () => {
+export function hidePagePreloader() {
   pagePreloader.classList.add('hidden');
   cardsContainer.classList.remove(consts.hiddenClass);
   profileElements.profileContainer.classList.remove(consts.hiddenClass);
-};
+}
+
+function requestErrorHandler(err) {
+  console.warn(`Произошла непоправимая ошибка: ${err}`);
+}

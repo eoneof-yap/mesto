@@ -20,14 +20,22 @@ const documentForms = Array.from(document.forms);
 export const pagePreloader = document.querySelector(
   consts.preloaderSelectors.pagePreloaderSelector,
 );
-export const pageSpinner = pagePreloader.querySelector(consts.preloaderSelectors.spinnerSelector);
+export const pageSpinner = pagePreloader.querySelector(
+  consts.preloaderSelectors.spinnerSelector,
+);
 
-const editUserButtonElement = document.querySelector(consts.buttonsSelectors.editButtonSelector);
-const addCardButtonElement = document.querySelector(consts.buttonsSelectors.addButtonSelector);
+const editUserButtonElement = document.querySelector(
+  consts.buttonsSelectors.editButtonSelector,
+);
+const addCardButtonElement = document.querySelector(
+  consts.buttonsSelectors.addButtonSelector,
+);
 const editPhotoButtonElement = document.querySelector(
   consts.buttonsSelectors.updatePhotoButtonSelector,
 );
-export const cardsContainer = document.querySelector(consts.cardSelectors.cardsGridSelector);
+export const cardsContainer = document.querySelector(
+  consts.cardSelectors.cardsGridSelector,
+);
 
 export const profileElements = {
   profileContainer: document.querySelector(consts.profileSelectors.profileSelector),
@@ -39,59 +47,72 @@ export const profileElements = {
 /************************************************************
  * Popups
  ************************************************************/
-const popupPreview = new PopupWithImage(
+
+export const popupConfirm = new PopupConfirm(
+  consts.popupSelectors.popupConfirmSelector,
+  consts.popupSelectors,
+  consts.formSelectors,
+  utils.submitConfirmButtonClickHandler,
+);
+
+export const popupPreview = new PopupWithImage(
   consts.popupSelectors.popupPreviewSelector,
   consts.popupSelectors,
 );
 
-export const popupConfirm = new PopupConfirm(
-  consts.popupSelectors,
-  consts.formSelectors,
-  utils.handleCardDeleteConfirm,
-);
-
 export const popupUpdate = new PopupWithForm(
   consts.popupSelectors.popupUpdateSelector,
+  consts.popupSelectors,
   consts.formSelectors,
-  utils.handleUserPhotoSubmit,
+  utils.submitNewUserPhotoHandler,
 );
 
 export const popupEdit = new PopupWithForm(
   consts.popupSelectors.popupEditSelector,
+  consts.popupSelectors,
   consts.formSelectors,
-  utils.handleUserInfoSubmit,
+  utils.submitUserInfoHandler,
 );
 
 export const popupAdd = new PopupWithForm(
   consts.popupSelectors.popupAddSelector,
+  consts.popupSelectors,
   consts.formSelectors,
-  utils.handleCardSubmit,
+  utils.submitNewCardHandler,
 );
 
 /************************************************************
  * Cards
  ************************************************************/
 export const api = new Api(consts.apiConfig);
-export const user = new UserInfo(profileElements);
+export const user = new UserInfo(profileElements, getUserInfoHandler);
+
+function getUserInfoHandler() {
+  return api.getUser();
+}
+
+function setUserInfo(remoteUserData) {
+  user.setUserInfo(remoteUserData);
+}
 
 const initialCards = (...args) => {
   return new Section(...args);
 };
 
-const newCard = (...args) => {
-  return new Card(...args);
+export const card = (...args) => {
+  return new Card(...args, utils.trashButtonClickHandler);
 };
 
-const loadData = () => {
-  Promise.all([api.getUser(), api.getAllCards()])
-    .then(([userData, cardsData]) => {
-      user.setUserInfo(userData);
+function loadData() {
+  Promise.all([user.getUserInfo(), api.getAllCards()])
+    .then(([remoteUserData, remoteCardsData]) => {
+      setUserInfo(remoteUserData);
 
       const localCardsList = initialCards(
         {
-          items: utils.mapCardsData(cardsData),
-          renderer: (item) => {
-            localCardsList.createSectionItem(addCardItem(item).createCard());
+          items: utils.mapCardsData(remoteCardsData),
+          renderer: (card) => {
+            localCardsList.createSectionItem(addCardItem(card).createCard());
           },
         },
         cardsContainer,
@@ -100,7 +121,11 @@ const loadData = () => {
       utils.hidePagePreloader();
     })
     .catch((err) => console.warn(`Промис Олл: ${err}`));
-};
+}
+
+function setLikeHandler() {
+  api.likeCard().then((res) => {});
+}
 
 // api
 //   .getUser()
@@ -126,24 +151,29 @@ const loadData = () => {
 //   .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
 const addCardItem = (item) => {
-  return newCard(
+  return card(
     {
       item,
-      previewer: () => {
-        popupPreview.open(item);
+      trashButtonHandler: () => {
+        utils.trashButtonClickHandler(target);
+      },
+      previewHandler: () => {
+        utils.cardImagePreviewHandler(target);
+      },
+      likeButtonHandler: () => {
+        utils.likeButtonClickHandler(target);
       },
     },
     consts.cardSelectors,
-    utils.handleDeleteCardButton,
   );
 };
 
 /************************************************************
  * Listeners
  ************************************************************/
-editPhotoButtonElement.addEventListener('click', utils.handleUpdatePhotoButton);
-editUserButtonElement.addEventListener('click', utils.handleEditProfileButton);
-addCardButtonElement.addEventListener('click', utils.handleAddCardButton);
+editPhotoButtonElement.addEventListener('click', utils.updateUserPhotoButtonHandler);
+editUserButtonElement.addEventListener('click', utils.editUserInfoButtonHandler);
+addCardButtonElement.addEventListener('click', utils.addNewCardButtonHandler);
 
 popupConfirm.setEventListeners();
 popupUpdate.setEventListeners();

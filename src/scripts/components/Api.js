@@ -15,7 +15,7 @@
       return this._handleResponse(res);
     });
   }
-
+ 
   setUser(data) {
     return fetch(`${this._server}${this._user}`, {
       method: 'PATCH',

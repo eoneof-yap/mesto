@@ -1,19 +1,14 @@
 ﻿export default class UserInfo {
-  constructor(profileElements, userDataHandler) {
+  constructor(profileElements, userInfoHandler) {
     this._profile = profileElements.profileContainer;
     this._name = profileElements.nameElement;
     this._about = profileElements.aboutElement;
     this._photo = profileElements.photoElement;
-    this._handler = userDataHandler;
-    this._handleUserData = this._handleUserData.bind(this);
-  }
-
-  _handleUserData(data) {
-    this._handler(data);
+    this._userInfoHandler = userInfoHandler;
   }
 
   getUserInfo() {
-    this._handleUserData(this._data);
+    return this._userInfoHandler();
   }
 
   setUserInfo(userData) {
@@ -29,11 +24,6 @@
       name: this._name.textContent,
       about: this._about.textContent,
     };
-  }
-
-  editUserInfo(inputValues) {
-    this._name.textContent = inputValues.name;
-    this._about.textContent = inputValues.about;
   }
 
   updateUserProfilePhoto(link) {
