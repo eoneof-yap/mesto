@@ -15,7 +15,7 @@
       return this._handleResponse(res);
     });
   }
- 
+
   setUser(data) {
     return fetch(`${this._server}${this._user}`, {
       method: 'PATCH',
@@ -49,7 +49,7 @@
     return fetch(`${this._server}${this._cards}`, {
       method: 'POST',
       headers: this._headers,
-      body: { data },
+      body: JSON.stringify(data),
     }).then((res) => {
       return this._handleResponse(res);
     });

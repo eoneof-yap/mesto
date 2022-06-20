@@ -8,10 +8,49 @@ import {
   popupPreview,
   user,
   card,
+  section,
   pagePreloader,
   cardsContainer,
   profileElements,
+  newCard,
 } from '../../pages/index/index';
+
+/************************************************************
+ * Misc handlers
+ ************************************************************/
+export function mapinItialCardsData(arr) {
+  return arr.map((item) => {
+    return {
+      likes: item.likes,
+      id: item._id,
+      name: item.name,
+      link: item.link,
+      owner: item.owner._id,
+      createdAt: item.createdAt,
+    };
+  });
+}
+
+export function mapNewCardData(arr) {
+  return {
+    likes: item.likes,
+    id: item._id,
+    name: item.name,
+    link: item.link,
+    owner: item.owner._id,
+    createdAt: item.createdAt,
+  };
+}
+
+export function hidePagePreloader() {
+  pagePreloader.classList.add('hidden');
+  cardsContainer.classList.remove(consts.hiddenClass);
+  profileElements.profileContainer.classList.remove(consts.hiddenClass);
+}
+
+export function requestErrorHandler(err) {
+  console.warn(`Произошла трагическая ошибка: ${err}`);
+}
 
 /************************************************************
  * Page buttons handlers
@@ -35,7 +74,7 @@ export function addNewCardButtonHandler() {
 /************************************************************
  * Card buttons handlers
  ************************************************************/
-export function trashButtonClickHandler(target) {
+export function deleteButtonClickHandler() {
   popupConfirm.open();
 }
 
@@ -43,8 +82,28 @@ export function cardImagePreviewHandler(item) {
   popupPreview.open(item);
 }
 
-export function likeButtonClickHandler(target) {
-  console.log(target);
+export function likeButtonClickHandler() {
+  console.log('target');
+  // if (
+  //   // TODO базовая логика на моковых данных -- все перевести на API
+  //   evt.target.classList.contains(this._likeButtonIsActive) &&
+  //   evt.target.parentElement.classList.contains(this._likeContainerIsLiked) &&
+  //   evt.target.nextElementSibling.classList.contains(this._counterVisible)
+  // ) {
+  //   evt.target.classList.remove(this._likeButtonIsActive);
+  //   evt.target.nextElementSibling.textContent =
+  //     parseInt(evt.target.nextElementSibling.textContent) - 1;
+  //   if (parseInt(evt.target.nextElementSibling.textContent) < 1) {
+  //     evt.target.parentElement.classList.remove(this._likeContainerIsLiked);
+  //     evt.target.nextElementSibling.classList.remove(this._counterVisible);
+  //   }
+  // } else {
+  //   evt.target.classList.add(this._likeButtonIsActive);
+  //   evt.target.parentElement.classList.add(this._likeContainerIsLiked);
+  //   evt.target.nextElementSibling.classList.add(this._counterVisible);
+  //   evt.target.nextElementSibling.textContent =
+  //     parseInt(evt.target.nextElementSibling.textContent) + 1;
+  // }
 }
 
 /************************************************************
@@ -83,44 +142,41 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues) {
-  const data = {
-    name: inputValues.name,
-    link: inputValues.link,
-  };
-  initialCardsList.renderSectionItem(data);
+  popupAdd.displayLoader();
+  api
+    .addCard(inputValues)
+    .then((res) => {
+      const localCard = section(
+        {
+          data: mapNewCardData(res),
+          renderCardHandler: (item) => {
+            section.renderSectionItem(newCard(item).createCard());
+          },
+        },
+        cardsContainer,
+      );
+      localCard.createSectionItem();
+    })
+    .then((res) => {
+      popupAdd.hideLoader();
+      popupAdd.close();
+    })
+    .catch((err) => {
+      requestErrorHandler(err);
+    });
+  // const data = {
+  //   name: inputValues.name,
+  //   link: inputValues.link,
+  // };
+  // initialCardsList.renderSectionItem(data);
   popupAdd.close();
 }
 
+// FIXME !!!
 export function submitConfirmButtonClickHandler() {
   // api.deleteCard(carId).then();
   popupConfirm.displayLoader();
   card.deleteCard();
   popupConfirm.close();
   popupConfirm.hideLoader();
-}
-
-/************************************************************
- * Misc handlers
- ************************************************************/
-export function mapCardsData(arr) {
-  return arr.map((item) => {
-    return {
-      likes: item.likes,
-      id: item._id,
-      name: item.name,
-      link: item.link,
-      owner: item.owner._id,
-      createdAt: item.createdAt,
-    };
-  });
-}
-
-export function hidePagePreloader() {
-  pagePreloader.classList.add('hidden');
-  cardsContainer.classList.remove(consts.hiddenClass);
-  profileElements.profileContainer.classList.remove(consts.hiddenClass);
-}
-
-function requestErrorHandler(err) {
-  console.warn(`Произошла непоправимая ошибка: ${err}`);
 }

@@ -95,36 +95,42 @@ function setUserInfo(remoteUserData) {
   user.setUserInfo(remoteUserData);
 }
 
-const initialCards = (...args) => {
+export const section = (...args) => {
   return new Section(...args);
 };
 
 export const card = (...args) => {
-  return new Card(...args, utils.trashButtonClickHandler);
+  return new Card(...args);
 };
 
-function loadData() {
+function getAllData() {
   Promise.all([user.getUserInfo(), api.getAllCards()])
     .then(([remoteUserData, remoteCardsData]) => {
       setUserInfo(remoteUserData);
 
-      const localCardsList = initialCards(
+      const localCard = section(
         {
-          items: utils.mapCardsData(remoteCardsData),
-          renderer: (card) => {
-            localCardsList.createSectionItem(addCardItem(card).createCard());
+          data: utils.mapinItialCardsData(remoteCardsData),
+          renderCardHandler: (item) => {
+            localCard.renderSectionItem(newCard(item).createCard());
           },
         },
         cardsContainer,
       );
-      localCardsList.createInitialItems();
+      localCard.createInitialItems();
       utils.hidePagePreloader();
     })
-    .catch((err) => console.warn(`Промис Олл: ${err}`));
+    .catch((err) => {
+      utils.requestErrorHandler(err);
+    });
 }
 
-function setLikeHandler() {
+function setLike() {
   api.likeCard().then((res) => {});
+}
+
+function deleteCard() {
+  api.deleteCard().then((res) => {});
 }
 
 // api
@@ -150,18 +156,19 @@ function setLikeHandler() {
 //   })
 //   .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
-const addCardItem = (item) => {
+// FIXME починить
+export const newCard = (item) => {
   return card(
     {
       item,
-      trashButtonHandler: () => {
-        utils.trashButtonClickHandler(target);
+      deleteHandler: () => {
+        utils.deleteButtonClickHandler();
       },
       previewHandler: () => {
-        utils.cardImagePreviewHandler(target);
+        utils.cardImagePreviewHandler(item);
       },
-      likeButtonHandler: () => {
-        utils.likeButtonClickHandler(target);
+      likeHandler: () => {
+        utils.likeButtonClickHandler();
       },
     },
     consts.cardSelectors,
@@ -194,4 +201,4 @@ function enableValidation(formSelectors) {
 }
 
 enableValidation(consts.formSelectors);
-loadData();
+getAllData();
