@@ -12,8 +12,8 @@ export default class PopupWithForm extends Popup {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  displayLoader() {
-    super.displayLoader();
+  showLoader() {
+    super.showLoader();
   }
 
   hideLoader() {

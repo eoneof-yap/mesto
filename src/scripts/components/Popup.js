@@ -17,7 +17,7 @@
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  displayLoader() {
+  showLoader() {
     this._submitButton.classList.add(this._disabledButton);
     this._submitButton.setAttribute('disabled', 'disabled');
     this._submitButton.textContent = 'Сохранение...';

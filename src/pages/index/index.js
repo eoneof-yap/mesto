@@ -110,14 +110,14 @@ function getAllData() {
 
       const localCard = section(
         {
-          data: utils.mapinItialCardsData(remoteCardsData),
+          data: utils.mapinItialCardsData(remoteCardsData).reverse(),
           renderCardHandler: (item) => {
-            localCard.renderSectionItem(newCard(item).createCard());
+            localCard.renderSectionItem(createNewCard(item).createCard());
           },
         },
         cardsContainer,
       );
-      localCard.createInitialItems();
+      localCard.createSectionItem();
       utils.hidePagePreloader();
     })
     .catch((err) => {
@@ -157,7 +157,7 @@ function deleteCard() {
 //   .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
 // FIXME починить
-export const newCard = (item) => {
+export function createNewCard(item) {
   return card(
     {
       item,
@@ -173,7 +173,7 @@ export const newCard = (item) => {
     },
     consts.cardSelectors,
   );
-};
+}
 
 /************************************************************
  * Listeners

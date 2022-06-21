@@ -29,12 +29,14 @@
               class="profile__photo-container"
               type="button"
               name="update-profile-photo-button"
-              title="Изменить фотографию профиля">
+              title="Изменить фотографию профиля"
+            >
               <button class="profile__photo-overlay"></button>
               <img
                 class="profile__photo"
                 alt="Фотография пользователя."
-                src="<%=require('../../images/avatar-placeholder.svg')%>" />
+                src="<%=require('../../images/avatar-placeholder.svg')%>"
+              />
             </div>
             <div class="profile__main">
               <div class="profile__headings">
@@ -44,7 +46,8 @@
                     class="button profile__edit-button"
                     type="button"
                     name="edit-button"
-                    title="Редактировать профиль"></button>
+                    title="Редактировать профиль"
+                  ></button>
                 </div>
                 <p class="profile__about"></p>
               </div>
@@ -54,7 +57,8 @@
             class="button profile__add-button"
             type="button"
             name="add-button"
-            title="Добавить фотографии"></button>
+            title="Добавить фотографии"
+          ></button>
         </section>
 
         <!-- PHOTOS -->
@@ -77,7 +81,8 @@
             class="button popup__close-button"
             type="button"
             name="close-button"
-            title="Закрыть">
+            title="Закрыть"
+          >
             Закрыть
           </button>
           <form novalidate id="form-edit" name="form-edit" class="form">
@@ -92,7 +97,8 @@
                   minlength="2"
                   maxlength="40"
                   placeholder="Как вас зовут?"
-                  required />
+                  required
+                />
                 <span class="form__input-error-hint name-input-error"></span>
               </div>
               <div class="form__input-container">
@@ -104,7 +110,8 @@
                   minlength="2"
                   maxlength="200"
                   placeholder="Напишите что-нибудь о себе"
-                  required />
+                  required
+                />
                 <span class="form__input-error-hint about-input-error"></span>
               </div>
             </fieldset>
@@ -112,7 +119,8 @@
               class="button form__submit-button"
               form="form-edit"
               type="submit"
-              name="submit-button">
+              name="submit-button"
+            >
               Сохранить
             </button>
           </form>
@@ -127,7 +135,8 @@
             class="button popup__close-button"
             type="button"
             name="close-button"
-            title="Закрыть">
+            title="Закрыть"
+          >
             Закрыть
           </button>
           <form novalidate id="form-update" name="form-update" class="form">
@@ -140,7 +149,8 @@
                   name="avatar"
                   type="url"
                   placeholder="Ссылка на картинку"
-                  required />
+                  required
+                />
                 <span class="form__input-error-hint avatar-input-error"></span>
               </div>
             </fieldset>
@@ -148,7 +158,8 @@
               class="button form__submit-button"
               form="form-update"
               type="submit"
-              name="submit-button">
+              name="submit-button"
+            >
               Сохранить
             </button>
           </form>
@@ -163,7 +174,8 @@
             class="button popup__close-button"
             type="button"
             name="close-button"
-            title="Закрыть">
+            title="Закрыть"
+          >
             Закрыть
           </button>
           <form novalidate id="form-add" name="form-add" class="form">
@@ -178,7 +190,8 @@
                   minlength="2"
                   maxlength="30"
                   placeholder="Название"
-                  required />
+                  required
+                />
                 <span class="form__input-error-hint name-input-error"></span>
               </div>
               <div class="form__input-container">
@@ -188,7 +201,8 @@
                   name="link"
                   type="url"
                   placeholder="Ссылка на картинку"
-                  required />
+                  required
+                />
                 <span class="form__input-error-hint link-input-error"></span>
               </div>
             </fieldset>
@@ -196,7 +210,8 @@
               class="button form__submit-button"
               form="form-add"
               type="submit"
-              name="submit-button">
+              name="submit-button"
+            >
               Создать
             </button>
           </form>
@@ -211,7 +226,8 @@
             class="button popup__close-button"
             type="button"
             name="close-button"
-            title="Закрыть">
+            title="Закрыть"
+          >
             Закрыть
           </button>
           <figure class="preview">
@@ -229,7 +245,8 @@
             class="button popup__close-button"
             type="button"
             name="close-button"
-            title="Закрыть">
+            title="Закрыть"
+          >
             Закрыть
           </button>
           <div class="form">
@@ -243,14 +260,20 @@
 
     <!-- CARD -->
     <template id="card-template">
-      <li class="cards-grid__item card" id="">
+      <li
+        class="cards-grid__item card"
+        data-card-id=""
+        data-owner-id=""
+        data-created-at=""
+      >
         <button
           class="button card__delete-button"
           type="button"
           name="delete-button"
-          title="Удалить"></button>
+          title="Удалить"
+        ></button>
         <div class="card__image-container">
-          <img class="card__image" data-card-id="" data-owner-id="" data-created-at="" />
+          <img class="card__image" />
         </div>
         <div class="card__label">
           <h2 class="card__title"></h2>
@@ -259,7 +282,8 @@
               type="button"
               class="button card__like-button"
               name="like-button"
-              title="Нравится!"></button>
+              title="Нравится!"
+            ></button>
             <span class="card__like-counter">0</span>
           </div>
         </div>

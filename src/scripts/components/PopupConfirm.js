@@ -11,7 +11,7 @@ export default class PopupConfirm extends Popup {
     this._disabledButton = formSelectors.formDisabledButtonClass;
   }
 
-  displayLoader() {
+  showLoader() {
     this._submitButton.classList.add(this._disabledButton);
     this._submitButton.setAttribute('disabled', 'disabled');
     this._submitButton.textContent = 'Удаление...';

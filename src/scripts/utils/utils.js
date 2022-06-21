@@ -12,7 +12,7 @@ import {
   pagePreloader,
   cardsContainer,
   profileElements,
-  newCard,
+  createNewCard,
 } from '../../pages/index/index';
 
 /************************************************************
@@ -31,15 +31,17 @@ export function mapinItialCardsData(arr) {
   });
 }
 
-export function mapNewCardData(arr) {
-  return {
-    likes: item.likes,
-    id: item._id,
-    name: item.name,
-    link: item.link,
-    owner: item.owner._id,
-    createdAt: item.createdAt,
-  };
+export function mapNewCardData(data) {
+  return [
+    {
+      likes: data.likes,
+      id: data._id,
+      name: data.name,
+      link: data.link,
+      owner: data.owner._id,
+      createdAt: data.createdAt,
+    },
+  ];
 }
 
 export function hidePagePreloader() {
@@ -110,7 +112,7 @@ export function likeButtonClickHandler() {
  * Popups buttons handlers
  ************************************************************/
 export function submitNewUserPhotoHandler(inputValue) {
-  popupUpdate.displayLoader();
+  popupUpdate.showLoader();
   api
     .setAvatar(inputValue)
     .then((res) => {
@@ -126,7 +128,7 @@ export function submitNewUserPhotoHandler(inputValue) {
 }
 
 export function submitUserInfoHandler(inputValues) {
-  popupEdit.displayLoader();
+  popupEdit.showLoader();
   api
     .setUser(inputValues)
     .then((res) => {
@@ -142,15 +144,15 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues) {
-  popupAdd.displayLoader();
+  popupAdd.showLoader();
   api
     .addCard(inputValues)
     .then((res) => {
       const localCard = section(
         {
-          data: mapNewCardData(res),
-          renderCardHandler: (item) => {
-            section.renderSectionItem(newCard(item).createCard());
+          data: [res], //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
+          renderCardHandler: (data) => {
+            return localCard.renderSectionItem(createNewCard(data).createCard());
           },
         },
         cardsContainer,
@@ -175,7 +177,7 @@ export function submitNewCardHandler(inputValues) {
 // FIXME !!!
 export function submitConfirmButtonClickHandler() {
   // api.deleteCard(carId).then();
-  popupConfirm.displayLoader();
+  popupConfirm.showLoader();
   card.deleteCard();
   popupConfirm.close();
   popupConfirm.hideLoader();

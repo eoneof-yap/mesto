@@ -29,6 +29,7 @@
 
   createCard() {
     const cardElement = this._cloneTemplate();
+    this._setEventListeners(cardElement);
     const cardImage = cardElement.querySelector(this._cardImage);
 
     cardElement.querySelector(this._cardName).textContent = this._cardItem.name;
@@ -59,7 +60,6 @@
       likeButton.classList.remove(this._likeButtonIsActive);
     }
 
-    this._setEventListeners(cardElement);
     return cardElement;
   }
 
