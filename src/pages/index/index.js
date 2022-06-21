@@ -17,10 +17,10 @@ import Api from '../../scripts/components/Api';
  ************************************************************/
 const documentForms = Array.from(document.forms);
 
-export const pagePreloader = document.querySelector(
+export const pagePreloaderElement = document.querySelector(
   consts.preloaderSelectors.pagePreloaderSelector,
 );
-export const pageSpinner = pagePreloader.querySelector(
+export const pageSpinnerElement = pagePreloaderElement.querySelector(
   consts.preloaderSelectors.spinnerSelector,
 );
 
@@ -38,7 +38,7 @@ export const cardsContainer = document.querySelector(
 );
 
 export const profileElements = {
-  profileContainer: document.querySelector(consts.profileSelectors.profileSelector),
+  profileElement: document.querySelector(consts.profileSelectors.profileSelector),
   nameElement: document.querySelector(consts.profileSelectors.nameSelector),
   aboutElement: document.querySelector(consts.profileSelectors.aboutSelector),
   photoElement: document.querySelector(consts.profileSelectors.profilePhotoSelector),

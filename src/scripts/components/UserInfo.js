@@ -1,6 +1,6 @@
 ﻿export default class UserInfo {
   constructor(profileElements, userInfoHandler) {
-    this._profile = profileElements.profileContainer;
+    this._profile = profileElements.profileElement;
     this._name = profileElements.nameElement;
     this._about = profileElements.aboutElement;
     this._photo = profileElements.photoElement;

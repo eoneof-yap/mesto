@@ -1,54 +1,10 @@
 ﻿import * as consts from './constants.js';
-import {
-  api,
-  popupUpdate,
-  popupEdit,
-  popupAdd,
-  popupConfirm,
-  popupPreview,
-  user,
-  card,
-  section,
-  pagePreloader,
-  cardsContainer,
-  profileElements,
-  renderNewCard,
-} from '../../pages/index/index';
-
-/************************************************************
- * Misc handlers
- ************************************************************/
-export function mapInItialCardsData(res) {
-  const reversedCardList = res.map((item) => {
-    return {
-      likes: item.likes,
-      id: item._id,
-      name: item.name,
-      link: item.link,
-      owner: item.owner._id,
-      createdAt: item.createdAt,
-    };
-  });
-  return reversedCardList.reverse();
-}
-
-export function mapNewCardData(data) {
-  return [
-    {
-      likes: data.likes,
-      id: data._id,
-      name: data.name,
-      link: data.link,
-      owner: data.owner._id,
-      createdAt: data.createdAt,
-    },
-  ];
-}
+import * as index from '../../pages/index/index';
 
 export function hidePagePreloader() {
-  pagePreloader.classList.add('hidden');
-  cardsContainer.classList.remove(consts.hiddenClass);
-  profileElements.profileContainer.classList.remove(consts.hiddenClass);
+  index.pagePreloaderElement.classList.add('hidden');
+  index.cardsContainer.classList.remove(consts.hiddenClass);
+  index.profileElements.profileElement.classList.remove(consts.hiddenClass);
 }
 
 export function requestErrorHandler(err) {
@@ -60,29 +16,29 @@ export function requestErrorHandler(err) {
  ************************************************************/
 export function updateUserPhotoButtonHandler() {
   consts.validators[consts.formSelectors.formUpdatePhotoID].resetValidation();
-  popupUpdate.open(); // => PopupWithForm.js
+  index.popupUpdate.open();
 }
 
 export function editUserInfoButtonHandler() {
   consts.validators[consts.formSelectors.formEditInfoID].resetValidation();
-  popupEdit.setInputValues(user.pickUserInfo());
-  popupEdit.open(); // => PopupWithForm.js
+  index.popupEdit.setInputValues(index.user.pickUserInfo());
+  index.popupEdit.open();
 }
 
 export function addNewCardButtonHandler() {
   consts.validators[consts.formSelectors.formAddCardID].resetValidation();
-  popupAdd.open();
+  index.popupAdd.open();
 }
 
 /************************************************************
  * Card buttons handlers
  ************************************************************/
 export function deleteButtonClickHandler() {
-  popupConfirm.open();
+  index.popupConfirm.open();
 }
 
 export function cardImagePreviewHandler(item) {
-  popupPreview.open(item);
+  index.popupPreview.open(item);
 }
 
 export function likeButtonClickHandler() {
@@ -113,15 +69,15 @@ export function likeButtonClickHandler() {
  * Popups buttons handlers
  ************************************************************/
 export function submitNewUserPhotoHandler(inputValue) {
-  popupUpdate.showLoader();
-  api
+  index.popupUpdate.showLoader();
+  index.api
     .setAvatar(inputValue)
     .then((res) => {
-      user.updateUserProfilePhoto(res.avatar);
+      index.user.updateUserProfilePhoto(res.avatar);
     })
     .then((res) => {
-      popupUpdate.hideLoader();
-      popupUpdate.close();
+      index.popupUpdate.hideLoader();
+      index.popupUpdate.close();
     })
     .catch((err) => {
       requestErrorHandler(err);
@@ -129,15 +85,15 @@ export function submitNewUserPhotoHandler(inputValue) {
 }
 
 export function submitUserInfoHandler(inputValues) {
-  popupEdit.showLoader();
-  api
+  index.popupEdit.showLoader();
+  index.api
     .setUser(inputValues)
     .then((res) => {
-      user.setUserInfo(res);
+      index.user.setUserInfo(res);
     })
     .then((res) => {
-      popupEdit.hideLoader();
-      popupEdit.close();
+      index.popupEdit.hideLoader();
+      index.popupEdit.close();
     })
     .catch((err) => {
       requestErrorHandler(err);
@@ -145,29 +101,59 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues, mapData) {
-  popupAdd.showLoader();
-  api
+  index.popupAdd.showLoader();
+  index.api
     .addCard(inputValues)
     .then((res) => {
-      const localCard = renderNewCard(res, mapData);
+      const localCard = index.renderNewCard(res, mapData);
       localCard.createSectionItem();
     })
     .then((res) => {
-      popupAdd.hideLoader();
-      popupAdd.close();
+      index.popupAdd.hideLoader();
+      index.popupAdd.close();
     })
     .catch((err) => {
       requestErrorHandler(err);
     });
 
-  popupAdd.close();
+  index.popupAdd.close();
 }
 
 // FIXME !!!
 export function submitConfirmButtonClickHandler() {
   // api.deleteCard(carId).then();
-  popupConfirm.showLoader();
-  card.deleteCard();
-  popupConfirm.close();
-  popupConfirm.hideLoader();
+  index.popupConfirm.showLoader();
+  index.card.deleteCard();
+  index.popupConfirm.close();
+  index.popupConfirm.hideLoader();
+}
+
+/************************************************************
+ * Misc handlers
+ ************************************************************/
+export function mapInItialCardsData(res) {
+  const reversedCardList = res.map((item) => {
+    return {
+      likes: item.likes,
+      id: item._id,
+      name: item.name,
+      link: item.link,
+      owner: item.owner._id,
+      createdAt: item.createdAt,
+    };
+  });
+  return reversedCardList.reverse();
+}
+
+export function mapNewCardData(data) {
+  return [
+    {
+      likes: data.likes,
+      id: data._id,
+      name: data.name,
+      link: data.link,
+      owner: data.owner._id,
+      createdAt: data.createdAt,
+    },
+  ];
 }
