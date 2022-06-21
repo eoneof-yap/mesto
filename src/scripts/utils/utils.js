@@ -12,7 +12,7 @@ import {
   pagePreloader,
   cardsContainer,
   profileElements,
-  createNewCard,
+  renderNewCard,
 } from '../../pages/index/index';
 
 /************************************************************
@@ -144,20 +144,12 @@ export function submitUserInfoHandler(inputValues) {
     });
 }
 
-export function submitNewCardHandler(inputValues, callback) {
+export function submitNewCardHandler(inputValues, mapData) {
   popupAdd.showLoader();
   api
     .addCard(inputValues)
     .then((res) => {
-      const localCard = section(
-        {
-          data: callback(res), //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
-          renderCardHandler: (data) => {
-            return localCard.renderSectionItem(createNewCard(data).createCard());
-          },
-        },
-        cardsContainer,
-      );
+      const localCard = renderNewCard(res, mapData);
       localCard.createSectionItem();
     })
     .then((res) => {
@@ -167,11 +159,7 @@ export function submitNewCardHandler(inputValues, callback) {
     .catch((err) => {
       requestErrorHandler(err);
     });
-  // const data = {
-  //   name: inputValues.name,
-  //   link: inputValues.link,
-  // };
-  // initialCardsList.renderSectionItem(data);
+
   popupAdd.close();
 }
 

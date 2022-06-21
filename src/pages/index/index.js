@@ -104,20 +104,25 @@ export const card = (...args) => {
   return new Card(...args);
 };
 
+export function renderNewCard(res, callback) {
+  const newSectionItem = section(
+    {
+      data: callback(res), //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
+      renderCardHandler: (data) => {
+        return newSectionItem.renderSectionItem(createNewCard(data).createCard());
+      },
+    },
+    cardsContainer,
+  );
+  return newSectionItem;
+}
+
 function getAllData(mapData) {
   Promise.all([user.getUserInfo(), api.getAllCards()])
     .then(([remoteUserData, remoteCardsData]) => {
       setUserInfo(remoteUserData);
 
-      const localCard = section(
-        {
-          data: mapData(remoteCardsData),
-          renderCardHandler: (item) => {
-            localCard.renderSectionItem(createNewCard(item).createCard());
-          },
-        },
-        cardsContainer,
-      );
+      const localCard = renderNewCard(remoteCardsData, mapData);
       localCard.createSectionItem();
       utils.hidePagePreloader();
     })
@@ -133,7 +138,6 @@ function setLike() {
 function deleteCard() {
   api.deleteCard().then((res) => {});
 }
-
 
 // FIXME починить
 export function createNewCard(item) {
