@@ -8,12 +8,9 @@ export default class PopupWithForm extends Popup {
     formSubmitHandler,
     mapDataCallback,
   ) {
-    super(popupSelector, selectors);
+    super(popupSelector, selectors, formSelectors);
     this._form = this._popup.querySelector(formSelectors.formSelector);
     this._inputsList = this._popup.querySelectorAll(formSelectors.formInputSelector);
-    this._submitButton = this._popup.querySelector(
-      formSelectors.formSubmitButtonSelector,
-    );
     this._mapDataCallback = mapDataCallback;
     this._formSubmitHandler = formSubmitHandler;
     this._handleSubmit = this._handleSubmit.bind(this);
@@ -21,10 +18,12 @@ export default class PopupWithForm extends Popup {
 
   showLoader() {
     super.showLoader();
+    this._submitButton.textContent = 'Сохранение...';
   }
 
   hideLoader() {
     super.hideLoader();
+    this._submitButton.textContent = 'Сохранить';
   }
 
   close() {

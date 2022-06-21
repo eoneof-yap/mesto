@@ -56,7 +56,6 @@
   }
 
   deleteCard(data) {
-    // card id
     return fetch(`${this._server}${this._cards}${data}`, {
       method: 'DELETE',
       headers: this._headers,
@@ -66,7 +65,6 @@
   }
 
   likeCard(data) {
-    // my id
     return fetch(`${this._server}${this._cards}`, {
       method: 'PUT',
       headers: this._headers,
@@ -77,7 +75,6 @@
   }
 
   unlikeCard() {
-    // my id
     return fetch(`${this._server}${this._cards}`, {
       method: 'DELETE',
       headers: this._headers,

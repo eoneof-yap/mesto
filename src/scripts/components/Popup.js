@@ -1,9 +1,11 @@
 ﻿export default class Popup {
-  constructor(popupSelector, selectors) {
+  constructor(popupSelector, selectors, formSelectors) {
     this._popup = document.querySelector(popupSelector);
     this._selectors = selectors;
-    // this._closeButton = this._popup.querySelector(selectors.popupCloseButtonSelector);
-    // this._backdrop = this._popup.querySelector(selectors.popupBackdropSelector);
+    this._submitButton = this._popup.querySelector(
+      formSelectors.formSubmitButtonSelector,
+    );
+    this._disabledButtonClass = formSelectors.formDisabledButtonClass;
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
@@ -18,22 +20,16 @@
   }
 
   showLoader() {
-    this._submitButton.classList.add(this._disabledButton);
+    this._submitButton.classList.add(this._disabledButtonClass);
     this._submitButton.setAttribute('disabled', 'disabled');
-    this._submitButton.textContent = 'Сохранение...';
   }
 
   hideLoader() {
-    this._submitButton.classList.remove(this._disabledButton);
+    this._submitButton.classList.remove(this._disabledButtonClass);
     this._submitButton.removeAttribute('disabled', 'disabled');
-    this._submitButton.textContent = 'Сохранить';
   }
 
   setEventListeners() {
-    /*
-      querySelector() используется внутри метода
-      т.к. у каждого попапа свои элементы
-    */
     this._popup
       .querySelector(this._selectors.popupCloseButtonSelector)
       .addEventListener('click', () => {

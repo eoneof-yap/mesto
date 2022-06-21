@@ -1,16 +1,6 @@
 ﻿import * as consts from './constants.js';
 import * as index from '../../pages/index/index';
 
-export function hidePagePreloader() {
-  index.pagePreloaderElement.classList.add('hidden');
-  index.cardsContainer.classList.remove(consts.hiddenClass);
-  index.profileElements.profileElement.classList.remove(consts.hiddenClass);
-}
-
-export function requestErrorHandler(err) {
-  console.warn(`Произошла трагическая ошибка: ${err}`);
-}
-
 /************************************************************
  * Page buttons handlers
  ************************************************************/
@@ -31,7 +21,7 @@ export function addNewCardButtonHandler() {
 }
 
 /************************************************************
- * Card buttons handlers
+ * Cards buttons handlers
  ************************************************************/
 export function deleteButtonClickHandler() {
   index.popupConfirm.open();
@@ -42,6 +32,9 @@ export function cardImagePreviewHandler(item) {
 }
 
 export function likeButtonClickHandler() {
+  api.likeCard().then((res) => {
+    console.log(res);
+  });
   console.log('target');
   // if (
   //   // TODO базовая логика на моковых данных -- все перевести на API
@@ -80,6 +73,7 @@ export function submitNewUserPhotoHandler(inputValue) {
       index.popupUpdate.close();
     })
     .catch((err) => {
+      index.popupUpdate.hideLoader();
       requestErrorHandler(err);
     });
 }
@@ -96,6 +90,7 @@ export function submitUserInfoHandler(inputValues) {
       index.popupEdit.close();
     })
     .catch((err) => {
+      index.popupEdit.hideLoader();
       requestErrorHandler(err);
     });
 }
@@ -113,10 +108,9 @@ export function submitNewCardHandler(inputValues, mapData) {
       index.popupAdd.close();
     })
     .catch((err) => {
+      index.popupAdd.hideLoader();
       requestErrorHandler(err);
     });
-
-  index.popupAdd.close();
 }
 
 // FIXME !!!
@@ -129,10 +123,21 @@ export function submitConfirmButtonClickHandler() {
 }
 
 /************************************************************
+ * Class callbacks
+ ************************************************************/
+export function getUserInfoHandler() {
+  return index.api.getUser();
+}
+
+/************************************************************
  * Misc handlers
  ************************************************************/
+
+/**
+ * Map incoming data to maintain compatibility with the legacy naming
+ */
 export function mapInItialCardsData(res) {
-  const reversedCardList = res.map((item) => {
+  const items = res.map((item) => {
     return {
       likes: item.likes,
       id: item._id,
@@ -142,9 +147,13 @@ export function mapInItialCardsData(res) {
       createdAt: item.createdAt,
     };
   });
-  return reversedCardList.reverse();
+  return items.reverse();
 }
 
+/**
+ * Map and return as an array to handle it with the same method
+ * as the initial cards
+ */
 export function mapNewCardData(data) {
   return [
     {
@@ -156,4 +165,17 @@ export function mapNewCardData(data) {
       createdAt: data.createdAt,
     },
   ];
+}
+
+/**
+ * Preloader is active by default
+ */
+export function hidePagePreloader() {
+  index.pagePreloaderElement.classList.add('hidden');
+  index.cardsContainer.classList.remove(consts.hiddenClass);
+  index.profileElements.profileElement.classList.remove(consts.hiddenClass);
+}
+
+export function requestErrorHandler(err) {
+  console.warn(`Произошла трагическая ошибка: ${err}`);
 }

@@ -47,7 +47,6 @@ export const profileElements = {
 /************************************************************
  * Popups
  ************************************************************/
-
 export const popupConfirm = new PopupConfirm(
   consts.popupSelectors.popupConfirmSelector,
   consts.popupSelectors,
@@ -86,15 +85,7 @@ export const popupAdd = new PopupWithForm(
  * Cards
  ************************************************************/
 export const api = new Api(consts.apiConfig);
-export const user = new UserInfo(profileElements, getUserInfoHandler);
-
-function getUserInfoHandler() {
-  return api.getUser();
-}
-
-function setUserInfo(remoteUserData) {
-  user.setUserInfo(remoteUserData);
-}
+export const user = new UserInfo(profileElements, utils.getUserInfoHandler);
 
 export const section = (...args) => {
   return new Section(...args);
@@ -104,10 +95,10 @@ export const card = (...args) => {
   return new Card(...args);
 };
 
-export function renderNewCard(res, callback) {
+export function renderNewCard(res, mapData) {
   const newSectionItem = section(
     {
-      data: callback(res), //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
+      data: mapData(res),
       renderCardHandler: (data) => {
         return newSectionItem.renderSectionItem(createNewCard(data).createCard());
       },
@@ -120,10 +111,9 @@ export function renderNewCard(res, callback) {
 function getAllData(mapData) {
   Promise.all([user.getUserInfo(), api.getAllCards()])
     .then(([remoteUserData, remoteCardsData]) => {
-      setUserInfo(remoteUserData);
+      user.setUserInfo(remoteUserData);
+      renderNewCard(remoteCardsData, mapData).createSectionItem();
 
-      const localCard = renderNewCard(remoteCardsData, mapData);
-      localCard.createSectionItem();
       utils.hidePagePreloader();
     })
     .catch((err) => {
@@ -131,9 +121,6 @@ function getAllData(mapData) {
     });
 }
 
-function setLike() {
-  api.likeCard().then((res) => {});
-}
 
 function deleteCard() {
   api.deleteCard().then((res) => {});

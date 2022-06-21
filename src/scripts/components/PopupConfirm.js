@@ -2,24 +2,18 @@
 
 export default class PopupConfirm extends Popup {
   constructor(popupSelector, selectors, formSelectors, submitHandler) {
-    super(popupSelector, selectors);
-    this._submitButton = this._popup.querySelector(
-      formSelectors.formSubmitButtonSelector,
-    );
+    super(popupSelector, selectors, formSelectors);
     this._submitHandler = submitHandler;
     this._handleConfirmClick = this._handleConfirmClick.bind(this);
-    this._disabledButton = formSelectors.formDisabledButtonClass;
   }
 
   showLoader() {
-    this._submitButton.classList.add(this._disabledButton);
-    this._submitButton.setAttribute('disabled', 'disabled');
+    super.showLoader();
     this._submitButton.textContent = 'Удаление...';
   }
 
   hideLoader() {
-    this._submitButton.classList.remove(this._disabledButton);
-    this._submitButton.removeAttribute('disabled', 'disabled');
+    super.hideLoader();
     this._submitButton.textContent = 'Да';
   }
 
