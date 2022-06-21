@@ -79,6 +79,7 @@ export const popupAdd = new PopupWithForm(
   consts.popupSelectors,
   consts.formSelectors,
   utils.submitNewCardHandler,
+  utils.mapNewCardData,
 );
 
 /************************************************************
@@ -103,14 +104,14 @@ export const card = (...args) => {
   return new Card(...args);
 };
 
-function getAllData() {
+function getAllData(mapData) {
   Promise.all([user.getUserInfo(), api.getAllCards()])
     .then(([remoteUserData, remoteCardsData]) => {
       setUserInfo(remoteUserData);
 
       const localCard = section(
         {
-          data: utils.mapinItialCardsData(remoteCardsData).reverse(),
+          data: mapData(remoteCardsData),
           renderCardHandler: (item) => {
             localCard.renderSectionItem(createNewCard(item).createCard());
           },
@@ -133,28 +134,6 @@ function deleteCard() {
   api.deleteCard().then((res) => {});
 }
 
-// api
-//   .getUser()
-//   .then((res) => {
-//     user.setUserInfo(res);
-//   })
-//   .catch((err) => console.warn(`Пользователь не загрузился: ${err}`));
-
-// api
-//   .getAllCards()
-//   .then((res) => {
-//     const localCardsList = initialCards(
-//       {
-//         items: utils.mapCardsData(res),
-//         renderer: (item) => {
-//           localCardsList.createSectionItem(addCardItem(item).createCard());
-//         },
-//       },
-//       cardsContainer,
-//     );
-//     localCardsList.createInitialItems();
-//   })
-//   .catch((err) => console.warn(`Карточки не загрузились: ${err}`));
 
 // FIXME починить
 export function createNewCard(item) {
@@ -201,4 +180,5 @@ function enableValidation(formSelectors) {
 }
 
 enableValidation(consts.formSelectors);
-getAllData();
+
+getAllData(utils.mapInItialCardsData);

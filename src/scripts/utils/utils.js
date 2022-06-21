@@ -18,8 +18,8 @@ import {
 /************************************************************
  * Misc handlers
  ************************************************************/
-export function mapinItialCardsData(arr) {
-  return arr.map((item) => {
+export function mapInItialCardsData(res) {
+  const reversedCardList = res.map((item) => {
     return {
       likes: item.likes,
       id: item._id,
@@ -29,6 +29,7 @@ export function mapinItialCardsData(arr) {
       createdAt: item.createdAt,
     };
   });
+  return reversedCardList.reverse();
 }
 
 export function mapNewCardData(data) {
@@ -143,14 +144,14 @@ export function submitUserInfoHandler(inputValues) {
     });
 }
 
-export function submitNewCardHandler(inputValues) {
+export function submitNewCardHandler(inputValues, callback) {
   popupAdd.showLoader();
   api
     .addCard(inputValues)
     .then((res) => {
       const localCard = section(
         {
-          data: [res], //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
+          data: callback(res), //  массив нужен, чтобы и начальные и новые карточки обрабатывать одним методом
           renderCardHandler: (data) => {
             return localCard.renderSectionItem(createNewCard(data).createCard());
           },
