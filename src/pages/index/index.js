@@ -132,14 +132,13 @@ export function initializeNewCard(item, remoteUserData) {
       previewHandler: () => {
         popupPreview.open(item);
       },
-      // FIXME like-unlike
       likeHandler: (cardID, userData) => {
         api
           .likeCard(cardID)
           .then((res) => {
-            if (res.likes.includes(userData._id)) {
-              initCard.toggleLike(res);
-            }
+            // if (res.likes.includes(userData._id)) {
+            initCard.toggleLike(res);
+            // }
           })
           .catch((err) => {
             utils.requestErrorHandler(err);
