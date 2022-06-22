@@ -63,7 +63,7 @@ export function submitNewCardHandler(inputValues, mapData) {
   index.api
     .addCard(inputValues)
     .then((res) => {
-      index.createNewCard(res, mapData, userID).createSectionItem();
+      index.createNewCard(res, mapData, res.owner).createSectionItem();
     })
     .then(() => {
       index.popupAdd.hideLoader();

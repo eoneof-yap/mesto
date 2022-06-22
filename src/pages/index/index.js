@@ -133,14 +133,13 @@ export function initializeNewCard(item, remoteUserData) {
         popupPreview.open(item);
       },
       // FIXME like-unlike
-      likeHandler: (cardID /* userData */) => {
+      likeHandler: (cardID, userData) => {
         api
-          .likeCard(cardID /* userData */)
+          .likeCard(cardID)
           .then((res) => {
-            console.log('👉res:', res);
-            // if (Object.values(userData).includes(userData.id)) {
-            //   console.log('TES');
-            // }
+            if (res.likes.includes(userData._id)) {
+              initCard.toggleLike(res);
+            }
           })
           .catch((err) => {
             utils.requestErrorHandler(err);
@@ -153,10 +152,10 @@ export function initializeNewCard(item, remoteUserData) {
   return initCard;
 }
 
-export function createNewCard(res, mapData, remoteUserData) {
+export function createNewCard(remoteCardsData, mapData, remoteUserData) {
   const newSectionItem = section(
     {
-      data: mapData(res),
+      data: mapData(remoteCardsData),
       renderCardHandler: (data) => {
         return newSectionItem.renderSectionItem(
           initializeNewCard(data, remoteUserData).createCard(),
