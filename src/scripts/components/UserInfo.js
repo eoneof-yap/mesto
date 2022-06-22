@@ -1,14 +1,9 @@
 ﻿export default class UserInfo {
-  constructor(profileElements, userInfoHandler) {
+  constructor(profileElements) {
     this._profile = profileElements.profileElement;
     this._name = profileElements.nameElement;
     this._about = profileElements.aboutElement;
     this._photo = profileElements.photoElement;
-    this._userInfoHandler = userInfoHandler;
-  }
-
-  getUserInfo() {
-    return this._userInfoHandler();
   }
 
   setUserInfo(userData) {
@@ -23,6 +18,7 @@
     return {
       name: this._name.textContent,
       about: this._about.textContent,
+      id: this._profile.getAttribute('data-user-id'),
     };
   }
 

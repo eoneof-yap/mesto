@@ -68,7 +68,7 @@
     return fetch(`${this._server}${this._cards}`, {
       method: 'PUT',
       headers: this._headers,
-      body: { data },
+      body: data ,
     }).then((res) => {
       return this._handleResponse(res);
     });

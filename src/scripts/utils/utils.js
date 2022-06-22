@@ -21,44 +21,6 @@ export function addNewCardButtonHandler() {
 }
 
 /************************************************************
- * Cards buttons handlers
- ************************************************************/
-export function deleteButtonClickHandler() {
-  index.popupConfirm.open();
-}
-
-export function cardImagePreviewHandler(item) {
-  index.popupPreview.open(item);
-}
-
-export function likeButtonClickHandler() {
-  api.likeCard().then((res) => {
-    console.log(res);
-  });
-  console.log('target');
-  // if (
-  //   // TODO базовая логика на моковых данных -- все перевести на API
-  //   evt.target.classList.contains(this._likeButtonIsActive) &&
-  //   evt.target.parentElement.classList.contains(this._likeContainerIsLiked) &&
-  //   evt.target.nextElementSibling.classList.contains(this._counterVisible)
-  // ) {
-  //   evt.target.classList.remove(this._likeButtonIsActive);
-  //   evt.target.nextElementSibling.textContent =
-  //     parseInt(evt.target.nextElementSibling.textContent) - 1;
-  //   if (parseInt(evt.target.nextElementSibling.textContent) < 1) {
-  //     evt.target.parentElement.classList.remove(this._likeContainerIsLiked);
-  //     evt.target.nextElementSibling.classList.remove(this._counterVisible);
-  //   }
-  // } else {
-  //   evt.target.classList.add(this._likeButtonIsActive);
-  //   evt.target.parentElement.classList.add(this._likeContainerIsLiked);
-  //   evt.target.nextElementSibling.classList.add(this._counterVisible);
-  //   evt.target.nextElementSibling.textContent =
-  //     parseInt(evt.target.nextElementSibling.textContent) + 1;
-  // }
-}
-
-/************************************************************
  * Popups buttons handlers
  ************************************************************/
 export function submitNewUserPhotoHandler(inputValue) {
@@ -85,7 +47,7 @@ export function submitUserInfoHandler(inputValues) {
     .then((res) => {
       index.user.setUserInfo(res);
     })
-    .then((res) => {
+    .then(() => {
       index.popupEdit.hideLoader();
       index.popupEdit.close();
     })
@@ -96,14 +58,14 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues, mapData) {
+  const creator = index.user.pickUserInfo()
   index.popupAdd.showLoader();
   index.api
     .addCard(inputValues)
     .then((res) => {
-      const localCard = index.renderNewCard(res, mapData);
-      localCard.createSectionItem();
+      index.createNewCard(res, mapData, creator).createSectionItem();
     })
-    .then((res) => {
+    .then(() => {
       index.popupAdd.hideLoader();
       index.popupAdd.close();
     })
@@ -120,13 +82,6 @@ export function submitConfirmButtonClickHandler() {
   index.card.deleteCard();
   index.popupConfirm.close();
   index.popupConfirm.hideLoader();
-}
-
-/************************************************************
- * Class callbacks
- ************************************************************/
-export function getUserInfoHandler() {
-  return index.api.getUser();
 }
 
 /************************************************************
@@ -177,5 +132,5 @@ export function hidePagePreloader() {
 }
 
 export function requestErrorHandler(err) {
-  console.warn(`Произошла трагическая ошибка: ${err}`);
+  console.warn(`Произошла трагическая, непоправимая ошибка: ${err.stack}`);
 }

@@ -82,12 +82,24 @@ export const popupAdd = new PopupWithForm(
 );
 
 /************************************************************
+ * Validation
+ ************************************************************/
+function enableValidation(formSelectors) {
+  documentForms.forEach((item) => {
+    const validator = new FormValidator(item, formSelectors);
+    const formID = item.getAttribute('id');
+    consts.validators[formID] = validator;
+    validator.enableValidation();
+  });
+}
+
+/************************************************************
  * Cards
  ************************************************************/
 export const api = new Api(consts.apiConfig);
-export const user = new UserInfo(profileElements, utils.getUserInfoHandler);
+export const user = new UserInfo(profileElements);
 
-export const section = (...args) => {
+const section = (...args) => {
   return new Section(...args);
 };
 
@@ -95,12 +107,41 @@ export const card = (...args) => {
   return new Card(...args);
 };
 
-export function renderNewCard(res, mapData) {
+export function initializeNewCard(item, _id) {
+  return card(
+    {
+      item,
+      deleteHandler: () => {
+        popupConfirm.open(); // item.id != owner
+      },
+      previewHandler: () => {
+        popupPreview.open(item);
+      },
+      // FIXME like-unlike
+      likeHandler: () => {
+        api
+          .likeCard(item.id)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            requestErrorHandler(err);
+          });
+      },
+    },
+    consts.cardSelectors,
+    _id,
+  );
+}
+
+export function createNewCard(res, mapData, _id) {
   const newSectionItem = section(
     {
       data: mapData(res),
       renderCardHandler: (data) => {
-        return newSectionItem.renderSectionItem(createNewCard(data).createCard());
+        return newSectionItem.renderSectionItem(
+          initializeNewCard(data, _id).createCard(),
+        );
       },
     },
     cardsContainer,
@@ -109,40 +150,21 @@ export function renderNewCard(res, mapData) {
 }
 
 function getAllData(mapData) {
-  Promise.all([user.getUserInfo(), api.getAllCards()])
-    .then(([remoteUserData, remoteCardsData]) => {
-      user.setUserInfo(remoteUserData);
-      renderNewCard(remoteCardsData, mapData).createSectionItem();
+  Promise.all([api.getUser(), api.getAllCards()])
+    .then(([{ _id, remoteUserData }, remoteCardsData]) => {
+      user.setUserInfo({ remoteUserData });
+      createNewCard(remoteCardsData, mapData, _id).createSectionItem();
 
       utils.hidePagePreloader();
+      enableValidation(consts.formSelectors);
     })
     .catch((err) => {
       utils.requestErrorHandler(err);
     });
 }
 
-
 function deleteCard() {
   api.deleteCard().then((res) => {});
-}
-
-// FIXME починить
-export function createNewCard(item) {
-  return card(
-    {
-      item,
-      deleteHandler: () => {
-        utils.deleteButtonClickHandler();
-      },
-      previewHandler: () => {
-        utils.cardImagePreviewHandler(item);
-      },
-      likeHandler: () => {
-        utils.likeButtonClickHandler();
-      },
-    },
-    consts.cardSelectors,
-  );
 }
 
 /************************************************************
@@ -157,19 +179,5 @@ popupUpdate.setEventListeners();
 popupPreview.setEventListeners();
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
-
-/************************************************************
- * Validation
- ************************************************************/
-function enableValidation(formSelectors) {
-  documentForms.forEach((item) => {
-    const validator = new FormValidator(item, formSelectors);
-    const formID = item.getAttribute('id');
-    consts.validators[formID] = validator;
-    validator.enableValidation();
-  });
-}
-
-enableValidation(consts.formSelectors);
 
 getAllData(utils.mapInItialCardsData);
