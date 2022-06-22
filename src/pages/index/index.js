@@ -107,12 +107,12 @@ export const card = (...args) => {
   return new Card(...args);
 };
 
-export function initializeNewCard(item, _id) {
+export function initializeNewCard(item, userID) {
   return card(
     {
       item,
-      deleteHandler: () => {
-        popupConfirm.open(); // item.id != owner
+      deleteButtonClickHandler: () => {
+        popupConfirm.open();
       },
       previewHandler: () => {
         popupPreview.open(item);
@@ -120,9 +120,9 @@ export function initializeNewCard(item, _id) {
       // FIXME like-unlike
       likeHandler: () => {
         api
-          .likeCard(item.id)
+          .likeCard(data)
           .then((res) => {
-            console.log(res);
+            // console.log(res);
           })
           .catch((err) => {
             requestErrorHandler(err);
@@ -130,17 +130,17 @@ export function initializeNewCard(item, _id) {
       },
     },
     consts.cardSelectors,
-    _id,
+    userID,
   );
 }
 
-export function createNewCard(res, mapData, _id) {
+export function createNewCard(res, mapData, userID) {
   const newSectionItem = section(
     {
       data: mapData(res),
       renderCardHandler: (data) => {
         return newSectionItem.renderSectionItem(
-          initializeNewCard(data, _id).createCard(),
+          initializeNewCard(data, userID).createCard(),
         );
       },
     },
@@ -151,9 +151,9 @@ export function createNewCard(res, mapData, _id) {
 
 function getAllData(mapData) {
   Promise.all([api.getUser(), api.getAllCards()])
-    .then(([{ _id, remoteUserData }, remoteCardsData]) => {
-      user.setUserInfo({ remoteUserData });
-      createNewCard(remoteCardsData, mapData, _id).createSectionItem();
+    .then(([remoteUserData, remoteCardsData]) => {
+      user.setUserInfo(remoteUserData);
+      createNewCard(remoteCardsData, mapData, remoteUserData._id).createSectionItem();
 
       utils.hidePagePreloader();
       enableValidation(consts.formSelectors);

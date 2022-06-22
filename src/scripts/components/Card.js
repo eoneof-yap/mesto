@@ -1,7 +1,11 @@
 ﻿﻿export default class Card {
-  constructor({ item, deleteHandler, previewHandler, likeHandler }, selectors, creator) {
+  constructor(
+    { item, deleteButtonClickHandler, previewHandler, likeHandler },
+    selectors,
+    userID,
+  ) {
     this._cardItem = item;
-    this._creator = creator;
+    this._userID = userID;
     this._card = selectors.cardSelector;
     this._cardImage = selectors.cardImageSelector;
     this._cardName = selectors.cardNameSelector;
@@ -14,13 +18,15 @@
     this._likeCounter = selectors.cardLikeCounterSelector;
     this._template = selectors.cardTemplateId;
 
-    this._deleteHandler = deleteHandler;
+    this._deleteButtonClickHandler = deleteButtonClickHandler;
     this._previewHandler = previewHandler;
     this._likeHandler = likeHandler;
+
+    // this.deleteCard = this.deleteCard().bind(this);
   }
 
   // deleteCard() {
-  //   this._handleDeleteCard();
+  //   this.remove();
   // }
 
   createCard() {
@@ -80,20 +86,13 @@
   }
 
   _hideDeleteButton(cardElement) {
-    if (!this._isCreatedByUser()) {
+    if (this._cardItem.owner !== this._userID) {
       cardElement.querySelector(this._deleteButton).remove();
     }
   }
 
-  _isCreatedByUser() {
-    if (this._cardItem.owner === this._creator) {
-      return true;
-    }
-    return false;
-  }
-
   _handleDeleteButtonClick() {
-    this._deleteHandler();
+    this._deleteButtonClickHandler();
   }
 
   _handleCardImageClick() {
@@ -102,6 +101,6 @@
 
   _handleLikeButtonClick() {
     console.log(this._cardItem.likes);
-    this._likeHandler();
+    this._likeHandler(this._userID);
   }
 }

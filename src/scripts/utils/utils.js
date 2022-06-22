@@ -58,12 +58,12 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues, mapData) {
-  const creator = index.user.pickUserInfo()
+  const userID = index.user.pickUserInfo().id;
   index.popupAdd.showLoader();
   index.api
     .addCard(inputValues)
     .then((res) => {
-      index.createNewCard(res, mapData, creator).createSectionItem();
+      index.createNewCard(res, mapData, userID).createSectionItem();
     })
     .then(() => {
       index.popupAdd.hideLoader();
@@ -75,13 +75,13 @@ export function submitNewCardHandler(inputValues, mapData) {
     });
 }
 
-// FIXME !!!
 export function submitConfirmButtonClickHandler() {
-  // api.deleteCard(carId).then();
-  index.popupConfirm.showLoader();
-  index.card.deleteCard();
-  index.popupConfirm.close();
-  index.popupConfirm.hideLoader();
+  index.api.deleteCard(carId).then((res) => {
+    index.popupConfirm.showLoader();
+    // index.card.deleteCard();
+    index.popupConfirm.close();
+    index.popupConfirm.hideLoader();
+  });
 }
 
 /************************************************************
