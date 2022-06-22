@@ -45,13 +45,24 @@ export const profileElements = {
 };
 
 /************************************************************
+ * Validation
+ ************************************************************/
+function enableValidation(formSelectors) {
+  documentForms.forEach((item) => {
+    const validator = new FormValidator(item, formSelectors);
+    const formID = item.getAttribute('id');
+    consts.validators[formID] = validator;
+    validator.enableValidation();
+  });
+}
+
+/************************************************************
  * Popups
  ************************************************************/
 export const popupConfirm = new PopupConfirm(
   consts.popupSelectors.popupConfirmSelector,
   consts.popupSelectors,
   consts.formSelectors,
-  utils.submitConfirmButtonClickHandler,
 );
 
 export const popupPreview = new PopupWithImage(
@@ -82,18 +93,6 @@ export const popupAdd = new PopupWithForm(
 );
 
 /************************************************************
- * Validation
- ************************************************************/
-function enableValidation(formSelectors) {
-  documentForms.forEach((item) => {
-    const validator = new FormValidator(item, formSelectors);
-    const formID = item.getAttribute('id');
-    consts.validators[formID] = validator;
-    validator.enableValidation();
-  });
-}
-
-/************************************************************
  * Cards
  ************************************************************/
 export const api = new Api(consts.apiConfig);
@@ -103,44 +102,64 @@ const section = (...args) => {
   return new Section(...args);
 };
 
-export const card = (...args) => {
+export const cardClass = (...args) => {
   return new Card(...args);
 };
 
-export function initializeNewCard(item, userID) {
-  return card(
+export function initializeNewCard(item, remoteUserData) {
+  const initCard = cardClass(
     {
       item,
-      deleteButtonClickHandler: () => {
+      deleteButtonClickHandler: (cardID) => {
+        popupConfirm.setSubmitAction(() => {
+          popupConfirm.showLoader();
+          api
+            .deleteCard(cardID)
+            .then((res) => {
+              initCard.deleteCard();
+            })
+            .then(() => {
+              popupConfirm.hideLoader();
+              popupConfirm.close();
+            })
+            .catch((err) => {
+              popupConfirm.hideLoader();
+              utils.requestErrorHandler(err);
+            });
+        });
         popupConfirm.open();
       },
       previewHandler: () => {
         popupPreview.open(item);
       },
       // FIXME like-unlike
-      likeHandler: () => {
+      likeHandler: (cardID /* userData */) => {
         api
-          .likeCard(data)
+          .likeCard(cardID /* userData */)
           .then((res) => {
-            // console.log(res);
+            console.log('👉res:', res);
+            // if (Object.values(userData).includes(userData.id)) {
+            //   console.log('TES');
+            // }
           })
           .catch((err) => {
-            requestErrorHandler(err);
+            utils.requestErrorHandler(err);
           });
       },
     },
     consts.cardSelectors,
-    userID,
+    remoteUserData,
   );
+  return initCard;
 }
 
-export function createNewCard(res, mapData, userID) {
+export function createNewCard(res, mapData, remoteUserData) {
   const newSectionItem = section(
     {
       data: mapData(res),
       renderCardHandler: (data) => {
         return newSectionItem.renderSectionItem(
-          initializeNewCard(data, userID).createCard(),
+          initializeNewCard(data, remoteUserData).createCard(),
         );
       },
     },
@@ -153,7 +172,7 @@ function getAllData(mapData) {
   Promise.all([api.getUser(), api.getAllCards()])
     .then(([remoteUserData, remoteCardsData]) => {
       user.setUserInfo(remoteUserData);
-      createNewCard(remoteCardsData, mapData, remoteUserData._id).createSectionItem();
+      createNewCard(remoteCardsData, mapData, remoteUserData).createSectionItem();
 
       utils.hidePagePreloader();
       enableValidation(consts.formSelectors);

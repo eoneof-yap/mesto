@@ -75,15 +75,6 @@ export function submitNewCardHandler(inputValues, mapData) {
     });
 }
 
-export function submitConfirmButtonClickHandler() {
-  index.api.deleteCard(carId).then((res) => {
-    index.popupConfirm.showLoader();
-    // index.card.deleteCard();
-    index.popupConfirm.close();
-    index.popupConfirm.hideLoader();
-  });
-}
-
 /************************************************************
  * Misc handlers
  ************************************************************/

@@ -5,10 +5,11 @@
     this._cards = apiConfig.cardsURL;
     this._user = apiConfig.userURL;
     this._avatar = apiConfig.avatarURL;
+    this._likes = apiConfig.likesURL;
   }
 
   getUser() {
-    return fetch(`${this._server}${this._user}`, {
+    return fetch(`${this._server}/${this._user}`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
@@ -17,7 +18,7 @@
   }
 
   setUser(data) {
-    return fetch(`${this._server}${this._user}`, {
+    return fetch(`${this._server}/${this._user}`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
@@ -27,7 +28,7 @@
   }
 
   setAvatar(data) {
-    return fetch(`${this._server}${this._user}${this._avatar}`, {
+    return fetch(`${this._server}/${this._user}/${this._avatar}`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
@@ -37,7 +38,7 @@
   }
 
   getAllCards() {
-    return fetch(`${this._server}${this._cards}`, {
+    return fetch(`${this._server}/${this._cards}`, {
       method: 'GET',
       headers: this._headers,
     }).then((res) => {
@@ -46,7 +47,7 @@
   }
 
   addCard(data) {
-    return fetch(`${this._server}${this._cards}`, {
+    return fetch(`${this._server}/${this._cards}`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
@@ -55,8 +56,8 @@
     });
   }
 
-  deleteCard(data) {
-    return fetch(`${this._server}${this._cards}${data}`, {
+  deleteCard(id) {
+    return fetch(`${this._server}/${this._cards}/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
@@ -64,18 +65,18 @@
     });
   }
 
-  likeCard(data) {
-    return fetch(`${this._server}${this._cards}`, {
+  likeCard(id, data) {
+    return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'PUT',
       headers: this._headers,
-      body: data ,
+      body: data,
     }).then((res) => {
       return this._handleResponse(res);
     });
   }
 
   unlikeCard() {
-    return fetch(`${this._server}${this._cards}`, {
+    return fetch(`${this._server}/${this._cards}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
