@@ -136,9 +136,18 @@ export function initializeNewCard(item, remoteUserData) {
         api
           .likeCard(cardID)
           .then((res) => {
-            // if (res.likes.includes(userData._id)) {
             initCard.toggleLike(res);
             // }
+          })
+          .catch((err) => {
+            utils.requestErrorHandler(err);
+          });
+      },
+      unlikeHandler: (cardID, userData) => {
+        api
+          .unlikeCard(cardID)
+          .then((res) => {
+            initCard.toggleLike(res);
           })
           .catch((err) => {
             utils.requestErrorHandler(err);

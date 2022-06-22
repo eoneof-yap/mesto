@@ -1,6 +1,6 @@
 ﻿﻿export default class Card {
   constructor(
-    { item, deleteButtonClickHandler, previewHandler, likeHandler },
+    { item, deleteButtonClickHandler, previewHandler, likeHandler, unLikeHandler },
     selectors,
     userData,
   ) {
@@ -21,6 +21,7 @@
     this._deleteButtonClickHandler = deleteButtonClickHandler;
     this._previewHandler = previewHandler;
     this._likeHandler = likeHandler;
+    this._unLikeHandler = unLikeHandler;
 
     // this.deleteCard = this.deleteCard().bind(this);
   }
@@ -70,7 +71,6 @@
   }
 
   _renderLikesCounter(cardData = '') {
-    console.log('👉cardData.likes:', cardData.likes);
     this._counterElement.textContent = cardData.likes.length;
 
     if (cardData.likes.length > 0) {
@@ -84,6 +84,8 @@
     cardData.likes.forEach((item) => {
       if (Object.values(item).includes(this._userData._id)) {
         this._likeButton.classList.add(this._likeButtonIsActive);
+      } else {
+        this._likeButton.classList.remove(this._likeButtonIsActive);
       }
     });
   }
@@ -97,7 +99,13 @@
   }
 
   _handleLikeButtonClick() {
-    this._likeHandler(this._cardItem.id, this._userData);
+    this._cardItem.likes.forEach((item) => {
+      if (Object.values(item).includes(this._userData._id)) {
+        this._unLikeHandler(this._cardItem.id, this._userData);
+      } else {
+        this._likeHandler(this._cardItem.id, this._userData);
+      }
+    });
   }
 
   _setEventListeners() {

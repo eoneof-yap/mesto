@@ -75,8 +75,8 @@
     });
   }
 
-  unlikeCard() {
-    return fetch(`${this._server}/${this._cards}`, {
+  unlikeCard(id, data) {
+    return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => {
