@@ -135,24 +135,19 @@ export function initializeNewCard(cardData, remoteUserData) {
           popupPreview.open(previewData);
         },
 
-        likeHandler: (thisCardData) => {
-          if (initCard.isLiked() === false) {
-            api.likeCard(thisCardData).then((res) => {
-              initCard.toggleLike(res);
-              console.log('LIKE IT');
-            });
-            /* .catch((err) => {
-                utils.requestErrorHandler(err);
-              }) */
-          } else {
-            api.unlikeCard(thisCardData).then((res) => {
-              initCard.toggleLike(res);
-              console.log('UNLIKE IT');
-            });
-            /*   .catch((err) => {
-                utils.requestErrorHandler(err);
-              }) */
-          }
+        likeHandler: (thisCard) => {
+          console.log('👉thisCard:', thisCard);
+          api.likeCard(thisCard._cardData.id).then((res) => {
+            initCard.toggleLike(res);
+            console.log('LIKE IT');
+          });
+        },
+
+        unLikeHandler: (thisCard) => {
+          api.unlikeCard(thisCard._cardData.id).then((res) => {
+            initCard.toggleLike(res);
+            console.log('UNLIKE IT');
+          });
         },
       },
     },

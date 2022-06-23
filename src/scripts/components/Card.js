@@ -6,7 +6,8 @@
     this._deleteHandler = handlers.deleteHandler;
     this._previewHandler = handlers.previewHandler;
     this._likeHandler = handlers.likeHandler;
-    this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
+    this._unLikeHandler = handlers.unLikeHandler;
+    // this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
   }
 
   /********************************************************************************
@@ -83,17 +84,22 @@
     }
   }
 
-  isLiked() {
-    if (this._cardData.likes.some((liker) => liker._id === this._userData._id)) {
+  _isLiked(thisCard) {
+    if (thisCard._cardData.likes.some((liker) => liker._id === this._userData._id)) {
       return true;
+      console.log('👉true:', true);
     } else {
       return false;
+      console.log('👉false:', false);
     }
   }
 
-  _handleLikeButtonClick() {
-    this._likeHandler(this);
-    console.log('👉this:', this);
+  _handleLikeButtonClick(thisCard) {
+    if (this._isLiked(thisCard) === true) {
+      this._unLikeHandler(thisCard);
+    } else {
+      this._likeHandler(thisCard);
+    }
   }
 
   /********************************************************************************
@@ -129,7 +135,7 @@
     });
 
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeButtonClick(this._cardData);
+      this._handleLikeButtonClick(this);
     });
   }
 }

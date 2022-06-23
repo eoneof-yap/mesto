@@ -65,7 +65,7 @@
     });
   }
 
-  likeCard({ id }) {
+  likeCard(id) {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'PUT',
       headers: this._headers,
@@ -75,7 +75,7 @@
     });
   }
 
-  unlikeCard({ id }) {
+  unlikeCard(id) {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'DELETE',
       headers: this._headers,
