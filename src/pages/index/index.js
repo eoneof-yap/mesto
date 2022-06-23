@@ -137,17 +137,27 @@ export function initializeNewCard(cardData, remoteUserData) {
 
         likeHandler: (thisCard) => {
           console.log('👉thisCard:', thisCard);
-          api.likeCard(thisCard._cardData.id).then((res) => {
-            initCard.toggleLike(res);
-            console.log('LIKE IT');
-          });
+          api
+            .likeCard(thisCard._cardData.id)
+            .then((res) => {
+              initCard.toggleLike(res);
+              console.log('LIKE IT');
+            })
+            .catch((err) => {
+              utils.requestErrorHandler(err);
+            });
         },
 
         unLikeHandler: (thisCard) => {
-          api.unlikeCard(thisCard._cardData.id).then((res) => {
-            initCard.toggleLike(res);
-            console.log('UNLIKE IT');
-          });
+          api
+            .unlikeCard(thisCard._cardData.id)
+            .then((res) => {
+              initCard.toggleLike(res);
+              console.log('UNLIKE IT');
+            })
+            .catch((err) => {
+              utils.requestErrorHandler(err);
+            });
         },
       },
     },
