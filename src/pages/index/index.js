@@ -130,29 +130,30 @@ export function initializeNewCard(cardData, remoteUserData) {
           });
           popupConfirm.open();
         },
+
         previewHandler: (previewData) => {
           popupPreview.open(previewData);
         },
-        likeHandler: (cardID, userData) => {
-          api
-            .likeCard(cardID)
-            .then((res) => {
+
+        likeHandler: (thisCardData) => {
+          if (initCard.isLiked() === false) {
+            api.likeCard(thisCardData).then((res) => {
               initCard.toggleLike(res);
-            })
-            .catch((err) => {
-              utils.requestErrorHandler(err);
+              console.log('LIKE IT');
             });
+            /* .catch((err) => {
+                utils.requestErrorHandler(err);
+              }) */
+          } else {
+            api.unlikeCard(thisCardData).then((res) => {
+              initCard.toggleLike(res);
+              console.log('UNLIKE IT');
+            });
+            /*   .catch((err) => {
+                utils.requestErrorHandler(err);
+              }) */
+          }
         },
-        // unLikeHandler: (cardID, userData) => {
-        //   api
-        //     .unlikeCard(cardID)
-        //     .then((res) => {
-        //       initCard.toggleLike(res);
-        //     })
-        //     .catch((err) => {
-        //       utils.requestErrorHandler(err);
-        //     });
-        // },
       },
     },
     consts.cardSelectors,

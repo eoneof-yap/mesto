@@ -3,7 +3,6 @@
 export default class PopupConfirm extends Popup {
   constructor(popupSelector, selectors, formSelectors) {
     super(popupSelector, selectors, formSelectors);
-    // this._clickHandler = clickHandler;
     this._handleConfirmClick = this._handleConfirmClick.bind(this);
   }
 

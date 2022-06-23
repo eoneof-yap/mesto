@@ -65,17 +65,17 @@
     });
   }
 
-  likeCard(id, data) {
+  likeCard({ id }) {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'PUT',
       headers: this._headers,
-      body: data,
+      // body: data,
     }).then((res) => {
       return this._handleResponse(res);
     });
   }
 
-  unlikeCard(id, data) {
+  unlikeCard({ id }) {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: 'DELETE',
       headers: this._headers,
