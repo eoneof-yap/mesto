@@ -14,16 +14,19 @@ export default class PopupWithForm extends Popup {
     this._mapDataCallback = mapDataCallback;
     this._formSubmitHandler = formSubmitHandler;
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._disabledButtonClass = formSelectors.formDisabledButtonClass;
   }
 
-  showLoader() {
-    super.showLoader();
-    this._submitButton.textContent = 'Сохранение...';
-  }
-
-  hideLoader() {
-    super.hideLoader();
-    this._submitButton.textContent = 'Сохранить';
+  renderLoader(isLoading) {
+    if (isLoading) {
+      this._submitButton.classList.add(this._disabledButtonClass);
+      this._submitButton.setAttribute('disabled', 'disabled');
+      this._submitButton.textContent = 'Сохранение...';
+    } else {
+      this._submitButton.classList.remove(this._disabledButtonClass);
+      this._submitButton.removeAttribute('disabled', 'disabled');
+      this._submitButton.textContent = 'Сохранить';
+    }
   }
 
   close() {
