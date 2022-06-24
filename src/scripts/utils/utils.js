@@ -24,54 +24,51 @@ export function addNewCardButtonHandler() {
  * Popups buttons handlers
  ************************************************************/
 export function submitNewUserPhotoHandler(inputValue) {
-  index.popupUpdate.showLoader();
+  index.popupUpdate.renderLoader(true);
   index.api
     .setAvatar(inputValue)
     .then((res) => {
       index.user.updateUserProfilePhoto(res.avatar);
-    })
-    .then((res) => {
-      index.popupUpdate.hideLoader();
       index.popupUpdate.close();
     })
     .catch((err) => {
-      index.popupUpdate.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally((res) => {
+      index.popupUpdate.renderLoader(false);
     });
 }
 
 export function submitUserInfoHandler(inputValues) {
-  index.popupEdit.showLoader();
+  index.popupEdit.renderLoader(true);
   index.api
     .setUser(inputValues)
     .then((res) => {
       index.user.setUserInfo(res);
-    })
-    .then(() => {
-      index.popupEdit.hideLoader();
       index.popupEdit.close();
     })
     .catch((err) => {
-      index.popupEdit.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally(() => {
+      index.popupEdit.renderLoader(false);
     });
 }
 
 export function submitNewCardHandler(inputValues, mapData) {
   const userID = index.user.getUserInfo().id;
-  index.popupAdd.showLoader();
+  index.popupAdd.renderLoader(true);
   index.api
     .addCard(inputValues)
     .then((res) => {
       index.createNewCard(res, mapData, res.owner).createSectionItem();
-    })
-    .then(() => {
-      index.popupAdd.hideLoader();
       index.popupAdd.close();
     })
     .catch((err) => {
-      index.popupAdd.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally(() => {
+      index.popupAdd.renderLoader(false);
     });
 }
 
@@ -80,18 +77,18 @@ export function submitNewCardHandler(inputValues, mapData) {
  ************************************************************/
 export function deleteCardHandler(thisCard, cardID) {
   index.popupConfirm.setSubmitAction(() => {
-    index.popupConfirm.showLoader();
+    index.popupConfirm.renderLoader(true);
     index.api
       .deleteCard(cardID)
       .then((res) => {
         thisCard.deleteCard();
       })
       .then(() => {
-        index.popupConfirm.hideLoader();
+        index.popupConfirm.renderLoader(false);
         index.popupConfirm.close();
       })
       .catch((err) => {
-        index.popupConfirm.hideLoader();
+        index.popupConfirm.renderLoader(false);
         requestErrorHandler(err);
       });
   });

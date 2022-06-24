@@ -40,8 +40,8 @@ export const popupSelectors = {
   popupAddSelector: '.popup_type_add',
   popupPreviewSelector: '.popup_type_preview',
   popupOpenedClass: 'popup_opened',
-  popupCloseButtonSelector: '.popup__close-button',
-  popupBackdropSelector: '.popup__backdrop',
+  popupCloseButtonClass: 'popup__close-button',
+  popupBackdropClass: 'popup__backdrop',
   popupPreviewImageSelector: '.preview__image',
   popupPreviewCaptionSelector: '.preview__caption',
 };

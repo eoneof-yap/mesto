@@ -5,7 +5,6 @@
     this._submitButton = this._popup.querySelector(
       formSelectors.formSubmitButtonSelector,
     );
-    this._disabledButtonClass = formSelectors.formDisabledButtonClass;
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
@@ -19,28 +18,15 @@
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  showLoader() {
-    this._submitButton.classList.add(this._disabledButtonClass);
-    this._submitButton.setAttribute('disabled', 'disabled');
-  }
-
-  hideLoader() {
-    this._submitButton.classList.remove(this._disabledButtonClass);
-    this._submitButton.removeAttribute('disabled', 'disabled');
-  }
-
   setEventListeners() {
-    this._popup
-      .querySelector(this._selectors.popupCloseButtonSelector)
-      .addEventListener('click', () => {
+    this._popup.addEventListener('click', (evt) => {
+      if (
+        evt.target.classList.contains(this._selectors.popupCloseButtonClass) ||
+        evt.target.classList.contains(this._selectors.popupBackdropClass)
+      ) {
         this.close();
-      });
-
-    this._popup
-      .querySelector(this._selectors.popupBackdropSelector)
-      .addEventListener('click', () => {
-        this.close();
-      });
+      }
+    });
   }
 
   _handleEscClose(evt) {
