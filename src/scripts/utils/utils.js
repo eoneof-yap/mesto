@@ -29,14 +29,13 @@ export function submitNewUserPhotoHandler(inputValue) {
     .setAvatar(inputValue)
     .then((res) => {
       index.user.updateUserProfilePhoto(res.avatar);
-    })
-    .then((res) => {
-      index.popupUpdate.hideLoader();
       index.popupUpdate.close();
     })
     .catch((err) => {
-      index.popupUpdate.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally((res) => {
+      index.popupUpdate.hideLoader();
     });
 }
 
@@ -46,14 +45,13 @@ export function submitUserInfoHandler(inputValues) {
     .setUser(inputValues)
     .then((res) => {
       index.user.setUserInfo(res);
-    })
-    .then(() => {
-      index.popupEdit.hideLoader();
       index.popupEdit.close();
     })
     .catch((err) => {
-      index.popupEdit.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally(() => {
+      index.popupEdit.hideLoader();
     });
 }
 
@@ -64,14 +62,13 @@ export function submitNewCardHandler(inputValues, mapData) {
     .addCard(inputValues)
     .then((res) => {
       index.createNewCard(res, mapData, res.owner).createSectionItem();
-    })
-    .then(() => {
-      index.popupAdd.hideLoader();
       index.popupAdd.close();
     })
     .catch((err) => {
-      index.popupAdd.hideLoader();
       requestErrorHandler(err);
+    })
+    .finally(() => {
+      index.popupAdd.hideLoader();
     });
 }
 
