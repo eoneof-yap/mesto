@@ -43,7 +43,7 @@
     this._cardImage.setAttribute('src', this._cardData.link);
 
     this._removeDeleteButton();
-    this.setLikeView(this._cardData);
+    this.toggleLike(this._cardData);
     this._setEventListeners();
 
     return this._cardItem;
@@ -65,24 +65,30 @@
   /********************************************************************************
    * Like
    ********************************************************************************/
-  setLikeStatus(res) {
-    if (this._isLiked(res)) {
+  toggleLike(cardData) {
+    this._likeCounter.textContent = cardData.likes.length;
+
+    if (cardData.likes.some((liker) => liker._id === this._userData._id)) {
       this._hasLike = true;
+      this._activateLike();
     } else {
       this._hasLike = false;
+      this._deactivateLike();
+    }
+
+    if (cardData.likes.length > 0) {
+      this._showCounter();
+    } else {
+      this._hideCounter();
     }
   }
 
-  _isLiked(card) {
-    return card.likes.some((liker) => liker._id === this._userData._id);
-  }
-
-  _setCounterVisible() {
+  _showCounter() {
     this._likeCounter.classList.add(this._counterVisibleClass);
     this._likeContainer.classList.add(this._containerIsLikedClass);
   }
 
-  _setCounterInvisible() {
+  _hideCounter() {
     this._likeCounter.classList.remove(this._counterVisibleClass);
     this._likeContainer.classList.remove(this._containerIsLikedClass);
   }
@@ -93,22 +99,6 @@
 
   _deactivateLike() {
     this._likeButton.classList.remove(this._activeLikeClass);
-  }
-
-  setLikeView(cardData) {
-    this._likeCounter.textContent = cardData.likes.length;
-
-    if (cardData.likes.length > 0) {
-      this._setCounterVisible();
-    } else {
-      this._setCounterInvisible();
-    }
-
-    if (this._isLiked(cardData)) {
-      this._activateLike();
-    } else {
-      this._deactivateLike();
-    }
   }
 
   _handleLikeButtonClick(thisCard) {
