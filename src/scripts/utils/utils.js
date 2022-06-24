@@ -11,7 +11,7 @@ export function updateUserPhotoButtonHandler() {
 
 export function editUserInfoButtonHandler() {
   consts.validators[consts.formSelectors.formEditInfoID].resetValidation();
-  index.popupEdit.setInputValues(index.user.pickUserInfo());
+  index.popupEdit.setInputValues(index.user.getUserInfo());
   index.popupEdit.open();
 }
 
@@ -58,7 +58,7 @@ export function submitUserInfoHandler(inputValues) {
 }
 
 export function submitNewCardHandler(inputValues, mapData) {
-  const userID = index.user.pickUserInfo().id;
+  const userID = index.user.getUserInfo().id;
   index.popupAdd.showLoader();
   index.api
     .addCard(inputValues)
