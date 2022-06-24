@@ -1,6 +1,6 @@
 ﻿﻿export default class Card {
-  constructor({ cardData, handlers }, selectors, userData) {
-    this._cardData = cardData;
+  constructor({ thisCardData, handlers }, selectors, userData) {
+    this._cardData = thisCardData;
     this._selectors = selectors;
     this._userData = userData;
 

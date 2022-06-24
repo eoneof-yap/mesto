@@ -93,7 +93,7 @@ export const popupAdd = new PopupWithForm(
 );
 
 /************************************************************
- * Cards
+ * Classes
  ************************************************************/
 export const api = new Api(consts.apiConfig);
 export const user = new UserInfo(profileElements);
@@ -106,28 +106,16 @@ export const cardClass = (...args) => {
   return new Card(...args);
 };
 
-export function initializeNewCard(cardData, remoteUserData) {
-  const initCard = cardClass(
+/************************************************************
+ * Cards
+ ************************************************************/
+export function initializeNewCard(thisCardData, remoteUserData) {
+  const thisCard = cardClass(
     {
-      cardData,
+      thisCardData,
       handlers: {
         deleteHandler: (cardID) => {
-          popupConfirm.setSubmitAction(() => {
-            popupConfirm.showLoader();
-            api
-              .deleteCard(cardID)
-              .then((res) => {
-                initCard.deleteCard();
-              })
-              .then(() => {
-                popupConfirm.hideLoader();
-                popupConfirm.close();
-              })
-              .catch((err) => {
-                popupConfirm.hideLoader();
-                utils.requestErrorHandler(err);
-              });
-          });
+          utils.deleteCardHandler(thisCard, cardID);
           popupConfirm.open();
         },
 
@@ -136,41 +124,27 @@ export function initializeNewCard(cardData, remoteUserData) {
         },
 
         likeHandler: (thisCard) => {
-          api
-            .likeCard(thisCard._cardData.id)
-            .then((res) => {
-              initCard.toggleLike(res);
-            })
-            .catch((err) => {
-              utils.requestErrorHandler(err);
-            });
+          utils.likeButtonHandler(thisCard);
         },
 
         unLikeHandler: (thisCard) => {
-          api
-            .unlikeCard(thisCard._cardData.id)
-            .then((res) => {
-              initCard.toggleLike(res);
-            })
-            .catch((err) => {
-              utils.requestErrorHandler(err);
-            });
+          utils.unlikeButtonHandler(thisCard);
         },
       },
     },
     consts.cardSelectors,
     remoteUserData,
   );
-  return initCard;
+  return thisCard;
 }
 
 export function createNewCard(remoteCardsData, mapData, remoteUserData) {
   const newSectionItem = section(
     {
       data: mapData(remoteCardsData),
-      renderCardHandler: (cardData) => {
+      renderCardHandler: (thisCardData) => {
         return newSectionItem.renderSectionItem(
-          initializeNewCard(cardData, remoteUserData).createCard(),
+          initializeNewCard(thisCardData, remoteUserData).createCard(),
         );
       },
     },
@@ -191,10 +165,6 @@ function getAllData(mapData) {
     .catch((err) => {
       utils.requestErrorHandler(err);
     });
-}
-
-function deleteCard() {
-  api.deleteCard().then((res) => {});
 }
 
 /************************************************************

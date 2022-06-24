@@ -76,6 +76,50 @@ export function submitNewCardHandler(inputValues, mapData) {
 }
 
 /************************************************************
+ * Cards handlers
+ ************************************************************/
+export function deleteCardHandler(thisCard, cardID) {
+  index.popupConfirm.setSubmitAction(() => {
+    index.popupConfirm.showLoader();
+    index.api
+      .deleteCard(cardID)
+      .then((res) => {
+        thisCard.deleteCard();
+      })
+      .then(() => {
+        index.popupConfirm.hideLoader();
+        index.popupConfirm.close();
+      })
+      .catch((err) => {
+        index.popupConfirm.hideLoader();
+        requestErrorHandler(err);
+      });
+  });
+}
+
+export function likeButtonHandler(thisCard) {
+  index.api
+    .likeCard(thisCard._cardData.id)
+    .then((res) => {
+      thisCard.toggleLike(res);
+    })
+    .catch((err) => {
+      requestErrorHandler(err);
+    });
+}
+
+export function unlikeButtonHandler(thisCard) {
+  index.api
+    .unlikeCard(thisCard._cardData.id)
+    .then((res) => {
+      thisCard.toggleLike(res);
+    })
+    .catch((err) => {
+      requestErrorHandler(err);
+    });
+}
+
+/************************************************************
  * Misc handlers
  ************************************************************/
 
