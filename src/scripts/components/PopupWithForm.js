@@ -29,6 +29,14 @@ export default class PopupWithForm extends Popup {
     }
   }
 
+  showErrorMessage() {
+    this._submitButton.textContent = 'Ошибка';
+  }
+
+  hideErrorMessage() {
+    this._submitButton.textContent = 'Сохранить';
+  }
+
   close() {
     this._form.reset();
     super.close();

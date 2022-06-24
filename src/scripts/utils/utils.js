@@ -49,9 +49,12 @@ export function submitUserInfoHandler(inputValues) {
     })
     .catch((err) => {
       requestErrorHandler(err);
+      index.popupEdit.showErrorMessage();
     })
     .finally(() => {
-      index.popupEdit.renderLoader(false);
+      setTimeout(() => {
+        index.popupEdit.renderLoader(false);
+      }, 1500);
     });
 }
 
@@ -66,9 +69,12 @@ export function submitNewCardHandler(inputValues, mapData) {
     })
     .catch((err) => {
       requestErrorHandler(err);
+      index.popupAdd.showErrorMessage();
     })
     .finally(() => {
-      index.popupAdd.renderLoader(false);
+      setTimeout(() => {
+        index.popupAdd.renderLoader(false);
+      }, 1500);
     });
 }
 
