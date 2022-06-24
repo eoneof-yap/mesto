@@ -1,34 +1,43 @@
-﻿import { popupSelectors } from '../utils/constants.js';
-
-export default class Popup {
-  constructor(popupSelector) {
+﻿export default class Popup {
+  constructor(popupSelector, selectors, formSelectors) {
     this._popup = document.querySelector(popupSelector);
+    this._selectors = selectors;
+    this._submitButton = this._popup.querySelector(
+      formSelectors.formSubmitButtonSelector,
+    );
+    this._disabledButtonClass = formSelectors.formDisabledButtonClass;
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
-    this._popup.classList.add(popupSelectors.popupOpenedClass);
+    this._popup.classList.add(this._selectors.popupOpenedClass);
     document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
-    this._popup.classList.remove(popupSelectors.popupOpenedClass);
+    this._popup.classList.remove(this._selectors.popupOpenedClass);
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
+  showLoader() {
+    this._submitButton.classList.add(this._disabledButtonClass);
+    this._submitButton.setAttribute('disabled', 'disabled');
+  }
+
+  hideLoader() {
+    this._submitButton.classList.remove(this._disabledButtonClass);
+    this._submitButton.removeAttribute('disabled', 'disabled');
+  }
+
   setEventListeners() {
-    /*
-      querySelector() используется внутри класса
-      т.к. у каждого попапа свои элементы
-    */
     this._popup
-      .querySelector(popupSelectors.popupCloseButtonSelector)
+      .querySelector(this._selectors.popupCloseButtonSelector)
       .addEventListener('click', () => {
         this.close();
       });
 
     this._popup
-      .querySelector(popupSelectors.popupBackdropSelector)
+      .querySelector(this._selectors.popupBackdropSelector)
       .addEventListener('click', () => {
         this.close();
       });

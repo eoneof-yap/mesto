@@ -1,21 +1,31 @@
 ﻿export default class UserInfo {
-  constructor({ nameSelector, aboutSelector }) {
-    this._name = document.querySelector(nameSelector);
-    this._about = document.querySelector(aboutSelector);
+  constructor(profileElements) {
+    this._profileElement = profileElements.profileElement;
+    this._nameElement = profileElements.nameElement;
+    this._aboutElement = profileElements.aboutElement;
+    this._photoElement = profileElements.photoElement;
+  }
+
+  setUserInfo(userData) {
+    this._userName = userData.name;
+    this._userAbout = userData.about;
+
+    this._nameElement.textContent = this._userName;
+    this._aboutElement.textContent = this._userAbout;
+
+    this._profileElement.setAttribute('data-user-id', userData._id);
+    this._profileElement.setAttribute('data-user-cohort', userData.cohort);
+    this._photoElement.setAttribute('src', userData.avatar);
   }
 
   getUserInfo() {
-    const userInfo = {
-      name: this._name.textContent,
-      about: this._about.textContent,
+    return {
+      name: this._userName,
+      about: this._userAbout,
     };
-    return userInfo;
-    // => index.js => hanldeEditButton() => PopupWithForm.setInputvalues()
   }
 
-  setUserInfo({ name, about }) {
-    // from form to page
-    this._name.textContent = name;
-    this._about.textContent = about;
+  updateUserProfilePhoto(link) {
+    this._photoElement.setAttribute('src', link);
   }
 }

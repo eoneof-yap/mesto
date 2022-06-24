@@ -3,9 +3,24 @@
   "version": "8.0.0",
   "description": "Interactive webpage built with vanilla html/css/js",
   "main": "index.js",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "commitizen.config.js"
+    }
+  },
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g 'commitlint.config.js'"
+    }
   },
   "keywords": [],
   "author": "Nikolay Ivanov",
@@ -13,14 +28,18 @@
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
+    "@commitlint/cli": "^17.0.0",
     "autoprefixer": "^10.4.5",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "cssnano": "^5.1.7",
+    "cz-customizable": "^6.3.0",
     "favicons": "^6.2.2",
     "favicons-webpack-plugin": "^5.0.2",
     "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.13",
     "postcss-loader": "^6.2.1",

@@ -1,25 +1,41 @@
-﻿﻿export const profileSelectors = {
-  nameSelector: '.profile__name',
-  aboutSelector: '.profile__about',
+﻿﻿export const hiddenClass = 'hidden';
+
+export const preloaderSelectors = {
+  pagePreloaderSelector: '.preloader',
+  spinnerSelector: '.spinner',
 };
 
-export const pageButtons = {
-  editButton: document.querySelector('.profile__edit-button'),
-  addButton: document.querySelector('.profile__add-button'),
+export const profileSelectors = {
+  profileSelector: '.profile',
+  nameSelector: '.profile__name',
+  aboutSelector: '.profile__about',
+  profilePhotoSelector: '.profile__photo',
+};
+
+export const buttonsSelectors = {
+  editButtonSelector: '.profile__edit-button',
+  addButtonSelector: '.profile__add-button',
+  updatePhotoButtonSelector: '.profile__photo-overlay',
 };
 
 export const cardSelectors = {
-  cardItemSelector: '.card',
+  cardSelector: '.card',
   cardsGridSelector: '.cards-grid',
   cardImageSelector: '.card__image',
-  cardTitleSelector: '.card__title',
+  cardNameSelector: '.card__title',
   cardDeleteButtonSelector: '.card__delete-button',
+  cardLikeContainerSelector: '.card__like-container',
+  cardLikeContainerIsLikedClass: 'card__like-container_is-liked',
+  cardLikeCounterSelector: '.card__like-counter',
+  cardLikeCounterVisibleClass: 'card__like-counter_visible',
   cardLikeButtonSelector: '.card__like-button',
-  cardActiveLikeSelector: 'card__like-button_active',
+  cardActiveLikeClass: 'card__like-button_active',
   cardTemplateId: '#card-template',
 };
 
 export const popupSelectors = {
+  popupConfirmSelector: '.popup_type_confirm',
+  popupUpdateSelector: '.popup_type_update',
   popupEditSelector: '.popup_type_edit',
   popupAddSelector: '.popup_type_add',
   popupPreviewSelector: '.popup_type_preview',
@@ -31,7 +47,6 @@ export const popupSelectors = {
 };
 
 export const formSelectors = {
-  formsArray: Array.from(document.forms),
   formSelector: '.form',
   formInputSelector: '.form__input',
   formSubmitButtonSelector: '.form__submit-button',
@@ -39,39 +54,21 @@ export const formSelectors = {
   formInpuErrorClass: 'form__input_type_error',
   formErrorHintSelector: '.form__input-error-hint',
   formActiveErrorClass: 'form__input-error-hint_active',
+  formAddCardID: 'form-add',
+  formUpdatePhotoID: 'form-update',
+  formEditInfoID: 'form-edit',
 };
 
-// Имопртируем изображения для корректной сборки вебпаком
-import image_1 from '../../images/pyatigorks.jpeg';
-import image_2 from '../../images/elbrus.jpeg';
-import image_3 from '../../images/dombay-mountains.jpeg';
-import image_4 from '../../images/dombay-yak.jpeg';
-import image_5 from '../../images/gora-mashuk.jpeg';
-import image_6 from '../../images/kabardino-balkariya.jpeg';
+export const apiConfig = {
+  serverURL: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  cardsURL: 'cards',
+  likesURL: 'likes',
+  userURL: 'users/me',
+  avatarURL: 'avatar',
+  headers: {
+    authorization: 'c9da976c-ad10-4165-97ed-736e051c4019',
+    'content-type': 'application/json',
+  },
+};
 
-export const initialCards = [
-  {
-    title: 'Пятигорск',
-    link: image_1,
-  },
-  {
-    title: 'Гора Эльбрус',
-    link: image_2,
-  },
-  {
-    title: 'Домбай',
-    link: image_3,
-  },
-  {
-    title: 'Домбай',
-    link: image_4,
-  },
-  {
-    title: 'Гора Машук',
-    link: image_5,
-  },
-  {
-    title: 'Кабардино-Балкария',
-    link: image_6,
-  },
-];
+export const validators = {};
