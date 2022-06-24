@@ -3,51 +3,56 @@
     this._cardData = cardData;
     this._selectors = selectors;
     this._userData = userData;
+
+    this._deleteButtonSelector = this._selectors.cardDeleteButtonSelector;
+    this._cardImageSelector = this._selectors.cardImageSelector;
+    this._likeContainerSelector = this._selectors.cardLikeContainerSelector;
+    this._likeButtonSelector = this._selectors.cardLikeButtonSelector;
+    this._likeCounterSelector = this._selectors.cardLikeCounterSelector;
+    this._cardNameSelector = this._selectors.cardNameSelector;
+    this._cardTemplateId = this._selectors.cardTemplateId;
+    this._cardSelector = this._selectors.cardSelector;
+
+    this._counterVisibleClass = this._selectors.cardLikeCounterVisibleClass;
+    this._containerIsLikedClass = this._selectors.cardLikeContainerIsLikedClass;
+    this._activeLikeClass = this._selectors.cardActiveLikeClass;
+
     this._deleteHandler = handlers.deleteHandler;
     this._previewHandler = handlers.previewHandler;
     this._likeHandler = handlers.likeHandler;
     this._unLikeHandler = handlers.unLikeHandler;
-    // this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
   }
 
   /********************************************************************************
    * Create
    ********************************************************************************/
   createCard() {
-    // prettier-ignore
-    const {
-      cardImageSelector, cardDeleteButtonSelector, cardLikeButtonSelector,
-      cardLikeContainerSelector, cardLikeCounterSelector, cardNameSelector
-    } = this._selectors;
-
     this._cardItem = this._cloneTemplate();
-    this._deleteButton = this._cardItem.querySelector(cardDeleteButtonSelector);
-    this._cardImage = this._cardItem.querySelector(cardImageSelector);
-    this._likeContainer = this._cardItem.querySelector(cardLikeContainerSelector);
-    this._likeButton = this._cardItem.querySelector(cardLikeButtonSelector);
-    this._likeCounter = this._cardItem.querySelector(cardLikeCounterSelector);
 
-    this._cardItem.querySelector(cardNameSelector).textContent = this._cardData.name;
+    this._deleteButton = this._cardItem.querySelector(this._deleteButtonSelector);
+    this._cardImage = this._cardItem.querySelector(this._cardImageSelector);
+    this._likeContainer = this._cardItem.querySelector(this._likeContainerSelector);
+    this._likeButton = this._cardItem.querySelector(this._likeButtonSelector);
+    this._likeCounter = this._cardItem.querySelector(this._likeCounterSelector);
+    this._cardName = this._cardItem.querySelector(this._cardNameSelector);
+
+    this._cardName.textContent = this._cardData.name;
 
     this._cardItem.setAttribute('data-card-id', this._cardData.id);
-    this._cardItem.setAttribute('data-owner-id', this._cardData.owner);
-    this._cardItem.setAttribute('data-created-at', this._cardData.createdAt);
     this._cardImage.setAttribute('alt', this._cardData.name);
     this._cardImage.setAttribute('src', this._cardData.link);
 
     this._removeDeleteButton();
-    this.toggleLike(this._cardData);
-
+    this.setLikeView(this._cardData);
     this._setEventListeners();
 
     return this._cardItem;
   }
 
   _cloneTemplate() {
-    const { cardTemplateId, cardSelector } = this._selectors;
     return document
-      .querySelector(cardTemplateId)
-      .content.querySelector(cardSelector)
+      .querySelector(this._cardTemplateId)
+      .content.querySelector(this._cardSelector)
       .cloneNode(true);
   }
 
@@ -60,42 +65,54 @@
   /********************************************************************************
    * Like
    ********************************************************************************/
-  toggleLike(cardData) {
-    const {
-      cardActiveLikeSelector,
-      cardLikeCounterVisibleClass,
-      cardLikeContainerIsLikedClass,
-    } = this._selectors;
-
-    this._likeCounter.textContent = cardData.likes.length;
-
-    if (cardData.likes.length > 0) {
-      this._likeCounter.classList.add(cardLikeCounterVisibleClass);
-      this._likeContainer.classList.add(cardLikeContainerIsLikedClass);
+  setLikeStatus(res) {
+    if (this._isLiked(res)) {
+      this._hasLike = true;
     } else {
-      this._likeCounter.classList.remove(cardLikeCounterVisibleClass);
-      this._likeContainer.classList.remove(cardLikeContainerIsLikedClass);
-    }
-
-    if (cardData.likes.some((liker) => liker._id === this._userData._id)) {
-      this._likeButton.classList.add(cardActiveLikeSelector);
-    } else {
-      this._likeButton.classList.remove(cardActiveLikeSelector);
+      this._hasLike = false;
     }
   }
 
-  _isLiked(thisCard) {
-    if (thisCard._cardData.likes.some((liker) => liker._id === this._userData._id)) {
-      return true;
-      console.log('👉true:', true);
+  _isLiked(card) {
+    return card.likes.some((liker) => liker._id === this._userData._id);
+  }
+
+  _setCounterVisible() {
+    this._likeCounter.classList.add(this._counterVisibleClass);
+    this._likeContainer.classList.add(this._containerIsLikedClass);
+  }
+
+  _setCounterInvisible() {
+    this._likeCounter.classList.remove(this._counterVisibleClass);
+    this._likeContainer.classList.remove(this._containerIsLikedClass);
+  }
+
+  _activateLike() {
+    this._likeButton.classList.add(this._activeLikeClass);
+  }
+
+  _deactivateLike() {
+    this._likeButton.classList.remove(this._activeLikeClass);
+  }
+
+  setLikeView(cardData) {
+    this._likeCounter.textContent = cardData.likes.length;
+
+    if (cardData.likes.length > 0) {
+      this._setCounterVisible();
     } else {
-      return false;
-      console.log('👉false:', false);
+      this._setCounterInvisible();
+    }
+
+    if (this._isLiked(cardData)) {
+      this._activateLike();
+    } else {
+      this._deactivateLike();
     }
   }
 
   _handleLikeButtonClick(thisCard) {
-    if (this._isLiked(thisCard) === true) {
+    if (this._hasLike === true) {
       this._unLikeHandler(thisCard);
     } else {
       this._likeHandler(thisCard);
@@ -105,12 +122,12 @@
   /********************************************************************************
    * Delete
    ********************************************************************************/
-  deleteCard() {
-    document.querySelector(`[data-card-id="${this._cardData.id}"]`).remove();
-  }
-
   _handleDeleteButtonClick() {
     this._deleteHandler(this._cardData.id);
+  }
+
+  deleteCard() {
+    this._cardItem.remove();
   }
 
   /********************************************************************************

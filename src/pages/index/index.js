@@ -136,12 +136,11 @@ export function initializeNewCard(cardData, remoteUserData) {
         },
 
         likeHandler: (thisCard) => {
-          console.log('👉thisCard:', thisCard);
           api
             .likeCard(thisCard._cardData.id)
             .then((res) => {
-              initCard.toggleLike(res);
-              console.log('LIKE IT');
+              const status = initCard.setLikeStatus(res);
+              initCard.setLikeView(res);
             })
             .catch((err) => {
               utils.requestErrorHandler(err);
@@ -152,8 +151,8 @@ export function initializeNewCard(cardData, remoteUserData) {
           api
             .unlikeCard(thisCard._cardData.id)
             .then((res) => {
-              initCard.toggleLike(res);
-              console.log('UNLIKE IT');
+              const status = initCard.setLikeStatus(res);
+              initCard.setLikeView(res);
             })
             .catch((err) => {
               utils.requestErrorHandler(err);

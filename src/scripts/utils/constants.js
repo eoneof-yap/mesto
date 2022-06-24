@@ -29,7 +29,7 @@ export const cardSelectors = {
   cardLikeCounterSelector: '.card__like-counter',
   cardLikeCounterVisibleClass: 'card__like-counter_visible',
   cardLikeButtonSelector: '.card__like-button',
-  cardActiveLikeSelector: 'card__like-button_active',
+  cardActiveLikeClass: 'card__like-button_active',
   cardTemplateId: '#card-template',
 };
 
