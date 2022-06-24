@@ -95,12 +95,16 @@ export function deleteCardHandler(thisCard, cardID) {
 }
 
 export function likeButtonHandler(thisCard) {
+  // activate before API request makes it look more snappier
+  // we udo it in case of error anyway
+  thisCard.activateLike();
   index.api
     .likeCard(thisCard._cardData.id)
     .then((res) => {
-      thisCard.toggleLike(res);
+      thisCard.toggleLikeState(res);
     })
     .catch((err) => {
+      thisCard.deactivateLike();
       requestErrorHandler(err);
     });
 }
@@ -109,7 +113,7 @@ export function unlikeButtonHandler(thisCard) {
   index.api
     .unlikeCard(thisCard._cardData.id)
     .then((res) => {
-      thisCard.toggleLike(res);
+      thisCard.toggleLikeState(res);
     })
     .catch((err) => {
       requestErrorHandler(err);

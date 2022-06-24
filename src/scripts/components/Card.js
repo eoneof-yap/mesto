@@ -43,7 +43,7 @@
     this._cardImage.setAttribute('src', this._cardData.link);
 
     this._removeDeleteButton();
-    this.toggleLike(this._cardData);
+    this.toggleLikeState(this._cardData);
     this._setEventListeners();
 
     return this._cardItem;
@@ -65,12 +65,11 @@
   /********************************************************************************
    * Like
    ********************************************************************************/
-  toggleLike(cardData) {
+  toggleLikeState(cardData) {
     this._likeCounter.textContent = cardData.likes.length;
 
     if (cardData.likes.some((liker) => liker._id === this._userData._id)) {
       this._hasLike = true;
-      this._activateLike();
     } else {
       this._hasLike = false;
       this._deactivateLike();
@@ -93,7 +92,7 @@
     this._likeContainer.classList.remove(this._containerIsLikedClass);
   }
 
-  _activateLike() {
+  activateLike() {
     this._likeButton.classList.add(this._activeLikeClass);
   }
 
