@@ -30,17 +30,14 @@
   }
 
   setEventListeners() {
-    this._popup
-      .querySelector(this._selectors.popupCloseButtonSelector)
-      .addEventListener('click', () => {
+    this._popup.addEventListener('click', (evt) => {
+      if (
+        evt.target.classList.contains(this._selectors.popupCloseButtonClass) ||
+        evt.target.classList.contains(this._selectors.popupBackdropClass)
+      ) {
         this.close();
-      });
-
-    this._popup
-      .querySelector(this._selectors.popupBackdropSelector)
-      .addEventListener('click', () => {
-        this.close();
-      });
+      }
+    });
   }
 
   _handleEscClose(evt) {
